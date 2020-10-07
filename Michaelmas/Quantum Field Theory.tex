@@ -1,0 +1,173 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\title{Quantum Field Theory}
+\author{quinten tupker}
+\date{October 7 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by Professor N Dorey in Michaelmas 2020.
+This was lectured online due to measures taken to counter the spread of Covid-19
+in the UK. These are not necessarily an accurate representation of what was
+lectures, and represent solely my personal notes on the content of the course,
+combinged with probably, very very many personal notes and digressions... Of
+course, any corrections/comments would be appreciated.
+
+But, let's actually introduce the content of this course. What is quantum field
+theory? Quantum field theory (QFT) essentially succeeds in merging special
+relativity
+and quantum mechanics. Why is this so difficult? The first relativistic theory
+was electromagnetism, and the biggest idea that was introduced, and what truly
+set it apart was the idea of fields. In Newtonian theory, and much of what
+followed, the protagonist of the theory was a particle, or if not a particle, at
+least a body of some kind. Field theory changed. Now, there was a new
+protoganist: the field. What difference does that make, architectually? Firstly,
+the field theory is often simpler. But more importantly, the biggest structural
+difference is that field theory excels in describing ``delayed interactions.''
+When the particle is the progagonist, it is very difficult describe theories
+where forces are not instantaneous. Field theory avoids this. All interactions
+are made through the field, through which they propogate through space. Now,
+delayed responses become natural. In electromagnetism, the simplest expression
+thereof is electromagnetic waves: light. 
+
+What does this have to do with relativity? Well, as soon as high speeds become
+relevant, forces can no longer be considered instantaneous. As such, it is
+difficult to keep using particles as the protoganist of these theories.
+Consequently, the natural step is to make, instead of particles, fields the
+protoganist of this new quantum theory we are developing.
+
+That is the goal of QFT. There is one important consequence though, once
+particles are no longer the protagonists of the theory. That is that particle
+number no longer has to be conserved. In the most elegant fashion, by removing
+the supremacy of the ``particle'' in our theory, and replacing it with the more
+powerful notion of the field, particles merely become phenomenon to be observed,
+and tools of analysis. In this context, it is only natural that particle number
+is no longer conserved. Whereas before, the wavefunction was often associated
+with a wave-particle like object, now the wavefunction (which is a field)
+describes a multiparticle state. Well, really it describes the field, and the
+multiparticle state is something that can be deduced from it. Somehow, although
+this is just the beginning of the course, I feel that that's not that important
+anymore. It is deeply intriguing though, how the imposition of boundary
+conditions somehow forces a degree of discreteness onto this theory...
+
+Well then, the overall architecture is more or less the same as standard quantum
+theory. It is probabilistic, and we assume a degree of symmetry under
+boosts, and rotations (isotropy and translation invariance). The fundamental
+approach to making predictions still boils down to the same calculation:
+evaluating
+
+$$ A_{i \to f} = \bra{f} e^{i H T} \ket{i} $$
+
+for probability amplitude $A$, initial state $i$, final state $f$, Hamiltonian
+(time translation generator) $H$, and time interval $T$.
+
+There are two caveates with most of these field theories, though. Firstly, they
+have not been mathematically formalised, so often there are areas that are
+somewhat ambiguous. Secondly, contributing to this ambiguity, many of the sums
+are divergent, so the meaning of some calculations can really be somewhat
+ambiguous... How curious! I'd like to think about this a bit more...
+
+\section{Preliminaries}
+
+Anyways, getting down to business. We'll be mostly using natural units during
+this course. That means that $c = \hbar = 1$, and these can be added back into
+the calculation using dimensional analysis. The effect of this, is that the only
+unit used throughout all calculations is really a unit of mass-energy. As such,
+all quantities scale by a power of the unit of energy. 
+
+\begin{definition}[dimension of $X$]
+  Denoted $[X]$, this is $\delta$, such that for unit of mass-energy $M$, $X$
+  scales as $M^\delta$. $\delta$ may also be called the scaling or the
+  engineering dimension of $X$.
+\end{definition}
+
+Also, for special relativity we use the convention that we are working on
+Minkowsky space-time $\mathbb{R}^{3, 1}$, with metric tensor
+
+$$ \eta_{\mu \nu} = \text{diag}(1, -1, -1, -1). $$
+
+\section{Classical Field Theory}
+
+Fortunately for me, we are starting with a description of classical field
+theory, and we are starting, very simply, with scalar fields.
+
+\begin{definition}[Scalar Field]
+  $\phi(t, \underline{x}) = \phi(x) : \mathbb{R}^{3, 1} \to \mathbf{R}$ is a sclar field
+  if it is Lorentz invariant, meaning that it follows the transformation rule
+  $$ \phi(x) \to \phi(\Lambda^{-1}(x)) $$
+  Here the domain is called the spacetime, and the codomain is called the
+  \textbf{field space}. These may, and will be replaced with other spaces.
+\end{definition}
+
+Changing the spacetime here corresponds to implementing gravity in some way or
+another, by changing the manifold we are working on. The field space corresponds
+to the complexity of what is being descibed. Since we will be describing
+multi-particle states with our wavefunction, this will become significantly more
+complex. And, I intentionally left the description of what it means to be
+Lorentz invariant a bit vague, since, well, in our case, it just means being
+invariant under the Lorentz transformations, which is the group of
+linear transformations that preserves the Minkowsky metric (ie. the set of
+matrices such that $\Lambda \eta \Lambda^T = \eta$). But really, while linearity
+makes a lot of sense in the context of linear Minkowsky space, I doubt (though I
+have no familiarity with this area) this remains the case when we are on an
+arbitrary manifold, which happens when we consider general relativity. As such,
+I prefer to think of $\Lambda$ as any arbitrary invertible map on the manifold,
+corresponding to the symmetries we impose. 
+
+The difficulties that arise in comibing quantum theory with general relativity
+are also quite clear. It does seem tremendously difficult. If we do not simply
+assuming that general relativity simply bends space, which I will assume is not
+entirely the case, or else I feel a theory reconciling the two would have
+already been developed long ago, in spite of the tremendous difficulty of the
+calculations involved, and it also does not seem to make much sense of Hawking
+radiation, since in general relativity, the space at the centre of a black hole
+truly is cut off... Nevertheless, from what I've heard, if you want to turn
+gravity into a quantised force with mediator particle, then somehow the
+protagonist of that theory would be not only be a field, but somehow span the
+space of possible manifolds as well. Purely intuitively, I would imagine that we
+would be getting fields of the form $\phi : \mathcal{D} \to V$ where
+$\mathcal{D}$ is an object that stitches many manifolds together. Brrr... I have
+not thought too deeply about this, but that does seem like a truly terrifying
+object indeed! Or perhaps not quite. Hm, it might be worth thinking a bit more
+about this...
+
+Anyways, I also wanted to remark that having fields transform as
+$\phi(\Lambda^{-1}x)$ is more or less an arbitrary definition that is called the
+``active'' definition of field transformations. Oh well, you can assign some
+intuition to it, but it is more or less convention to use the inverse of the
+matrix instead of the matrix itself.
+
+Extending our notion of fields to vector fields, first note that notation wise,
+we use $\partial_\mu \phi = \frac{\partial \phi}{\partial x^\mu}$, and we define
+
+\begin{definition}[$\phi^\mu$ transforms as a vector field]
+  if
+  $$ \phi \to \Lambda^\mu_\nu \phi^\nu (\lambda^{-1} x) $$
+\end{definition}
+
+This is just the transformation rule for rank 1 tensors, so is nothing
+particularly remarkable. The only remarkable part is that, as a result
+$\partial^\mu \phi$ transformas as vector, and so the following becomes a rank 0
+tensor (ie, a scalar field) $\partial^\mu \phi \partial_\mu \phi$.
+
+Well, that ends lecture 1, for those of you interested. 
+
+\end{document}
