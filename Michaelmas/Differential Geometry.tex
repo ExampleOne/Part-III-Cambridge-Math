@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\title{Differential Geometry}
+\author{quinten tupker}
+\date{October 8 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by dr Jack E Smith in Michaelmas
+2020.  Due to the measures taken in the UK to limit the spread of
+Covid-19, these lectures were delivered online. These are not meant to be an
+accurate representation of what was lectures. They solely represent a mix of
+what I thought was the most important part of the course, mixed in with many
+(many) personal remarks, comments and digressions... Of course, any
+corrections/comments are appreciated.
+
+Unlike some of the other courses, there is no real introduction here, and we
+jump straight into the content!
+
+\section{Manifolds and Smooth Maps}
+
+Manifolds are spaces that locally look like $\mathbb{R}^n$. Formally this is:
+
+\begin{definition}
+  $X$ is a \textbf{topological $n$ manifold} if $X$ is a second countable
+  Hausdorff topological space such that $\forall p \in X \exists \text{open} U
+  \ni p$ and open $V \subseteq \mathbb{R}^n$ and homeomorphism $\phi : U \to V$.
+\end{definition}
+
+Here,
+
+\begin{definition}
+  Topological space $X$ is \textbf{Hausdorff} if for every distinct $x, y \in X$ there
+  exists open $U \ni x, V \ni y$ in $X$ such that $U \cap V = \emptyset$.
+\end{definition}
+
+and
+
+\begin{definition}
+  Topological space $X$ is \textbf{second countable} if there exists a set of
+  open sets $\mathcal{U}$ st that every open set in $X$ can be written as a
+  union of sets in $\mathcal{U}$
+\end{definition}
+
+Since these two properties transfer to subsets, any subset of a topological $n$
+manifold is also a topological $n$ manifold. Also, to give some more intuition,
+the condition that $X$ is a seond countable Hausdorff topological space is
+exactly equivalent to the condition that $X$ is metrizable and has countably
+many components. It is just tradition that it is defined as above. Some more
+defintions. Above, $\phi$ is called the \textbf{chart}, $U$ is called the
+\textbf{coordinate patch}, although in some cases can also be called the chart.
+The functions $x_1 \circ \phi, \dots, x_n \circ \phi$ (so the components of
+the result) are called the \textbf{local coordinates}, and $\phi^{-1}$ is called
+the \textbf{paramaterisation}, although that term is not used that frequently.
+Finally, for overlapping charts, we can define the \textbf{transition map}
+between them as $\phi_2 \circ \phi_1^{-1} : \phi_1 (U_1 \cap U_2) \to \phi_2(U_1
+\cap U_2)$.
+
+Now, we want to generalise calculus to manifolds, so it makes sense to start by
+trying to generalise the notion of smoothness. The simplest approach would be to
+say that $f$ is smooth on $X$ if it is smooth on the local coordinates. The
+issue then arises that this may not be consistent with smoothness on other
+charts (where these overlap). As such, we need to require that the transition
+maps are smooth as well. Consequently we do the following:
+
+\begin{definition}
+  The \textbf{atlas} of a manifold is a collection of charts of a topological
+  n manifold that covers all of $X$.
+\end{definition}
+
+An atlas is \textbf{smooth} if all transition maps are smooth, and a map $f$ is
+\textbf{smooth} on atlas $\mathfrak{A}$ if $f \circ \phi_\alpha^{-1}$ is smooth
+$\forall \alpha$. As a result all local coordinate functions are smooth. Now,
+really, specifying the atlas precisely all the time is somewhat tedious, and
+somehow not the point, so we want a degree of flexibility. For this we define
+
+\begin{definition}
+  Two atlases are \textbf{smoothly equivalent} if their union is smooth.
+\end{definition}
+
+Note that this forms an equivalence relation (apply the chain rule on transition
+functions for transitivity).
+
+\begin{definition}
+  A \textbf{smooth structure} is an equivalence class of atlases.
+\end{definition}
+
+As we hope, we do indeed have that if a function is smooth wrt to an atlas, it
+is smooth wrt to any atlas in its smooth structure. Also, we can define a
+maximal atlas to be the union of all the atlases in a smooth structure, if we
+deem that to be convenient (includes trivial changes like translating or scaling
+the local coordinates).
+
+\begin{definition}
+  A \textbf{smooth $n$ manifold} is a topological $n$ manifold with a smooth
+  structure.
+\end{definition}
+
+Note that under the product topology, the product of two manifolds naturally
+forms a new (smooth) manifold. Also, a remarkable fact is that for $n=1, 2, 3$
+all topological $n$ manifolds have an essentially unique smooth structure,
+whereas this breaks down for $n \geq 4$. Also, a new chart is said to be
+\textbf{compatible} with an atlas if when added to the atlas, the atlas remains
+smooth.
+
+Finally, to give a concrete example of a manifold, we may consider $S^n$, which
+forms a manifold with two charts: one being the sphere without the North pole,
+and the other being the sphere without the South pole, $U_\pm$ with charts
+
+$$ \phi_\pm(y_0, \dots, y_n) = \frac{1}{1 \mp y_0} (y_1, \dots, y_n), $$
+
+where the local coordinates are referred to as $x^\pm$. [End of DG1]
+
+\section{Forming Manifolds from Sets (Instead of Topological Spaces)}
+
+We observe that an atlas can generate a topology. In particular if we consider
+the data
+
+\begin{itemize}
+\item set $X$
+\item subsets $U_\alpha \subseteq X$
+\item open sets $V_\alpha \subseteq \mathbb{R}^n$
+\item bijections $\phi_\alpha : U_\alpha \to V_\alpha$ that have smooth
+  transition functions, and $\forall \alpha, \beta, \phi_\alpha(U_\alpha \cap
+  U_\beta)$ is open in $V_\alpha$ (weird but useful)
+\end{itemize}
+
+then we see that if we declare $U$ to be open iff $\phi_\alpha(U \cap U_\alpha)$
+is open $\forall \alpha$, then this forms a topology (easy) and 
+
+\begin{proposition}
+  Apart from the possible failure of Hausdorff and second countable, using the
+  above data as specified turns $X$ into a topological $n$ manifold, and
+  $\{\phi_\alpha\}$ into a smooth atlas (so we have a smooth manifold).
+\end{proposition}
+
+\begin{proof}
+  It suffices to show that $U_\alpha$ are open and that $\phi_\alpha$ are
+  homeomorphisms (smoothness follows from the smoothness of the transition
+  functions). As such it is sufficient to show that some $U \subseteq U_\alpha$
+  is open iff $\phi_\alpha(U)$ is open in $V_\alpha$ (this is to show that
+  $\phi_\alpha$ is a homeomorphism, which implies taht $U_\alpha$ is open by the
+  openness of $V_\alpha$). One direction is clear: if $U$ is open, then by
+  declaration, $\phi(U \cap U_\alpha = U)$ is open. Conversely, if $\phi(U)$ is
+  open then we want that $\forall \beta, \phi_\beta(U \cap U_\beta)$ is open,
+  but we observe that
+  \begin{align*}
+    \phi_\beta(U \cap U_\beta)
+    &= \phi_\beta \circ \phi_\alpha^{-1} (\phi_\alpha(U \cap U_\beta)) \\
+    &= (\phi_\alpha \circ \phi_\beta^{-1})^{-1}
+      (\phi_\alpha(U) \cap \phi_\alpha(U_\alpha \cap U_\beta))
+  \end{align*}
+  Here $\phi_\alpha(U_\alpha \cap U_\beta)$ is open as an intersection of
+  $V_\alpha \cap V_\beta$, and $\phi_\alpha(W)$ is open by assumption. The
+  transition function is continuous by assumption. So done. 
+\end{proof}
+
+Finally, we note that we can define this set of $\phi$s and $U$s and $V$s, etc.
+to be a ``pseudo-chart'', and can define a ``smooth pseudo-structure,'' etc.
+from here. All we really want to show is that the toplogy is secondary once we
+have a good set of functions. In fact, using this approach we can skip $X$
+entirely, and start from sets $U_\alpha$ that we identify with different real
+spaces, and then stitch together with arbitrary pseudo-charts. That can
+definitely be done, but generally is quite complicated with many more moving
+parts, and so we usually, at least for the purpose of a course, start with a
+structure in mind, and turn that into a manifold, instead of stitching an
+arbitrary one together (although that may be a good source of counter examples).
+
+Unfortunately, it does remain the case that showing Hausdorff and
+second-countable is still hard, although there are some tricks to do so. For
+second countability, using the subset of all rational balls will always work if
+the number of charts is countable. For Hausdorffness, as long as two points live
+in the same chart, we are immediately done, so combining charts and considering
+the exceptions can be an efficient approach.
+
+\end{document}

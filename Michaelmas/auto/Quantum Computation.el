@@ -5,8 +5,8 @@
                      '(("inputenc" "utf8")))
    (TeX-run-style-hooks
     "latex2e"
-    "report"
-    "rep10"
+    "article"
+    "art10"
     "inputenc"
     "mathtools"
     "amssymb"

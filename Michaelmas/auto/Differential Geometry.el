@@ -1,5 +1,5 @@
 (TeX-add-style-hook
- "Quantum Field Theory"
+ "Differential Geometry"
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("inputenc" "utf8")))
@@ -19,6 +19,7 @@
     "adjustbox"
     "physics")
    (LaTeX-add-environments
-    "definition"))
+    "definition"
+    "proposition"))
  :latex)
 
