@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\title{Statistical Field Theory}
+\author{quinten tupker}
+\date{October 9 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by Dr Christopher E Thomas in
+Michaelmas 2020. Due to the measures taken in the UK to limit the spread of
+Covid-19, these lectures were delivered online. These are not meant to be an
+accurate representation of what was lectures. They solely represent a mix of
+what I thought was the most important part of the course, mixed in with many
+(many) personal remarks, comments and digressions... Of course, any
+corrections/comments are appreciated.
+
+Statistical Field Theory is an extension of statistical physics. It assumes one
+is familiar with statistical physics, and in particular, focuses on the study on
+phase transitions. This course in particular follows David Tong's notes quite
+closely.
+
+\section{From Spin to Fields}
+
+So why do we consider fields? Here we look at a model that shows the origin of
+this connection.
+
+\subsection{The Ising model}
+
+The Ising model studies a lattice where each point on the lattice is assigned a
+spin $S_i = \pm$. Consequently, the energy of the lattice is
+
+$$ E = -B \sum_i S_i - J \sum_{<i, j>} S_i S_j $$
+
+where $B$ is the external magnetic field strength, $J$ is the strength of
+neighbour-neighbour interactions and $<i, j>$ is any nearest neighbour pair.
+When $J > 0$, states tend to align (ferromagnetic behaviour) whereas if $J < 0$
+states will prefer not to align (anti-ferromagnetic behaviour). We will focus on
+the $J > 0$ case. But of course, due to heat there some statistical randomness,
+and we want to include that. As such, we consider the canonical ensemble with
+$\mathbb{P} (S_i) = e^{-\beta E(S_i)} / Z$ where $Z$ is the partition function,
+$\beta = 1 / T$, and the Boltzmann constant $k_B = 1$. As ever in statistical
+physics, we can derive everything from the partition function. Particularly
+important in our case is the Free Energy, $F = \langle E \rangle - TS = -T \ln
+(Z)$, and $dF = -S dT - p dV - M dB$ (so we can find S, p and M from F as well).
+
+In statistical physics, we are particularly interested in the equilibrium state
+(which occurs at the minimum of the free energy when temperature is constant),
+and since we are looking at a magnetic system, we are particularly interested in
+the equilibrium magnetisation. This can be calculated as
+
+$$ m = \frac{1}{N} \sum_i \langle S_i \rangle = \frac{1}{N \beta} \partial_B
+\ln(Z) $$
+
+Now all that remains is to calculate $Z$ to find $m$. Unfortunately, in
+dimension 3 or greater this is impossible (how impossible?), and it is still
+hard in lower dimension. Consequently we take a different approach using the
+so-called ``effective free energy'', which is defined such that
+
+$$ \sum_m \sum_{\{S_i\} | m} e^{-\beta E[S_i]} = \sum_m e^{-\beta F(m)} $$
+
+where $F(m)$ is the effective free energy. Since we can assume $N$ is large
+(around $10^{23}$), we can then write18
+
+$$ Z = N / 2 \int_{-1}^1 dm \, e^{-\beta F(m)}  = N / 2 \int_{-1}^1 dm \,
+e^{-\beta N f(m)}$$
+
+where $f(m) = F(m) / N$. From here, we can calculate the equilibrium field by
+considering that since $N$ is large, the value contributing the most to the
+integral is where $\partial_m f = 0$, and this is how the equilibrium $m$ is
+calculated. This approach is called the \textbf{steepest descent approximation},
+and we find here that $F_{\text{thermodynamic}} \approx F(m_{\text{min}})$.
+
+This is all very well and nice, but the issue is that we still don't know how to
+calculate $F(m)$, and it turns out that this is about as hard as calculating
+$Z$. As such, we use the \textbf{mean field approximation}
+
+$$ E \approx -B \sum_i m - J \sum_{<i, j>} m^2 = -BNm - \frac{1}{2} N J q m^2 $$
+
+where $q = 2 \text{dim(space)}$ for a cubic latice in a space dimension dim.
+Now,
+
+$$ e^{-\beta N f(m)} = \sum e^{-\beta E(S_i) \approx \Omega(m) e^{-\beta
+    E(m)}} $$
+
+so in order to find $f(m)$ we need to know $\Omega(m)$ which is the number of
+ways for a given energy state to occur, but since $m$ depends only on the number
+of positive and negative spins states, $N_\uparrow, N_\downarrow$, and in
+particular $N = N_\uparrow + N_\downarrow$ we see the number of total states is
+
+$$ \ln(\Omega) = \ln \binom{N}{N_\uparrow} \approx N (\ln(2) - \frac{1}{2}(1 +
+m) \ln(1 + m) - \frac{1}{2} (1 - m) \ln(1 - m)) $$
+
+by Stirling's approximation. Consequently we find that
+
+$$ f(m) \approx -Bm - \frac{1}{2} J q m^2 - \frac{1}{\beta} (\ln(2) -
+\frac{1}{2} (1 + m) \ln(1 + m) - \frac{1}{2} (1 - m) \ln(1 - m)). $$
+
+From here  by taking $\partial_m f = 0$, we find
+
+$$ \beta(B + Jqm) = \frac{1}{2} \ln \left( \frac{1 + m}{1 - m} \right) $$
+
+or equivalently
+
+$$ m = \tanh(\beta (B + Jqm)). $$
+
+From here, we can solve implicitly, but there is another approach we can take,
+which is the way we will go about this. Just as a side note, we can see the
+reason this is called the mean field approximation here as well: it is as if $m$
+just shifts to external field to $B_{\text{eff}} = B + Jqm$. [End of lecture 1.]
+
+\end{document}
