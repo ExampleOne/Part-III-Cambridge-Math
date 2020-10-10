@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\title{Symmetries, Fields, and Particles}
+\author{quinten tupker}
+\date{October 10 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by Ben Allanach in Michaelmas 2020.
+Due to the measures taken in the UK to limit the spread of
+Covid-19, these lectures were delivered online. These are not meant to be an
+accurate representation of what was lectures. They solely represent a mix of
+what I thought was the most important part of the course, mixed in with many
+(many) personal remarks, comments and digressions... Of course, any
+corrections/comments are appreciated.
+
+To begin the course, the lecturer reminds of the definition of a group. I will
+not repeat this definition here. Groups, and Lie groups in particular, are
+essential in particle physics as a means of keeping track of the symmetries of
+particles. Here we get two kinds of symmetries:
+
+\begin{itemize}
+\item An \textbf{internal symmetry} is an inherent property of the
+  fields/particles themselves. For example, one can rotate through quark
+  colours, and in fact, we find that in order to make this possible, we require
+  the existence of a force carrying particle (a gluon) to be involved. And to
+  conserve colours, gluons contain a mix of colours to do so. The Lie group
+  structure enforces colour conservation here... Since these colour rotations can be different at
+  different points in space and time, these symmetries can also be
+  called a \textbf{local symmetry} or a \textbf{gauge symmetry}.
+\item A \textbf{global symmetry} is a symmetry that leaves something the same
+  across all space and time. 
+\item A \textbf{external symmetry} is a symmetry involving spacetime
+  coordinates. This includes symmetry under translation and Lorentz
+  transformations. From these symmetries we get conserved structures (momentum,
+  angular momentum, and energy). The Poincare group contains all these
+  symmetries. 
+\end{itemize}
+
+In terms of particles, bosons carry forces, and these includes gluons (strong
+force), photons (electromagnetic force), $Z^0, W^\pm$ carries the electroweak
+force. It has also been hypothesised that the graviton (spin 2) carries gravity,
+although it has never been observed. Also, for good symmetries, force carriers
+should be massless, but the spontaneous symmetry breaking, through the Higgs
+mechanism, can give force carriers mass (such as $W^\pm, Z^0$).
+
+The lecturer provides a standard list of (elementary) fermions. I won't repeat
+these.
+
+Just as a note, in the standard model, every particle has a field, and
+excitations of this field corresponds to ``instances'' of these particles.
+[End of lecture 1]
+
+\end{document}
