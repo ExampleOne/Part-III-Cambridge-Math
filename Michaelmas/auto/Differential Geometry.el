@@ -3,6 +3,9 @@
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("inputenc" "utf8")))
+   (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
    (TeX-run-style-hooks
     "latex2e"
     "article"
@@ -18,8 +21,10 @@
     "longtable"
     "adjustbox"
     "physics")
-   (LaTeX-add-environments
+   (LaTeX-add-amsthm-newtheorems
     "definition"
-    "proposition"))
+    "proposition"
+    "lemma"
+    "example"))
  :latex)
 

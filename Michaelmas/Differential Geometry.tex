@@ -14,6 +14,8 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
 
 \title{Differential Geometry}
 \author{quinten tupker}
@@ -130,7 +132,7 @@ $$ \phi_\pm(y_0, \dots, y_n) = \frac{1}{1 \mp y_0} (y_1, \dots, y_n), $$
 
 where the local coordinates are referred to as $x^\pm$. [End of DG1]
 
-\section{Forming Manifolds from Sets (Instead of Topological Spaces)}
+\subsection{Forming Manifolds from Sets (Instead of Topological Spaces)}
 
 We observe that an atlas can generate a topology. In particular if we consider
 the data
@@ -191,5 +193,379 @@ second countability, using the subset of all rational balls will always work if
 the number of charts is countable. For Hausdorffness, as long as two points live
 in the same chart, we are immediately done, so combining charts and considering
 the exceptions can be an efficient approach.
+
+\subsection{Projective Spaces and Grassmannians}
+
+Today we do an extended example to develop some more interesting manifolds.
+First, we look at the real projective linear space $\mathbb{RP}^n,$ which is the
+space $\mathbb{R}^{n + 1} \setminus \{0\}$ under the equivalence relation $x \sim y$ iff
+$\exists \lambda \in \mathbb{R} \setminus \{0\}, x = \lambda y$. As such, any
+point can be labelled by the \textit{ratio} of coordinates $[x_0 : x_1 : \dots :
+x_n]$, and for the purpose of comparison, we are free to set any nonzero
+coordinate $x_i$ to 1.
+
+To turn this into a smooth $n$-manifold, let's consider the following
+pseudo-chart:
+
+\begin{align*}
+  U_i &= \{[x_0 : x_1 : \dots : x_n] | x_i \neq 0\} \\
+  \phi_i([x_0 : x_1 : \dots : x_n]) &= \frac{1}{x_i} (x_0, \dots, \hat{x_i}, \dots, x_n)
+\end{align*}
+
+where $\hat{x_i}$ means omit $x_i$ from the list. 
+
+\begin{lemma}
+  These form a pseudo-atlas.
+\end{lemma}
+\begin{proof}
+  Need to show $\phi_i(U_i \cap U_j)$ open and $\phi_j \circ \phi_i^{-1}$
+  smooth. wlog, $i=0, j=1$ and $s, t$ are our local coordinates of interest.
+  With a little thought we see $\phi_0(U_0 \cap U_1) = \{s_1 \neq 0\}$ which is
+  open. To see $\phi_1 \circ \phi_0^{-1}$ is smooth, notice that
+  \begin{align*}
+    \phi_0^{-1}(s) &= [1 : s_1 : \dots : s_n] \\
+    \phi_1^{-1}(t) &= [t_1 : 1 : \dots : t_n]
+  \end{align*}
+  and consequently we see that certainly
+  $$ \phi_1 \circ \phi_0^{-1}(s) = \frac{1}{s_1}[1 : s_1 : \dots : s_n] $$
+  is smooth, so indeed we have pseudo-atlas.
+\end{proof}
+
+All that is left now is to show that $\mathbb{RP}^n$ is second countable and
+Hausdorff. Second countability follows from the finite number of covers that we
+are using. Hausdorffness is harder though. We cannot use our previous tactic of
+relying on the fact that any two points will lie in at least some chart. So
+instead we expand our atlas until that is the case. Above, we essentially formed
+charts using the standard unit vector basis, and omitted that each time. This
+can be generalised in two ways. Firstly, we can expand to any basis, which
+copies the above approach and is entirely straight forward. Secondly, we can
+consider a space $W$ to be our line in $\mathbb{R}^n$, and any complement $W'$
+of it. This abstracts the notion, but it has its uses as well.
+
+Taking this approach, we see that for a given line input $T$ the projection
+$\pi_W |_T$ restricted to $T$ is a bijection (as these have forcibly the same
+dimension) so taking
+
+$$ \psi_T = \pi_W' \circ (\pi_W |_T)^{-1} : W \to W' $$
+
+allows us to biject from our manifold to $W'$ which is isomorphic to
+$\mathbb{R}^n$, giving us a chart. It is an exercise on the example sheet to
+show this is compatible. Consequently, filling these all, we can show that the
+space is Hausdorff as well, meaning that $\mathbb{RP}^n$ forms a smooth
+$n$-manifold. Now, just as a note, really, we are not identifying the line $T$
+with a point in $W'$. Rather, we are identifying $T$ with the map $\psi_T$. This
+will be relevant.
+
+Now, one generalisation we will make, is to that of the \textbf{Grassmannian}.
+The Grassmannian, $Gr(k, n)$ is thespace of $k$-subspaces within $\mathbb{R}^n$.
+Note in particular that $\mathbb{RP}^n = Gr(1, n + 1)$. And since we identify
+subspaces $T$ with $\psi_T$ we also see that $\text{dim} Gr(k, n) = \text{dim}
+\mathcal{L}(W, W') = k(n - k)$. Finally, we want to remark that we can use
+$\mathbb{C}$ instead of $\mathbb{R}$, to give use $\mathbb{CP}^n$, and
+$Gr_{\mathbb{C}}(k, n)$. Incidentally, the transition maps here are not only
+smooth, but also holomorphic, meaning that these form complex manifolds. [End of
+DG 3]
+
+\subsection{Smoothness of Maps Between Manifolds}
+
+So how do we define the smoothness of a map between manifolds (instead of to a
+Euclidean space)? As expected, we just work with local coordinates. Consequently
+for smooth manifolds $X, Y$ of respective dimension $n, m$ with respective
+atlases $\phi_\alpha : U_\alpha \to V_\alpha, \psi_\beta : S_\beta \to T_\beta$,
+then 
+
+\begin{definition}
+$F: X \to Y$ is \textbf{smooth} wrt to these atleses iff $\forall \alpha, \beta$
+
+$$ \psi_\beta \circ F \circ \phi_\alpha^{-1} : \phi_\alpha(F^{-1}(S_\beta)) \to
+T_\beta $$
+
+is smooth as a map between open subsets in $\mathbb{R}^n$ and $\mathbb{R}^m$.
+Importantly, this definition only makes sense if $F$ is \textbf{continuous}, and
+in particular we require $F^{-1}(S_\beta)$ to be open for this definition to
+make sense.
+\end{definition}
+
+From here, we remark some trivial lemmas [which I won't write up properly] that
+due to the smoothness of transition functions, it suffices to check that $F$ is
+smooth in the neighbourhood of some point of a single chart. If that holds for
+all points, then $F$ is smooth as well. We also see that smoothness depends only
+on the smooth structure, and not the precise atlas, as one may expect.
+
+Finally, again some more sanity check lemmas. It is easy to see that this
+definition coincides with the usual definition of smoothness between finite
+dimesinonal real spaces, and also corresponds to the definition of smoothness
+from a manifold to $\mathbb{R}$ used earlier in this course. More importantly,
+we also see that a composition of smooth maps as smooth, and finally, this is
+one result I will write down as a lemma, we see that smoothness is a local
+property of the map:
+
+\begin{lemma}
+Smoothness is \textbf{local in source}, meaning $\forall F: X \to Y$, $F$ is
+smooth iff $\exists \text{open cover} W_\gamma$ st $\forall \gamma, F
+|_{W_\gamma}$ is smooth.
+\end{lemma}
+
+This is indeed a neat way of saying that a property is truly local in nature. 
+
+In line with our previous approach, we'd like to be able to specify smoothness
+without relying on the topology of the space. It is a bit pedantical, but
+nevertheless here we go:
+
+\begin{proposition}
+$F: X \to Y$ is smooth iff $\exists$ cover (not necessarily smooth - we
+  can't rely on the topology) $W_{\gamma \in \mathcal{C}}$ of $X$ st $\forall
+  \gamma \exists \alpha(\gamma) \in \mathcal{A}, \beta(\gamma) \in \mathcal{B}$
+  such that:
+\begin{enumerate}
+  \item $W_\gamma \subseteq U_{\alpha(\gamma)}$ and $F(W_\gamma) \subseteq
+    S_{\beta(\gamma)}$
+  \item $\phi_{\alpha(\gamma)}(W_\gamma)$ open in $V_{\alpha(\gamma)}$
+    (equivalent to saying $W_\gamma$ open in $X$ once the topology has been
+    enforced)
+  \item $\psi_{\beta(\gamma)} \circ F \circ \phi_{\alpha(\gamma)} |_{W_\gamma}$
+    is smooth.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+\item only if: pick $\mathcal{C} = \mathcal{A} \times \mathcal{B}$, and
+  $\alpha, \beta$ as projection maps, and $W_\gamma = U_{\alpha} \cap
+  F^{-1}(S_\beta )$. Then the result follows.
+\item if: we only need to check that $F$ is cont, so that $F^{-1}(S)$ is open
+  for open $S$, or equivalently, since we know the $W_\gamma$ will turn out to
+  be open, that $F^{-1}(S) \cap W_\gamma$ is open each time. To do so we note
+  that $\phi_\alpha$ is a homeomorphism, we we're done if the following is open:
+  \begin{align*}
+    \phi_\alpha(F^{-1}(S) \cap W_\gamma)
+    &= \phi_\alpha(F^{-1}(S \cap S_\beta) \cap W_\gamma) \\
+    &= \phi_\alpha(F^{-1}(S \cap S_\beta)) \cap \phi_\alpha(W_\gamma) \\
+    &= (\psi_\beta \circ F \circ \phi_\alpha^{-1})^{-1} (\psi_\beta(S)) \cap \phi_\alpha(W_\gamma)
+  \end{align*}
+  which is certainly open.
+\end{itemize}
+\end{proof}
+
+\begin{example}
+  $H : S^{2n + 1} \to \mathbb{CP}^n$, the Hopf map, is an example of a smooth
+  map.
+\end{example}
+
+Finally, we'd like to define some notion of equivalence on manifolds. Here we
+define
+
+\begin{definition}
+  A \textbf{diffeomorphism} is a smooth invertible map between manifolds with a
+  smooth inverse.
+\end{definition}
+
+\begin{definition}
+  Two manifolds are diffeomorphic when there exists a diffeomorphism between
+  them.
+\end{definition}
+
+You might think that since we're doing geometry, and not topology, we care about
+the values involved, and these equivalence classes are not of interest, but
+really, these equivalence classes have less to do with the space, and more to do
+with the smooth structure on them. If you change charts, then you also may have
+to change the functions involved. As such, diffeomorphism establish an
+equivalence between smooth structures more than between manifolds. This is
+particularly relevant for the time, as before, when we said that for $n \leq 3$
+all manifolds have an essentially unique smooth structure. Here ``essentially
+unique'' meant unique up to diffeomorphism.
+
+\begin{example}
+  A particularly famous manifold is the Riemann sphere, which is in this context
+  often defined to be $\mathbb{CP}^1$, but is diffeomorphic to $S^2$, and
+  $\mathbb{C} \cup \{\infty\}$ via either the stereographic projection or
+  identifying via normalising (normalise $[z_0 : z_1]$ to $[1 : z]$ or
+  ``$\infty$'' for $\mathbb{C} \cup \{\infty\}$, etc.).
+\end{example}
+
+Finally, we do have a somewhat important result that comes out from here:
+
+\begin{lemma}
+  If smooth manifolds $X, Y$ are diffeomorphic, then they are of the same
+  dimension.
+\end{lemma}
+\begin{proof}
+  Fix diffeomorphism $F: X \to Y, p \in X, U \ni p, V \ni F(p), \phi : U \to V,
+  \psi : S \to T$ such that $U, V, S, T$ open and shrink them such that $F(U) =
+  S$, then let $G = \psi \circ F \circ \phi^{-1}$, $H = \phi \circ F^{-1} \circ
+  \phi^{-1}$, then both of these are differentiable, and mutually inverse maps
+  on subsets of $\mathbb{R}^n, \mathbb{R}^m$. Taking derivatives we get two
+  linear maps that are mutually inverse, and so must be of the same dimension,
+  meaning $m = n$.
+\end{proof}
+[End of DG 4]
+
+\subsection{Tanget Spaces}
+
+We want to define tangent spaces on abstract manifolds.
+
+\begin{definition}
+  A \textbf{curve based at $p$} is a curve, $\gamma : I \to X$ where $I$ is an
+  open subset of $\mathbb{R}$ such that $\gamma(0) = p$. (they also have to be
+  somewhat smooth)
+\end{definition}
+
+\begin{definition}
+  Two curves $\gamma_1, \gamma_2$ based at $p$ \textbf{agree to first order} iff
+  $\exists$ a chart such that
+  $$ (\phi \circ \gamma_1)'(0) = (\phi \circ \gamma_2)'(0) $$
+\end{definition}
+
+This forms an equivalence relation. Reflexivity, and symmetry are clear,
+however, transitivity is not entirely obvious. Hence we have the lemma
+
+\begin{lemma}
+  If two curves agree to first order according to one chart, they agree to first
+  order according to any chart.
+\end{lemma}
+\begin{proof}
+  Just apply the chain rule to the transition functions.
+\end{proof}
+
+As such we then say
+
+\begin{definition}
+  The \textbf{tangent space} of $X$ at $p$, $T_pX$ is the set of curves at $p$
+  modulo agreement to first order. Elements of this set are denoted $[\gamma]$
+  (for the equivalence class).
+\end{definition}
+
+Now, if we define the map
+
+\begin{align*}
+  \pi^\phi_p : \{ \text{curves based at } p\} &\to \mathbb{R}^n \\
+  \gamma &\mapsto (\phi \circ \gamma)'(0)
+\end{align*}
+
+then we see that modulo agreement to first order this is injective. Furthermore,
+if we show it surjective, we so $T_pX$ is isomorphic to $\mathbb{R}^n$:
+
+\begin{proposition}
+  $T_pX$ is isomorphic to $\mathbb{R}^n$ and $\pi^\phi_p$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+  We just need to show $\pi_p^\phi$ is surjective. $\forall v \in \mathbb{R}^n$
+  consider $\gamma(t) = \phi^{-1} (\phi(p) + tv)$. This works.
+\end{proof}
+
+Now, as a matter of notation we use $\partial_i$ or $\partial_{x_i}$ to denote
+$(\pi^\phi_p)^{-1}(e_i)$. Clearly, this notation has connotations, but
+interestingly these turn out to be well-founded, for the following two reasons:
+
+\begin{proposition}
+  Vectors transform as
+  $$ \partial_{y_i} = \sum_j \partial_{y_i} x_j \partial_{x_j} $$
+\end{proposition}
+\begin{proof}
+  \begin{align*}
+    \partial_{y_i} &= (\pi^{\phi_2}_p)^{-1}(e_j) \\
+    &= (\pi^{\phi_1}_p)^{-1} (\sum_j \partial_{y_i} x_j e_j) \\
+    &= \sum_j \partial_{y_i} x_j (\pi^{\phi_1}_p)^{-1} (e_j) \\
+    &= \sum_j \partial_{y_i} x_j \partial_{x_j}
+  \end{align*}
+\end{proof}
+
+Furthermore, we can see that when written in the standard unit basis
+$\partial_i$, any $[\gamma]$ has its coefficients precisely the values it gets
+as its derivatives, so one can interpret these vectors as derivatives to a
+certain extent. [End of DG 5]
+
+\subsection{Vectors as Differential Operators}
+
+In the last section, we discussed a geometric way to derive and think about
+tangent vectors. However, we can also do so in an algebraic manner. That is what
+we do here.
+
+If we are to describe tangent vectors algebraically as differential operators,
+then we want to describe them as ``hitting'' something. What will they hit,
+well, quite naturally, they will hit functions from the manifold. Consequently,
+we consider a function $f : U \to \mathbb{R}$ for open $U \ni p$ for some point
+$p$, and then the result of the hitting along some path would be $(f \circ
+\gamma)'(0)$ (so we are interested in what this ``hitter'' may be).
+
+But we also want to relate this to our original picture of vectors, so we have:
+
+\begin{lemma}
+  $(f \circ \gamma)'(0)$ depends only on $[\gamma]$, and for $[\gamma] = \sum
+  a_i \partial_i$, we have
+  $$ (f \circ \gamma)'(0) = \sum a_i \partial_i f |_p $$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+(f \circ \gamma)'(0) 
+&= \frac{d}{dt} |_{t=0} ((f \circ \phi^{-1}) \circ (\phi \circ \gamma))(t) \\
+&= \sum_i \partial_{x_i} f |_p (x_i \circ \gamma)'(0)
+\end{align*}
+since $f \circ \phi^{-1}$ is just $f$ written in terms of the local coordinates. 
+\end{proof}
+
+So we see that combined with a hitter, we can turn any $\gamma$ into a
+differential operator on $f$, but we can make a further simplification. We
+notice in particular that we don't really care that much about the open
+neighbourhood $U$ containing $p$. As such we define
+
+\begin{definition}
+The \textbf{germ} of smooth $f$ at $p$ is the equivalence class $[(U, f)]$ for
+smooth $f: U \to \mathbb{R}$, open $U \ni p$ modulo the equivalence relation
+$(U_1, f_1) \sim (U_2, f_2)$ iff there exists open $V \ni p$ such that $V
+\subseteq U_1, U_2$, and $f_1 |_V = f_2 |_V$.
+\end{definition}
+
+We call the space of germs at $p$, $\mathcal{O}_{X, p}$. Now we add some
+algebraic definitions that, as far as I can tell, serve little purpose in this
+context: note that by using constant functinos we can easily construct a
+homomorphism $\mathbb{R} \to \mathcal{O}_{X, p}$. turning it into an
+$\mathbb{R}$-algebra. Also,
+
+\begin{lemma}
+As a ring (which it forms), $\mathcal{O}_{X, p}$ has
+a unique maximal ideal $\mathfrak{m}$ which is precisely the set of functions
+that vanish at $p$. 
+\end{lemma}
+\begin{proof}
+$\mathfrak{m}$ forms a maximal ideal since it is the kernel of a homomorphism to
+a field: $[(U, f)] \mapsto f(p)$. It is unique, since for any element outside of
+this ideal, choosing $U$ to be small, we can see $f$ is always nonzero, meaning
+that the ring contains a multiplicative inverse of our element $[(U, 1/f)]$, but
+if an ideal contains an invertible element, that ideal is the whole ring, and so
+$\mathfrak{m}$ is the unique maximal ideal.
+\end{proof}
+
+Precisely because of the situation that occurs here, rings with a unique maximal
+ideal are called \textbf{local} rings. Even in other context, one still imagines
+that maximal ideal as being the place where some function vanishes. 
+
+Having worked so far (although the algebra bit still seems unnecessary to me),
+we see that we can hit functions with vectors to get real numbers via
+
+$$ T_pX \times \mathcal{O}_{X, p} \to \mathbb{R} $$
+
+or equivalently there exists 
+
+$$ D: T_PX \to \mathcal{O}^\vee_{X, p} $$
+
+where $\mathcal{O}^\vee_{X, p}$ is the dual of $\mathcal{O}_{X, p}$, ie. $D$
+converts vectors into hitters of functions (so as originally described,
+combining a vector $v$ with something $D$ allows us to hit functions). Now,
+really, we hope that somehow $D$ forms an isomorphism. Certainly $D$ is well
+defined (will see), and injective (see how it transforms the unit basis vectors
+$\partial_i$), but we see it is not surjective. However, on closer observation,
+we see that $D$ maps only to a very small subset of $\mathcal{O}^\vee_{X, p}$.
+In particular, it maps to a subset satisfying the property
+
+\begin{lemma}
+$$ D(v)(fg) = D(v)(f) g(p) + f(p) D(v)(g) $$
+\end{lemma}
+\begin{proof}
+Apply the chain rule to $(fg) \circ \gamma$.
+\end{proof}
+
+As such, we make the following (far too general for this context) definition:
+
+
 
 \end{document}
