@@ -566,6 +566,145 @@ Apply the chain rule to $(fg) \circ \gamma$.
 
 As such, we make the following (far too general for this context) definition:
 
+\begin{definition}
+For ring $R$, $R$-algebra $S$, and $S$-module $M$, an $R$-linear
+\textbf{derivation} from $S$ to $M$ is an $R$-linear map $d: S \to M$ satisfying 
+$$ d(fg) = d(f)g + fd(g) $$
+The set of derivations is denoted by $\text{Der}_R(S, M)$, which is a submodule
+of $\text{Hom}_R(S, M)$.
+\end{definition}
 
+I mean, this is clearly just an algebraic definition of something like a first
+order differential operator. We would also like to note that $d(r) = 0 \forall r
+\in R$, since $d(r) = rd(1)$ and $d(1) = d(1) + d(1) = 2d(1)$ so $d(1) = 0$.
+
+Now certainly, $D(v) \in \text{Der}_\mathbb{R}(\mathcal{O}_{X, p}, \mathbb{R})$
+where the relevant bits form $\mathbb{R}$ algebras once we consider constant
+functions. Of course, the whole point of this otherwise random introduction of
+derivations is that we get an isomorphism:
+
+\begin{proposition}
+$D : T_pX \to \text{Der}_\mathbb{R}(\mathcal{O}_{X, p}, \mathbb{R})$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+Certainly $D$ is linear and injective. Then it remains for us to show that $D$
+is surjective. In order to do so we pick any derivation $\delta$ and want to
+show $\exists v, D(v) = \delta$. To do so we consider something like the Taylor
+series of $f$ for any $[U, f] \in \mathcal{O}_{X, p}$. If we then pick local
+coordinates such that $x(p) = 0$, then we see that all constant terms in the
+series are eliminated ($d(\text{const}) = 0$), and quadratic terms and higher
+are eliminated as well, leaving us with
+$$ \delta(f) = \delta(\sum_i x_i \partial_{x_i}f|_p) = \sum_i \delta(x_i)
+D(\partial_{x_i})(f)$$
+From here we see clearly that 
+$$ v = \sum_i \delta(x_i) \partial_{x_i} $$
+does the trick. That's all fine and well, but the above formula depends on the
+existence of a kind of Taylor series. To find something like that we consider
+the following. For any germ $[(U, f)]$, consider $g: U \to \mathbb{R}$ given by
+$$ g =
+\begin{cases}
+\frac{f(x_1, \dots, x_n) - f(x_1, \dots, x_{n-1}, 0)}{x_n} & x_n \neq 0 \\
+\partial_{x_n} f & x_n = 0
+\end{cases}
+$$
+then by l'Hopital's rule, this is continuous. Now define
+$f_n(x_1, \dots, x_n) = f(x_1, \dots, x_{n - 1}, 0)$, then we get first order
+pseudo-Taylor series
+$$ f = f_n + x_n g $$
+with property
+$$ \delta(f) = \delta(f_n) + \delta(x_n) g(p) + x_n(p) \delta(g) = \delta(f_n)
++ \delta(x_n) \partial_{x_n} f|_p$$
+which once we apply it to each coordinate completes our proof.
+\end{proof}
+
+[End of DG 6]
+
+\subsection{Derivatives of Smooth Maps}
+
+The natural next step is to find a way to express derivatives on maps between
+smooth manifolds. That is, to find linear approximations. Since the spaces
+themselves aren't linear, the only plausible way to implement any kind of linear
+map is to consider a linear map between the tangent spaces $T_pX \to T_{F(p)}Y$
+for $F: X \to Y$. As such we define
+
+\begin{definition}
+The \textbf{derivative} of $F$ at $p$ is the map $D_pF : T_pX \to T_{F(p)}Y$
+given by $[\gamma] \mapsto [F \circ \gamma]$. This map may also be denoted by
+$F_*$ the pushforward by $F$ on tangent vector spaces.
+\end{definition}
+
+\begin{lemma}
+This is well defined and linear, and
+$$ D_pF(\partial_{x_i}) = \sum_j \partial_{x_i} y_j|_p \partial_{y_j} $$
+\end{lemma}
+\begin{proof}
+Linearity and well-definedness can be checked easily. What remains is for us to
+check the formula. As such,
+$$ \frac{d}{dt} |_p (y_j \circ F \circ \phi^{-1}) (\phi(p) + te_i) =
+\partial_{x_i} y_j $$
+as required.
+\end{proof}
+
+We note that this coincides with the standard multivariate calculus definition
+of the derivative. Also, we notice that any vector $[\gamma]$ can be written as
+$D_0 \gamma(\partial_t) = [\gamma]$. Furthermore, the chain rule follows
+straight from this definition as
+\begin{proposition}
+The \textbf{chain rule} states that
+$$ D_p(G \circ F) = D_{F(p)}G \circ D_p F $$
+\end{proposition}
+\begin{proof}
+$$ D_p(G \circ F)([\gamma]) = [G \circ F \circ \gamma] = D_{F(p)}G \circ
+D_pF([\gamma]) $$
+\end{proof}
+
+That finishes the main topic for this section, the definition of the derivative,
+but for completeness, we will include how one may define the derivative from the
+algebraic point of view of derivations. As a side note, since it may not be
+clear what the purpose of the algebraic perspective is. I hear this is the
+primary focus in Algebraic Geometry. Anyhow, moving on
+
+That finishes the main topic for this section, the definition of the derivative,
+but for completeness, we will include how one may define the derivative from the
+algebraic point of view of derivations. As a side note, since it may not be
+clear what the purpose of the algebraic perspective is. I hear this is the
+primary focus in Algebraic Geometry. Anyhow, moving on. As such we define
+
+\begin{definition}
+The \textbf{pullback}, $F^*$ by $F$ from $\mathcal{O}_{Y, F(p)}$ to $\mathcal{O}_{X,
+  p}$ mapping $[(U, f)]$ to $[(F^{-1} (U), f \circ F)]$.
+\end{definition}
+
+This is well defined, and since it is $\mathbb{R}$-linear we have dual map
+
+$$ (F^*)^\vee : \mathcal{O}^\vee_{X, p} \to \mathcal{O}^\vee_{Y, F(p)} $$.
+
+but really, one may observe that these maps preserves the spaces we want it to
+preserve. Namely, it restricts nicely to a map
+
+$$ (F^*)^\vee : \text{Der}_\mathbb{R}(\mathcal{O}_{X, p}, \mathbb{R}) \to
+\text{Der}_\mathbb{R}(\mathcal{O}_{Y, F(p)}, \mathbb{R}) $$
+
+but of course, since these are equivalent to tangent spaces, this is just
+another way of implementing the derivative. 
+
+\begin{lemma}
+The appropriate diagram commutes, meaning that $D \circ D_pF = (F^*)^\vee \circ D$.
+\end{lemma}
+\begin{proof}
+$\forall [\gamma] \in T_pX, f \in \mathcal{O}_{Y, F(p)}$ it holds that
+\begin{align*}
+D(D_pF([\gamma]))(f) 
+&= D([F \circ \gamma])(f) \\
+&= (f \circ F \circ \gamma)'(0) \\
+&= D([\gamma])(F^*f) \\
+&= (F^*)^\vee (D([\gamma]))(f)
+\end{align*}
+\end{proof}
+
+So we now have two parallel ways to define the derivative. In different
+situations, a different approach will be more useful than the other. Overall, a
+lot of notation and terms are used, but fundamentally, the concepts we've seen
+so far are nothing unsurprising.
 
 \end{document}
