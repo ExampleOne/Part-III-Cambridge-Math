@@ -168,6 +168,89 @@ particularly remarkable. The only remarkable part is that, as a result
 $\partial^\mu \phi$ transformas as vector, and so the following becomes a rank 0
 tensor (ie, a scalar field) $\partial^\mu \phi \partial_\mu \phi$.
 
-Well, that ends lecture 1, for those of you interested. 
+Well, that ends [lecture 1], for those of you interested. 
+
+\subsection{The Lagrangian}
+
+We will review some of the tools from classical mechanics that we are using. The
+first is the Lagrangian. There are three advantages to using the lagrangian
+here:
+
+\begin{itemize}
+\item they are independent of coordinates
+\item the symmetries of the system can be easily expressed
+\item the path integral formulation follows immediately
+\end{itemize}
+
+although the Lagrangian is used much more heavily in the Advanced Quantum Field
+Theory course than the current course. Anyways, we review the Lagrangian, except
+that now we implement it on fields, so $L = L(\phi, \partial_\mu \phi)$ for
+(scalar) fields $\phi$, and we make three requirements of our action/Lagrangian
+
+\begin{itemize}
+\item The action $S$ is Lorentz invariant
+\item we require locality (see below)
+\item we have at most a second order time derivative
+\end{itemize}
+
+Locality essentially means that $L = \int dx^3 \, \mathcal{L}(\phi(x),
+\partial_\mu \phi(x))$, so the Lagrangian has an associated local Lagrangian
+density $\mathcal{L}$. From hereon, this $\mathcal{L}$ will usually be referred
+to as the Lagrangian instead. We note that the action (over an infinite time
+scale) may now be expressed as
+
+$$ S = \int dx^4 \mathcal{L}(\phi, \partial_\mu \phi) $$
+
+Now, Lorentz invariance essentially means that the Lagrangian density is a
+scalar field (a tensor really), meaning that it transforms as $\mathcal{L}(x)
+\mapsto \mathcal{L}(\Lambda^{-1} x)$. This corresponds to the action being
+Lorentz invariant since the Jacobian of a Lorentz transformation (the
+determinant) is 1, so the relevant change of variables, the action does not
+change.
+
+Finally, using no more than a second order time derivative in the context of
+relativity means using no more than a second order derivative of any kind, and
+since we also are rank-0 tensors, we in fact, cannot have first order
+derivatives either. Consequently, we can write the general form of the
+Lagrangian as 
+
+$$ \mathcal{L} = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - V(\phi) $$
+
+(note that $\phi \partial_\mu \partial^\mu \phi$ is related to the above by
+integration by parts so can be safely ignored). 
+
+To make all this work, we apply the principle of least action, which gives us
+the Euler Lagrange equation
+
+$$ \partial_\mu \partial_{\partial_mu \phi} \mathcal{L} = \partial_\phi
+\mathcal{L} $$
+
+An important special case to consider is the case when the potential is
+quadratic, so $V(\phi) = \frac{1}{2} M^2 \phi^2$, which means the Euler-Lagrange
+case is linear, leaving us with the so-called \textbf{Klein-Gordon Equation}
+
+$$ \partial_\mu \partial^\mu \phi + M^2 \phi = 0 $$
+
+As one might expect, since in Minkowski spacetime $\partial_\mu \partial^\mu =
+\partial_t^2 - \nabla^2$ we get wavelike solutions
+
+$$ \phi \sim e^{ix \cdot p} $$
+
+where $x \cdot p = \omega t - \vec{k} \cdot \vec{x}$, and the dispersion
+relation requires $\omega_k = \sqrt{k^2 + M^2}$.
+
+On a philosophical note, I was wondering what difference using the principle of
+least action makes compared to just Newton's equations (on a philosophical level
+- it is obviously more practical), and as such I was wondering to what extent
+the Lagrangian formulation in a sense is just a tensor formulation of Newton's
+equations? 
+
+I also was wondering what locality means. When discussing life, I have remarked
+that really as long as one is not starving, etc., reality is little more than a
+medium for communication between people. This is certainly the case for
+particles, and objects, which do not have to worry about starvation, etc. But
+then I wonder, do particles really not need to worry about starvation? Many
+particles decay after all, although I doubt that has to do with a kind of
+starvation of any kind... [End of lecture 2]
 
 \end{document}
