@@ -96,6 +96,53 @@ one-to-one on every period, then period finding can be done using
   Now the next step is the tricky part, and really is what uses the ``quantum
   magic'' here, and that involves the use of the Quantum Fourier Transform
   (QFT). [This ends lecture 1]
+\item We then apply the QFT, which maps $\ket{k} \mapsto \sum_{y = 0}^M e^{xy}
+  \ket{y}$, which, after some calculation (use $\sum e^{2\pi kx/y} =
+  y\delta_{xy}$) leaves us with
+$$ \text{QFT} \ket{\text{per}} = \sqrt{A / M} \sum_{k = 0}^{r - 1} \omega^{x_0 k
+M/r} \ket{k M / r} $$
+\item Making a measurement we get $C = k_0 M / r$, so $\frac{k_0}{r} =
+  \frac{C}{M}$. If $k_0, r$ are coprime, we are done, since we can reduce
+  $\frac{C}{M}$ to simplest terms (use Euclid's algorithm to cancel out the
+  gcd). Now, number theory tells us that the probability of being coprime is
+  finite and shrinks slowly (as $O(1 / \log \log (M))$), and so we can just
+  repeat until we get the right period. Since $f$ is one-to-one on each period,
+  it is easy to check if our period is correct.
 \end{enumerate}
+
+I feel that just being able to check if the period is correct is a somewhat lame
+reason to require that the function be one-to-one on each period, but
+improvements although not difficult, would complicate this explanation.
+
+Anyways, let's see if we can motivate the Quantum Fourier Transform a bit
+better. The challenge we face is that our state, $\ket{R}$ takes the form
+
+$$ \ket{R} = \sum_k a_k \ket{x_0 + kr} $$
+
+for an arbitrary $x_0$. In other words, we have an arbitrary shift that we want
+to ignore some how. How do we do that? A natural way to spot ``things that
+ignore shifts'' would be to define the shhift operator
+
+$$ U \ket{x} = \ket{x + 1 \text{ mod } M} $$
+
+and then, how do we say, ``we don't care about '' $U$? We look for the
+eigenvectors of $U$, which are by definition, the states least affected by $U$.
+Fortunately, $U$ is a permuatation matrix, so unitary, so is a quantum gate.
+Then, the eigenbasis of $U$ is what we may call the set of shift-invariant
+states $\chi_k$. If we write $R$ in terms of this basis we are bound to get a
+state of the form
+
+$$ \sum_k a_k \lambda_k^{x_0} \ket{\chi_k} $$
+
+where $\mathbb{P}(k) = |a_k \lambda_k^{x_0}|^2 = |a_k|^2$ since as eigenvalues
+of a unitary matrix, $|\lambda_k| = 1$ always. So as expected, probabilities are
+preserved (this is not that crucial - but it's important they don't differ that
+much). Anyways, important is that this transformation allows us to express our
+state as a sum of multiples of the period, which is what we want.
+
+All that remains is to find this basis, and the operation that expresses them in
+terms of it. As eigenvectors of a unitary matrix are orthogonal, all we need to
+do is zip the eigenvectors into a matrix. These eigenvectors are just of the
+form $e^{2\pi i k l/ M}$, so we get the Quantum Fourier Transform we expect.
 
 \end{document}
