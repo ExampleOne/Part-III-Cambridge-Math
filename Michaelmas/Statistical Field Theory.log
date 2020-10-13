@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.20)  13 OCT 2020 21:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.20)  13 OCT 2020 22:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -459,7 +459,7 @@ dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/tex
 mf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/share/texmf-dist/
 fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Statistical Field Theory.pdf" (7 pages, 358847 bytes).
+Output written on "Statistical Field Theory.pdf" (7 pages, 361740 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream
