@@ -10,6 +10,7 @@
 \usepackage{longtable}
 \usepackage{adjustbox}
 \usepackage{physics}
+\usepackage[makeroom]{cancel}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -126,5 +127,188 @@ From here, we can solve implicitly, but there is another approach we can take,
 which is the way we will go about this. Just as a side note, we can see the
 reason this is called the mean field approximation here as well: it is as if $m$
 just shifts to external field to $B_{\text{eff}} = B + Jqm$. [End of lecture 1.]
+
+\subsection{Landau Theory of Phase Transitions}
+
+The remarkable part about the Ising model described above is not its
+correctness. In fact, it is often incorrect, but rather its universality. It can
+be applied in a wide variety of situations. As such, Landau tried to develop a
+more general theory of phase transitions. Here we work through an extended
+example to examine the general features of these. In particular, we study the
+behaviour of the equilibrium $m_{\text{min}}$ when various quantities are varied.
+
+From before, we can approximate $f$ for small $m$ as
+
+$$ f(m) \approx \cancel{-\frac{1}{\beta} \ln(2)} - B m + \frac{1}{2} (\frac{1}{\beta} -
+Jq) m^2 + \frac{1}{12\beta} m^4 + \dots $$
+
+where we ignore the constant term since it does not affect anything. We start
+with the $B = 0$ case where we find that
+
+$$ f(m) = \frac{1}{2} (T - T_c) m^2 + \frac{1}{12} T^4 m^4  $$
+
+where we define the \textbf{critical temperature} to be $Tc = Jq$. Then we get
+the following scenarios.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/SFT/f_vs_m_high_T_B0}
+  \caption{$T > T_c$}
+  \label{figure: f_vs_m_high_T_B0}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/SFT/f_vs_m_low_T_B0}
+  \caption{$T < T_c$}
+  \label{figure: f_vs_m_low_T_B0}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/SFT/m_vs_T_B0}
+  \caption{$m_{\text{min}}(T)$ for $B = 0$}
+  \label{figure: m_vs_T_B0}
+\end{figure}
+
+The middle graph is meant to be symmetric, and we see here that $m_{\text{min}}$
+can take two different values
+
+$$ m_{\text{min}} = \pm m_0 = \pm \sqrt{\frac{3(T_c - T}{T}} $$
+
+Now some definitions apply here. This is a \textbf{second order} or
+\textbf{continuous} phase transition since $m$ is continuous in the quantity
+being varied. $m = 0$ is called the \textbf{disordered phase}, and $m \neq 0$ is
+called an \textbf{ordered phase}. \textbf{Spontaneous symmetry breaking} is what
+we call the loss of symmetry in $m$ when $T$ decreases below $T_0$ (since $m$ is
+forced to choose a positive or negative value). Finally, these terms all extend
+to arbitrary \textbf{order parameter} $m$. We finally compute
+
+$$ f(m_{\text{min}}) =
+\begin{cases}
+  0 & T > T_c \\
+  -\frac{3}{4} \frac{(T_c - T)^2}{T} & T < T_c
+\end{cases} $$
+
+We can also look at the heat capacity here, and how that various with
+temperature. Heat capacity may be defined as
+
+$$ C = \partial_T \langle E \rangle = \beta^2 \partial_\beta^2 \ln(Z) $$
+
+since recall that $\langle E \rangle = -\partial_\beta \ln(Z)$. Using $Z \approx
+-\beta N f(m_{\text{min}})$ we find $c = C / N$ has
+
+$$ c =
+\begin{cases}
+  0 & T \to T_c^+ \\
+  3/2 & T \to T_c^-
+\end{cases}
+$$
+
+so $c$ is a first order phase transition - ie. discontinuous.
+
+The above scenario considered $B \neq 0$, but when $B = 0$ we get a different
+situation. In particular, we do not get spontaneous symmetry breaking since the
+system is no longer symmetric. In this case, the above graphs are skewed to the
+right or the left unevenly leaving global minimum (the ``true'' minimum) and a
+so-called \textbf{metastable} state.
+
+Finally, we can observe another discontinuous phase transition when we study
+$m_{\text{min}}$ as a function of $B$ at low $T$ ($T < T_c$). Since we're below
+the critical temperature, the global minimum does not smoothly slide through 0,
+but instead abruptly shifts from negative to postive (or the other way around)
+giving a 1st order phase transition. Incidentally, I find this a bit odd, since
+this really only makes sense in the 1D case, but as we will see later Mean Field
+Theory (MFT) does not work in 1D. But in higher dimensions, $m$ is a vector and
+instead of getting two local minima as above, we get a tilted (for $B \neq 0$)
+circular valley where $f(m)$ is low. In this case, no phase transition occurs,
+since the minimum just smoothly moves around this circular valley as $B$ is
+varied...
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=10cm]{res/SFT/m_min_vs_B}
+  \caption{$m_{\text{min}}$ vs $B$}
+  \label{figure: m_min_vs_B}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/SFT/f_vs_m_2d}
+  \caption{$f(m)$ vs $m$ in 2D}
+  \label{figure: f_vs_m_2d}
+\end{figure}
+
+Anyways, some other asymptotic behaviour includes that when $T \approx T_c$, we
+get
+
+$$ f(m) \approx -Bm + \frac{1}{12} T_c m^4 $$
+
+leaving
+
+$$ m \sim B^{1/3} $$
+
+If we define magnetic susceptibility (the \textbf{response function} in this
+context) to be $\chi = \partial_B m|_T$ we see that for $T > T_c$ we have
+
+$$ f(m) \approx -Bm + \frac{1}{2} (T - T_c) m^2 + \dots $$
+
+so
+
+$$ m \approx \frac{B}{T - T_c} $$
+
+so
+
+$$ \chi \sim \frac{1}{T - T_c} $$
+
+and for $T < T_c$
+
+$$ \chi \sim \frac{1}{|T - T_c|} $$
+
+\subsection{The Validity of MFT}
+
+The purpose of all these calculations at the end of the last section is to find
+some important set of numbers that we can use to check our theory with in the
+real world. In particular, what we looked for were the \textbf{critical
+  exponents}, which are
+
+\begin{align*}
+  m &\sim (T_c - T)^\beta & \beta &= 1/2 & T &< T_c \\
+  c &\sim c_\pm |T - T_c|^{-\alpha} & \alpha &= 0 && \\
+  \chi &\sim |T - T_c|^{-\gamma} & \gamma &= 1 && \\
+  m &\sim B^{1/\delta} & \delta &= 3 &&
+\end{align*}
+
+in our worked example. Now for results, we find that in general, MFT fails
+entirely below a certain \textbf{lower critical dimension}, $d_i$ and works correctly
+above a certain \textbf{upper critical dimension}, $d_u$. In between it is structurally
+accurate (can detect the right phase transitions) but inaccurate (finds the
+wrong critical exponents). The Ising fails for dimension 1, gets the right
+structure for dimensions 2 and 3, and works for dimension 4 and above. It is, as
+expected, closer to the correct value for dimension 3 than for 2, but still can
+be quite off.
+
+Nevertheless, as mentioned earlier, the power of the MFT is not in its
+correctness, but in its universality. Also, often structure is more important.
+After all, if you can predict a phenomenon will happen, you can then carry out
+an experiment to measure it more accurately. On the other hand, it is far harder
+to use experiment to search for interesting phenomenon without knowing where to
+look. So it is still quite powerful. Also, the fact that critical
+exponents exist, and that critical points exist is a powerful bit of
+universality that MFT gives.
+
+To illustrate its universality, we can consider liquid-gas transitions. Here,
+van der Waals analysis is completely off in its critical exponents, although it
+does predict the correct type of phenomenon. However in three dimensions, the
+Ising model agrees well. How do we implement the Ising model for a gas. Although
+it's not at all obvious it will work, the implementation is actually quite
+natural. Assume that a space consists of a lattice, and that every lattice is
+assigned a value of 1 or 0 based on whether or not it is occupied by a particle.
+Also assume that any point on the lattice can be occupied by no more than 1
+particle at a time. Then we get
+
+$$ E = -4J \sum_{<i j>} n_i n_j - \mu \sum n_i $$
+
+We can proceed from there as usual. [End of lecture 2]
 
 \end{document}
