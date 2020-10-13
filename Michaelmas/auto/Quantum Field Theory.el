@@ -19,6 +19,7 @@
     "adjustbox"
     "physics")
    (LaTeX-add-environments
-    "definition"))
+    "definition"
+    "example"))
  :latex)
 

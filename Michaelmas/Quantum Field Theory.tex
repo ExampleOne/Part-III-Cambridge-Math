@@ -13,6 +13,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
 
 \title{Quantum Field Theory}
 \author{quinten tupker}
@@ -214,10 +215,11 @@ since we also are rank-0 tensors, we in fact, cannot have first order
 derivatives either. Consequently, we can write the general form of the
 Lagrangian as 
 
-$$ \mathcal{L} = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - V(\phi) $$
+$$ \mathcal{L} = \frac{1}{2} F(\phi) \partial_\mu \phi \partial^\mu \phi - V(\phi) $$
 
 (note that $\phi \partial_\mu \partial^\mu \phi$ is related to the above by
-integration by parts so can be safely ignored). 
+integration by parts so can be safely ignored). Also, in practice in quantum
+theory we may neglect $F(\phi)$ leaving us with quite a simple general form.
 
 To make all this work, we apply the principle of least action, which gives us
 the Euler Lagrange equation
@@ -252,5 +254,77 @@ particles, and objects, which do not have to worry about starvation, etc. But
 then I wonder, do particles really not need to worry about starvation? Many
 particles decay after all, although I doubt that has to do with a kind of
 starvation of any kind... [End of lecture 2]
+
+\subsection{Maxwell's Theory}
+
+Maxwell's theory uses a 4-vector potential $A^\mu = (\phi, \vec{A})$. This being
+a rank 1 tensor means it transforms as
+
+$$ A^\mu(x) \mapsto \Lambda^\mu_\nu A^\nu(\Lambda^{-1} x) $$
+
+In electromagnetism, the \textbf{field strenght tensor} is given by
+
+$$ F^{\mu \nu} = \partial^\mu A^\nu - \partial^\nu A^\mu $$
+
+and as a tensor, it transforms as appropriate. But it satisfies a further
+condition that it is invariant under Gauge transformations $A^\mu \mapsto A^\mu
++ \partial^\mu \lambda$. This leads to the \textbf{Bianchi identity}
+
+$$ \partial_\lambda F_{\mu \nu} + \partial_\mu F_{\nu \lambda} + \partial_\nu
+F_{\lambda \mu} = 0 $$
+
+which captures 2 out of Maxwell's 4 equations. The other two arise from the
+principle of least action applied to the \textbf{Maxwell Lagrangian}
+
+$$ \mathcal{L} = -\frac{1}{4} F_{\mu \nu} F^{\mu \nu} $$
+
+We should note that there really are not that many options of Lagrangians here
+once one introduces the standard assumptions in addition to assuming it must be
+expressed in terms of physical quantities (the only candidate is the field
+strength vector used above)... Writing
+
+$$ \mathcal{L} = -\frac{1}{2} \partial_\mu A_\nu \partial^\mu A^\nu +
+\frac{1}{2} (\partial_\mu A^\mu)^2 \eta^{\mu \nu} $$
+
+gives us (after Euler-Lagrange)
+
+$$ \partial_\mu F^{\mu \nu} = 0 $$
+
+which provides us with the rest of the Maxwell equations.
+
+\subsection{Symmetries in QFT}
+
+Symmetries (see the Symmetries, Fields, and Particles (SFP) course) are variations of
+fields that leave the action invariant. Symmetries have several effects in
+physics. Firstly, by Noether's theorem, they lead to conservation laws.
+Secondly, they restrict the form of the Lagrangian. In particular, Gauge
+symmetry is very powerful due to strong restrictions it puts on the form of the
+Lagrangian. 
+
+Common symmetries include (See SFP) translation invariance and Lorentrz
+transformation invariance. Another symmetry occurs when either $m = 0, V = 0$ or
+the action is propoertional to the field. In this case we get an additional
+``scale invariance'' where $x^\mu \mapsto \lambda x^\mu$ and $\phi \mapsto
+\lambda^{-\Delta} \phi(\lambda^{-1}x)$ for engineering constant $\Delta$.
+
+Internal symmetries like charge, flavour or colour conservation also occur,
+further restricting the theory. These are not related to the space, and are
+somehow better expressed by the quantity they conserve. Another small curious
+symmetry is the following:
+
+\begin{example}
+For complex scalar fields with $\mathcal{L} = \partial_\mu \psi^* \partial^\mu
+\psi - V(|\psi|^2)$ the following is also a symmetry: $\psi \mapsto e^{i \alpha}
+\psi$ for real $\alpha$. The lecturer does not go into any more detail about
+this.
+\end{example}
+
+Finally, we note that for continuous symmetries, which form Lie groups, we can
+take the set of elements of the group ``near'' the identity, $g = e^{\alpha X}$
+where $X$ sits in the Lie algebra of $G$. Working to 1st order we now may write
+
+$$ g \cdot \psi \mapsto \psi + \delta \psi = \psi + \alpha X \psi $$
+
+to first order. [End of lecture 3]
 
 \end{document}
