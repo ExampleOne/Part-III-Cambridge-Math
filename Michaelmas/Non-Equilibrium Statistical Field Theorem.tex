@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+\usepackage[makeroom]{cancel}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+\title{Non-Equilibrium Statistical Field Theory}
+\author{quinten tupker}
+\date{October 13 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by Johannes Pausch in Michaelmas
+2020. Due to the measures taken in the UK to limit the spread of
+Covid-19, these lectures were delivered online. These are not meant to be an
+accurate representation of what was lectures. They solely represent a mix of
+what I thought was the most important part of the course, mixed in with many
+(many) personal remarks, comments and digressions... Of course, any
+corrections/comments are appreciated.
+
+Non-Equilibrium Statistical Field Theory is the study of statistical properties
+of field theory that is changing in time (which is what non-equilibrium refers
+to here).
+
+\section{Master Equations}
+
+Firstly, we try to derive some master equations to use in our model. How do we
+model our system? We first discretise time into steps $t_n$. For some reason, in
+this field by convention, time travels from right to left. Anyways, having
+discretised time, we model systems as Markov chains with $N(t_n)$ being the
+number of particles ``present'' at $t_n$.
+
+We can then write the \textbf{Chapman-Kolmogorov equation} as
+
+$$ \mathbb{P}(N(t_3) | N(t_1)) = \sum_{N(t_2)} \mathbb{P}(N(t_3) | N(t_2))
+\mathbb{P}(N(t_2) | N(t_1)) $$
+
+Now we want to take the continuum limit of this equation by defining
+
+$$ W_t(N' | N) = \partial_{t'} \mathbb{P}(N'(t') | N(t)) |_{t' = t} $$
+
+then we can write
+
+$$ \mathbb{P}(N'(t + \Delta t) | N(t)) \approx \mathbb{P}(N'(t) | N(t)) + \Delta
+t W_t(N' | N) = \delta_{N'(t), N(t)} + \Delta W_t(N' | N) $$
+
+Notice that since probabilities add to 1, $\sum_{N'} W_t(N' | N) = 0$, so in
+particular $W_t{N | N} = - \sum_{N' \neq N} W_t(N' | N)$. Using
+that we can rewrite the Chapman-Kolmogorov equation as
+
+\begin{align*}
+  \mathbb{P}(N(t_3) | N(t_1)) - \mathbb{P}(N(t_2) | N(t_1))
+  &= \sum_{N(t_2)} \mathbb{P}(N(t_3) | N(t_2)) \mathbb{P}(N(t_2) | N(t_1)) \\
+  &= \Delta t \sum_{N_2 \neq N_3} W_{t_2}(N_3 | N_2) \mathbb{P}(N_2 | N_1) -
+    W_{t_3}(N_2 | N_3) \mathbb{P}(N_3 | N_1)
+\end{align*}
+
+Taking limits and removing the $|N_1$ part in the conditional probabilities for
+notational simplicity we get the final form of our \textbf{Master Equation}
+(which has no other name?)
+
+$$ \partial_t \mathbb{P}(N) = \sum_{N' \neq N} W_t(N | N') \mathbb{P}(N') -
+W_t(N' | N) \mathbb{N} $$
+
+where the first term in the sum can be called the \textbf{gain}, and the second
+subtracted term can be called the \textbf{loss} (we can interpret them as such).
+To build intuition we provide a simple example.
+
+\begin{example}
+  We consider a simple extinction process where a group of particles are
+  gradually disappearing. Here $W(N - 1|N) = N\epsilon, W(N|N) = -N\epsilon$ for
+  some $\epsilon > 0$ while all other values of the matrix $W$ are zero. As such
+  we get a simple master equation
+  $$ \partial_t \mathbb{P}(N) = \epsilon(N + 1) \mathbb{P}(N + 1) - \epsilon N
+  \mathbb{P}(N) $$
+  [End of lecture 1]
+\end{example}
+
+\end{document}
