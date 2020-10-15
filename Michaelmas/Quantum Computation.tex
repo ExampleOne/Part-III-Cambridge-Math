@@ -144,5 +144,50 @@ All that remains is to find this basis, and the operation that expresses them in
 terms of it. As eigenvectors of a unitary matrix are orthogonal, all we need to
 do is zip the eigenvectors into a matrix. These eigenvectors are just of the
 form $e^{2\pi i k l/ M}$, so we get the Quantum Fourier Transform we expect.
+[End of lecture 2]
+
+\subsection{The Hidden Subgroup Problem (HSP)}
+
+The hidden subgroup problem asks
+the question how can we find subgroup $K$ of group $G$ (this course only
+considers finite $G$) given a function $f : G \to X$ that is an invertible
+function of the left cosets of $K$. Our goal is to solve this problem in
+$O(poly(\ln(|G|)))$.
+
+Examples of this include Schur's algorithm where we have $G = \mathbb{Z}_p^*$,
+then $K = {0, r, 2r, \dots}$, and then $f$ used before works for our purpose.
+Another example is calculating \textbf{discrete logarithm}, which if done
+efficiently could break encryption methods. This involves calculating logarithms
+on $\mathbb{Z}_p^*$, so given $x$ finding $y$ such that for group generator $g$,
+$x = g^y$. To formulate this as an HSP consider
+
+\begin{align*}
+  f : \mathbb{Z}_{p - 1} \times \mathbb{Z}_{p - 1} &\to \mathbb{Z}_p^* \\
+  (a, b) &\mapsto g^ax^{-b} = g^{a - yb}
+\end{align*}
+
+where we can see that $f(a_1, b_1) = f(a_2, b_2)$ iff $(a_2. b_2) - (a_1, b_1) =
+\lambda (y, 1)$ some $\lambda$. So using $K = \{\lambda (y, 1) | \lambda \in
+\mathbb{Z}_{p - 1}\}$ works.
+
+Those both involve abelian groups, but a big area of interest is solving
+the problem for non-abelian groups. Examples of such problems include finding
+the Automorphism group of a graph. For graph $A$ this means finding
+$\text{Aut}(A)$ a subgroup of the group of permutations of the vertices of $A$
+such that the overall structure (edges) are preserved. This can be formulated
+quite naturally into an HSP by taking $X$ to be the set of all $n$ vertex
+graphs, and then to consider the function $f_A(\pi)$ which applies permutation
+$\pi$ to $A$. Clearly the result depends only on the coset of $\text{Aut}(A)$.
+
+Even more famous is the \textbf{Graph Isomorphism} problem (GI), which is to
+check whether or not two labelled graphs are isomorphic (so whether there exists
+a permutation turning one into the other). This can be converted into an HSP,
+although the process is more complicated. There also exists few good classical
+algorithms, although in 2017 someone found an algorithm doing it in
+quasi-polynomial time. 
+
+But how far will we get with quantum algorithms. The abelian case has been fully
+solved, but unfortunately the non-abelian case (which the above two problems
+belong to) remains an important unsolved problem in the field. [End of lecture 3]
 
 \end{document}
