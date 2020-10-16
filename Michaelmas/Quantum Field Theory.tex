@@ -332,11 +332,7 @@ Just as a remark on terminology, a Lorentz transformation is a linear
 transformation preserving the Minkowski metric. On the other hand, a
 \textbf{proper Lorentz transformation} is a Lorentz transformation with
 determinant 1 (which ensures causality). 
-
-Our goal now is to work towards Noether's theorem. Noether's theorem states that
-
-\begin{theorem}[Noether's Theorem]
-  For every continuous symmetry, there exists a conserved current, given by
+Our goal now is to work towards Noether's theorem. Noether's theorem states that \begin{theorem}[Noether's Theorem] For every continuous symmetry, there exists a conserved current, given by
   $$ j^\mu = \partial_{\partial_\mu \phi} \mathcal{L} \delta \phi -
   F^\mu(\phi(x)) $$
   where $\delta \phi$ is the variation in $\phi$ and $\delta \mathcal{\lambda} =
@@ -380,4 +376,112 @@ also a surface term (often determined by the boundary conditions) for $\delta
 depends on the variation whereas the second does not?
 
 [End of lecture 4 - this bit needs rewriting]
+
+[Start of Noether's theorem rewrite]
+
+Alright, so now to the main topic of this lecture: Noether's theorem. Noether's
+theorem states that for every continuous symmetry we get a conserved current
+(and quantity), which she gives an equation for. Now how do we get that?
+
+Firstly, we observe that for a Lorentz transformation
+
+$$ \Lambda \approx I + s\Omega $$
+
+where $\Omega$ is antisymmetric (to ensure we preserve the Minkowski metric). If
+that the case, we see that if we tree $\mathcal{L}$ as a scalar field
+$\mathcal{L}(x)$ instead of a function of the field, then
+
+$$ \delta \mathcal{L} = - s\Omega^\mu_\nu x^\nu \partial_\mu(\mathcal{L}(x)) =
+-s\Omega^\mu_\nu \partial_\mu (x^\mu \mathcal{L}(x)). $$
+
+This last equality only holds because $\Omega$ is asymmetric (so its diagonal is
+all zeros). But importantly, we see that $\delta \mathcal{L}$ can be written as
+a total derivative when $x$ is varied.
+
+Now, we vary the same $\mathcal{L}$ but instead of varying with respect to $x$,
+we vary with respect to the field $\phi$. Doing so, and assuming Euler-Lagrange
+we find that:
+
+\begin{align*}
+  \delta \mathcal{L}
+  &= \partial_\phi \mathcal{L} \delta \phi + \partial_{\partial_\mu \phi} \mathcal{L} \delta \partial_\mu \phi \\
+  &= (\partial_\phi \mathcal{L} - \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L})) \delta \phi + \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L} \delta \phi) \\
+  &= \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L} \delta \phi)
+\end{align*}
+
+Remarkably, we find once again that we may write $\delta \mathcal{L}$ as a total
+derivative. Let us now denote these variations as $\delta_x \mathcal{L}$ for the
+first, and $\delta_\phi \mathcal{L}$ for the second. Now, since we have a
+symmetry, we know that the action is unchanged when we apply a Lorentz
+transformation. In particular, we know that the ``partial variation'' of
+$\mathcal{L}$ with respect to $x$ alone, but ignoring $\phi$ should be
+``constant.'' What do we mean by constant? The partial derivative with respect
+to space is a 4-vector, so really we mean that the Minkowski metric is
+unchanged. In other words, to first order the quantity
+
+$$ v_M \cdot \partial_x \delta \mathcal{L} = 0 $$
+
+where we use $\partial_x \delta$ to denote this ``pure'' partial derivative and
+
+$$
+v_M =
+\begin{pmatrix}
+  -1 \\
+  1 \\
+  1 \\
+  1
+\end{pmatrix}
+$$
+
+is the ``Minkowski vector'' (the first order derivative of the Minkowski metric
+in a sense). This would mean that the Minkowski metric is unchanged under a pure
+variation of spacetime. So how do we write this pure variation of space time?
+We notice that $\delta \partial_x \mathcal{L} = \delta_x \mathcal{L} -
+\delta_\phi \mathcal{L}$ since in a sense $\delta_x \mathcal{L}$ is the total
+derivative of $\mathcal{L}$ with respect to $x$, and $\delta_\phi \mathcal{L}$
+is the total derivative of $\mathcal{L}$ with respect to $\phi$, and so, by the
+chain rule, what is left over is the partial variation with respect to $x$.
+
+This is exactly what Noether's theorem refers to. Noether's theorem defines the
+\textbf{conserved current} to be
+
+$$ j^\mu = \partial_{\partial_\mu \phi} \mathcal{L} \delta \phi - F^\mu $$
+
+where $\delta_x \mathcal{L} = \partial_\mu F^\mu$, and $\delta_\phi \mathcal{L}
+= \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L} \delta \phi) $, and so
+we see that our partial variation of $\mathcal{L}$ with respect to only $x$ is
+
+$$ \delta \partial_x \mathcal{L} = -\frac{\partial}{\partial x_\mu} j^\mu $$
+
+(no summation convention - this is a vector here), and importantly
+
+$$ \partial_\mu j^\mu = v_M \cdot \delta \partial_x \mathcal{L} = 0 $$
+
+as required since $\partial_\mu j^\mu = \delta \mathcal{L} - \delta \mathcal{L}
+= 0$.
+
+That is Noether's theorem. I do not fully understand it, and to me it seems
+weird that the ``generators'' of these variations (the terms like $F^\mu$ inside
+the derivative) are not the same. But anyhow, Noether's theorem states that
+$j^\mu$ is conserved, so $\partial_\mu j^\mu = 0$ (which means the Minkowski
+metric stays the same in the way we described). Aside from that we will remark
+that we assume in general that for any symmetry $\partial_x \mathcal{L} =
+\partial_\mu F^\mu$ for some $F^\mu$,
+
+Now where does a conserved quantity arise from. Here we note that if $Q = \int
+dx^3 j^0$ then it satisfies
+
+\begin{align*}
+  \frac{d}{dt} Q
+  &= \int dx^3 \partial_t j^0 \\
+  &= - \int dx^3 \nabla \cdot J \\
+  &= \int_S dS \cdot J \\
+  &= 0
+\end{align*}
+
+and os is conserved. One can check that in the case of electromagnetism, $Q$
+corresponds precisely to electromagnetic charge.
+
+[End of Noether's theorem rewrite]
+
 \end{document}
