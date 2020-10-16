@@ -20,6 +20,7 @@
     "physics")
    (LaTeX-add-environments
     "definition"
-    "example"))
+    "example"
+    "theorem"))
  :latex)
 

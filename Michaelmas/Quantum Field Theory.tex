@@ -14,6 +14,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
 
 \title{Quantum Field Theory}
 \author{quinten tupker}
@@ -327,4 +328,56 @@ $$ g \cdot \psi \mapsto \psi + \delta \psi = \psi + \alpha X \psi $$
 
 to first order. [End of lecture 3]
 
+Just as a remark on terminology, a Lorentz transformation is a linear
+transformation preserving the Minkowski metric. On the other hand, a
+\textbf{proper Lorentz transformation} is a Lorentz transformation with
+determinant 1 (which ensures causality). 
+
+Our goal now is to work towards Noether's theorem. Noether's theorem states that
+
+\begin{theorem}[Noether's Theorem]
+  For every continuous symmetry, there exists a conserved current, given by
+  $$ j^\mu = \partial_{\partial_\mu \phi} \mathcal{L} \delta \phi -
+  F^\mu(\phi(x)) $$
+  where $\delta \phi$ is the variation in $\phi$ and $\delta \mathcal{\lambda} =
+  F^\mu$.
+  Conservation here means that $\partial_\mu j^\mu = 0$.
+\end{theorem}
+
+The conserved quantity associated with the conserved current then can be shown
+to be $Q = \int dx^3 j^0$ since
+
+\begin{align*}
+  \frac{d}{dt} Q
+  &= \int dx^3 \partial_t j^0 \\
+  &= - \int dx^3 \nabla \cdot J \\
+  &= \int_S dS \cdot J \\
+  &= 0
+\end{align*}
+
+A good example is $j^\mu = (\rho, J)$ for charge density and current in
+electromagnetism. Anyways, here is our ``proof'' of Noether's theorem:
+
+\begin{proof}
+  Using the Euler-Lagrange equation applied to the field $\phi$ we see that
+  \begin{align*}
+    \delta \mathcal{L}
+    &= \partial_\phi \mathcal{L} \delta \phi + \partial_{\partial_\mu \phi} \mathcal{L} \delta \partial_\mu \phi \\
+    &= (\partial_\phi \mathcal{L} - \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L})) \delta \phi + \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L} \delta \phi) \\
+    &= \partial_\mu (\partial_{\partial_\mu \phi} \mathcal{L} \delta \phi)
+  \end{align*}
+
+  Then using our definition of $j^\mu$ as above we see that $\partial_\mu j^\mu
+  = 0$.
+\end{proof}
+
+Here it is assumed that $\delta \mathcal{L} = \partial_\mu F^\mu$ which means we
+can apply Stokes' theorem and integrate on the surface only. When we do so,
+$F^\mu$ becomes that surface term we integrate with. But Euler-Lagrange also
+means that our expression above, for the first term in the conserved current, is
+also a surface term (often determined by the boundary conditions) for $\delta
+\mathcal{L}$. So what exactly is the difference? Is it that the first term
+depends on the variation whereas the second does not?
+
+[End of lecture 4 - this bit needs rewriting]
 \end{document}
