@@ -20,6 +20,7 @@
     "physics")
    (LaTeX-add-environments
     "definition"
-    "proposition"))
+    "proposition"
+    "lemma"))
  :latex)
 

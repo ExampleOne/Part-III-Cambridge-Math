@@ -14,6 +14,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
 
 \title{Symmetries, Fields, and Particles}
 \author{quinten tupker}
@@ -105,6 +106,102 @@ orthogonal group, unitary group, and special unitary group. He also describes
 their dimensionality. In particular, using their properties, he shows that
 $O(n)$ has $\frac{1}{2}n(n - 1)$ free parameters, and $SU(n)$ has $n^2 - 1$
 parameters. He also mentions the famous fact that topologically $SU(2) \equiv
-S^3$.
+S^3$. [End of lecture 3]
+
+Let's continue defining some special matrix groups that may be less well known.
+
+\begin{definition}
+  The \textbf{symplectic group} $S_p(2n, \mathbb{R})$ is a subset of the general
+  linear group satisfying
+  $$ M^T J M = J $$
+  for
+  $$ J =
+  \begin{pmatrix}
+    0 & -1 & 0 & 0 & \dots & 0 & 0 \\
+    1 & 0 & 0 & 0 & \dots & 0 & 0 \\
+    0 & 0 & 0 & -1 & \dots & 0 & 0 \\
+    0 & 0 & 1 & 0 & \dots & 0 & 0 \\
+    \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+    0 & 0 & 0 & 0 & \dots & 0 & -1 \\
+    0 & 0 & 0 & 0 & \dots & 1 & 0
+  \end{pmatrix}
+  $$
+\end{definition}
+
+This group has dimension $n(2n - 1)$ when treated as a manifold, and the
+determinant of every element in the group is 1 (applying the determinant to the
+equation gives us $\pm1$, if you apply a generalised determinant for
+anti-symmetric matrices called the Pfaffian you can see the sign as well). For
+the sake of representations the most important thing about the symplectic
+symplectic group is that unlike other groups we've seen, like $SO(n)$ or
+$SU(n)$, the symplectic linear group is not compact.
+
+\begin{definition}
+  The pseudo-orthogonal group $O(n, m)$ is the subgroup of the general linear
+  group satisfying
+  $$ M^T g M = g $$
+  for
+  $$ g =
+  \begin{pmatrix}
+    I_n & \\
+    & -I_m
+  \end{pmatrix}
+  $$
+\end{definition}
+
+Similarly we have $SO(n, m), U(n, m), SU(n, m)$. Also notice that $SO(1, 1) =
+S_p(2, \mathbb{R})$.
+
+\subsection{Representations}
+
+A representation of a group is a homomorphism $\phi$ from that group to a space of
+linear maps on some vector space $V$ on some field. For matrix groups, such as
+those mentioned above, we 
+also have the canonical \textbf{fundamental representation} that represents
+matrices just as the matrices they are defined to be.
+
+A representation is called \textbf{reducible} if we can find a linear subspace
+so that the representation can be viewed purely as a representation on that
+subspace (formally $\forall g \in G, u \in U, \phi(g) u \in U$ where $U \leq
+V$). There are theorems in representation theory about the reducibility of
+representations into irrudicible ones, such that we can always write
+
+$$ V \equiv \bigoplus_r U_r $$
+
+for irreducible $U_r$. A handy lemma in this field.
+
+\begin{lemma}
+  For irreducible representations $V, W$ of G,
+  \begin{itemize}
+  \item $Hom_G(V, W)$ ccontains only 0 or isomorphisms.
+  \item if the field we are working on is algebraically closed, then
+    $\text{dim} (Hom_G(V, W)) = 1$ 
+  \end{itemize}
+\end{lemma}
+
+I know this has been worded in too abstract a manner, but it is more familiar
+for me. Basically, two irreducible representations are either isomorphic,
+meaning that they are the same up to similarity transformations (change of
+bases), and there is only one similarity transformation up to multiplication by
+a constant factor.
+
+Despite the fact that any group has an infinite number of representations, a lot
+of information can be summarised about them by calculating the
+\textbf{character} $\chi(g) = tr(\phi(g))$, which is just the trace of every
+matrix. Notice that since traces are unchanged by similarity transformations,
+they firstly are the same for isomorphic/equivalent representations, and
+secondly, are the same for conjugacy classes within the group, so they truly are
+just summaries of the representation. Nonetheless, many important properties can
+be deduced using them. For one, it is much easier to check if representations
+are equivalent this way.
+
+Finally, we consider the \textbf{tensor product} such that on $V \otimes W$
+the product of two representations acts as
+
+$$ (\phi \otimes \psi) (g) (v \otimes w) = \sum_{rs} \lambda_r \mu_s \phi(g)(v_r)
+\otimes \psi(g)(w_s) = \phi(g)(v) \otimes \psi(g)(w) $$
+
+where $v_r, w_s$ are the basis vectors of $V, W$ and $\lambda_r, \mu_s$ express
+$v$, $w$ in these bases. [End of lecture 4]
 
 \end{document}
