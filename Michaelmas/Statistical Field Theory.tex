@@ -311,4 +311,123 @@ $$ E = -4J \sum_{<i j>} n_i n_j - \mu \sum n_i $$
 
 We can proceed from there as usual. [End of lecture 2]
 
+\subsection{Landau-Ginzburg Theory}
+
+We aim to improve on Landau theory, and somehow the obvious generalisation is to
+allow $m$ to vary through space as $m(x)$, but doing so in a way that it is
+analytic, so that the calculations involved still stay relatively simple...
+
+Concretely, that means assuming we have a large number of sites $N$, but that
+these sites are all grouped into clusters of $N'$ sites, which is still a large
+number, but significantly smaller than $N$. Then we define for each cluster, a
+centre $x$, and we assign $m(x)$ the value of the average magnetisation of this
+cluster. However, since $1 << N' << N$, everything is still analytic, etc. Or so
+we assume.
+
+Consequently we can calculate the partition function in much the same way with
+the same effective free energy, except now the effective free energy is a
+functional instead of a function:
+
+$$ Z = \sum_{m(x)} e^{-\beta F[m(x)]} $$
+
+This can be written as a functional integral (otherwise known as a path integral)
+
+$$ Z = \int Dm[x] e^{-\beta F[m(x)]} $$
+
+and now instead of probabilities we get probabilty density
+
+$$ p(m(x)) = \frac{e^{-\beta F[m(x)]}}{Z}. $$
+
+Now, we have a number of conditions that we require this effective free energy
+to satisfy:
+
+\begin{itemize}
+\item locality: basically, it takes the form
+  $$ F[m(x)] = \int d^dx f[m(x)] $$
+  where $f$ depends on $m, \nabla m, \nabla^2 m, \dots$
+\item $\mathbb{Z}_2$ symmetry when $B = 0$ under $m \mapsto -m$
+\item Analyticity - we assume it has a Taylor expansion
+\item we are only interested in $m$ that are slowly varying in space
+\end{itemize}
+
+Now, focusing on the $B = 0$ case we see that the effective free energy must
+take the form
+
+$$ F[m(x)] = \int dx (\frac{1}{2} \alpha_2(T) m^2 + \frac{1}{4} \alpha_4(T) +
+\frac{1}{2} \gamma(T) (\nabla m)^2) $$
+
+where the odd terms are eliminated due to symmetry (of course, when $B \neq 0$
+we can add in these odd terms again).
+
+Unfortunately it is hard to find an general way to calculate $\alpha_2,
+\alpha_4, \gamma$. but we can say that $\alpha_4, \gamma > 0$ and $\alpha_2$
+changes sign at $T_c$/ In particular, in MFT,
+
+$$ \alpha_2 \sim (T - T_c), \alpha_4 \sim \frac{1}{3} T. $$
+
+Just as in plain Landau theory, we use the saddle point approximation that $Z =
+\int dm(x) e^{-\beta F(m(x))}$ is focused on the saddle point of $F$, but this
+time to find it we need to use the Euler-Lagrange approach, yielding the
+equation for the equilibrium:
+
+$$ \gamma \nabla^2 m = \alpha_2m + \alpha_4 m^3 $$
+
+How well does this theory work? We can check that if we assume $m$ is constant,
+then we get back to Landau theory, so we know that at the very least, this
+theory cannot be worse than Landau theory. As our first development we then look
+at the notion of domain walls, and see whether or not those can be of any help.
+In particular, we want to see what a solution to the following looks like in the
+one dimensional case:
+
+$$ \partial_x^2 m = \alpha_2 m + \alpha_4 m $$ 
+
+where $m = \pm m_0$ as $x \to \pm \infty$. The solution works out to $m = m_0
+\tanh(\frac{x - x_0}{W})$ where the width, $W = \sqrt{-\gamma / \alpha_2}$.
+
+This models how the system changes state half-way, and since these don't occur
+in ordinary Landau theory. As such, to compare the two it would be helpful to
+see what the free energy cost of having a domain wall is. We may calculate this
+as
+
+\begin{align*}
+  F_W
+  &\sim L^{d - 1} \int dx \gamma(\partial_x)^2 \\
+  &\sim L^{d - 1} \gamma m_0^2 / W \\
+  &= L^{d - 1} \sqrt{-\gamma \alpha_2^3 / \alpha_4^2}
+\end{align*}
+
+where $L$ is the ``length'' of the system. Now curiously, this allows us to see
+why Landau fails in 1 dimension, but not (as much) in 2 dimensions.
+
+Consider a 1 dimensional space length $L$, starting in state $m_0$ and ending in
+some other state, for $T < T_c$, meaning that $\alpha_2 < 0$. We then see that
+
+$$ \mathbb{P}(\text{wall at } x = x_0) = \frac{e^{-\beta F_W}}{Z} $$
+
+$$ \mathbb{P}(\text{wall somewhere}) \sim \frac{L}{W} \frac{e^{-\beta
+    F_W}}{Z} $$
+
+meaning that
+
+$$ \mathbb{P}(n \text{ walls}) = e^{-n\beta F_W} / Z \int_0^L dx_1 \int_{x_1}^L
+dx_2 \dots \int_{x_{n - 1}}^L dx_n = \frac{1}{Z n!} \left( \frac{L e^{-\beta
+      F_W}}{W} \right)^n. $$
+
+Consequently we can calculate the probabilities of how the final state of the
+rod ends up:
+
+$$ \mathbb{P}(m \to m_0) = \frac{1}{Z} \cosh \left( \frac{Le^{-\beta F_W}}{W}
+\right) $$
+
+$$ \mathbb{P}(m \to -m_0) = \frac{1}{Z} \sinh \left( \frac{Le^{-\beta F_W}}{W}
+\right) $$
+
+Now as $L \to \infty$, we see that these probabilities stay about the same,
+meaning that the state of the rad stays more or less random. Why does this
+argument fail in two dimensions? Well, the calculation does change a bit since
+we're in two dimensions, but we also have the fact that $F_W$ may depend on $L$
+in this scenario, meaning that in effect, the probabilities above instead
+converge to 0 and 1, meaning that a phase transition does indeed occur. [End of
+lecture 4]
+
 \end{document}
