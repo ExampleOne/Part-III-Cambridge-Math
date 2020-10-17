@@ -24,7 +24,10 @@
    (LaTeX-add-amsthm-newtheorems
     "definition"
     "proposition"
+    "theorem"
+    "corollary"
     "lemma"
-    "example"))
+    "example"
+    "claim"))
  :latex)
 

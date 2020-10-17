@@ -14,8 +14,11 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
 \newtheorem{lemma}{Lemma}
 \newtheorem{example}{Example}
+\newtheorem{claim}{Claim}
 
 \title{Differential Geometry}
 \author{quinten tupker}
@@ -705,6 +708,322 @@ D(D_pF([\gamma]))(f)
 So we now have two parallel ways to define the derivative. In different
 situations, a different approach will be more useful than the other. Overall, a
 lot of notation and terms are used, but fundamentally, the concepts we've seen
-so far are nothing unsurprising.
+so far are nothing unsurprising. [End of DG 7]
+
+\subsection{Immersions, Submersions and Local Diffeomorphisms}
+
+Recall the inverse function theorem:
+
+\begin{theorem}
+  \textbf{Inverse Function Theorem (IFT)} Given continuously differentiable $G :
+  V \to T$, a map between open subsets of $\mathbb{R}^n$ and if the derivative
+  at $p \in V$ is a linear isomorphism, then $\exists \text{open } V' \ni p, T'
+  \ni G(p)$ such that $G |_{V'}$ bijects $V` \to T'$ and the inverse is also
+  continuously differentiable.
+\end{theorem}
+
+\begin{corollary}
+  If the same conditions hold and $G$ is smooth then $G^{-1}$ is smooth as well.
+\end{corollary}
+\begin{proof}
+  $D(G^{-1}) = (DG)^{-1}$ and we can differentiate as many times as we want to
+  get our result. My only question here [?] why we can assume that the function
+  stays invertible?
+\end{proof}
+
+Now some definitions
+
+\begin{definition}
+$F : X \to Y$ is an \textbf{immersion at $p$} iff $D_pF$ is injective (this
+means it is like an inclusion map).
+\end{definition}
+\begin{definition}
+$F : X \to Y$ is an \textbf{submersion at $p$} iff $D_pF$ is surjective (this
+means it is like a projection map).
+\end{definition}
+\begin{definition}
+$F : X \to Y$ is an \textbf{local diffeomorphism at $p$} iff $D_pF$ is bijective.
+\end{definition}
+
+Having these, we now state and prove some rather intuitive results using these concepts.
+
+\begin{proposition}
+If $D_pF$ then $\exists$ open $U \ni p, S \ni F(p)$ such that $F|_U : U \to S$
+is a diffeomorphism.
+\end{proposition}
+\begin{proof}
+Pick $\phi : U \to V, \psi : S \to T$ about $p$ and $F(p)$ and shrink until
+$F(U) \subseteq S$ then applying the IFT to 
+$$ G = \psi \circ F \circ \phi^{-1} : V \to T $$
+we can find $V' \subseteq V, T' \subseteq T$ such that $G|_V'$ is a
+diffeomorphism $V' \to T'$. Replacing with $\phi^{-1}(V')$ and $\psi(T')$ we get
+what we wanted.
+\end{proof}
+
+Now notice how we are now using functions between manifolds to construct charts.
+If used effectively, we may be able to find a way to translate charts from one
+manifold onto another, which could be very helpful. We may for example use this
+to get a chart on polar coordinates by taking the natural map converting from
+polar to Cartesian coordinates $\mathbb{R}_{>0} \times \mathbb{R} \to
+\mathbb{R}^2$. Working to generalise this we get the following
+
+\begin{lemma}
+If $F$ is a local diffeomorphism at $p$ with local coordinates $x$ around $p$,
+then there exists local coordinates $y$ such that $y \circ F = x$ (so $F$
+locally acts as the identity map). The reverse can also be done.
+\end{lemma}
+\begin{proof}
+Pick a chart $\phi$ defining the local coordinates $x$, then leting $y$ be the
+local coordinates of $\phi \circ 
+(F |_U)^{-1}$ where $U$ is the open set containing $x$ that is needed to make
+$F$ is a local diffeomorphism succeeds in giving us our desired coordinates.
+
+Similarly, if $y$ are the coordinates associated with $\psi$, then take $x$ to
+be the coordinates to be associated with $\psi \circ F$. [Is it possible
+something is reversed here?]
+\end{proof}
+
+We can use this to characterise submersions and immersions as projections and
+inclusions.
+
+\begin{lemma}
+Let $F$ be an immersion at $p$, then we can find local coords such that in a
+neighbourhood of $p$, $F$ is given by the inclusion
+$$ \mathbb{R}^n \to \mathbb{R}^m $$
+for $m > n$. Similarly, if $F$ is a submersion, we can find a coordinates so that $F$ appears
+as the projection
+$$ \mathbb{R}^n \to \mathbb{R}^m$$
+for $m < n$.
+\end{lemma}
+\begin{proof}
+We only do the submersion case, since the immersion case is quite similar. Our
+strategy is to increase the dimension appropriately, and then to apply the IFT.
+
+For local coordinates $y$ on $Y$ about $F(p)$ with chart $\psi : S \to T$, and
+chart $\phi : U \to V$ on $X$ about $p$. Replace $F$ with $\psi \circ F \circ
+\phi^{-1}$, so it becomes a map of open subsets of $\mathbb{R}^n \to
+\mathbb{R}^m$.
+
+We want a change of coordinates $\chi$ on $\mathbb{R}^n$ to form the projection
+we want. Now, define $K = \textbf{Ker}(D_pF)$ then we see that the projection
+map $\pi : \mathbb{R}^n \to \mathbb{r}^{n - m}$ induces an isomorphism $K \to
+\mathbb{R}^{n - m}$. Now consider
+
+$$ \chi : X \to Y \times \mathbb{R}^{n - m} \text{ given by } (F, \pi) $$ 
+
+then this is smooth, and its derivative at $p$, $(D_p F, \pi)$, is an
+isomorphism, which means $\chi$ gives a change of coordinates about $p$, and by
+construction $F \circ \chi^{-1}$ is a projection onto the first $m$ components
+of the vectors involved. [End of DG 8]
+\end{proof}
+
+\subsection{Submanifolds}
+
+A natural concept to consider is to consider submanifolds. A first guess would
+be to assume that these are just subsets of the manifolds, and naturally
+translate the structure to them. The struggle with this is that these structures
+may not have a consistent dimension, varying between one dimensional lines, and
+far higher dimensional spaces at various points. Instead we define submanifolds
+to be subsets that can be written as if this miss a number of coordinates.
+
+\begin{definition}
+$Z \subseteq X$ is a \textbf{submanifold of codimension $k$} iff $\forall p \in Z,
+\exists \text{open } U \ni p$ such that $Z \cap U$ is given by $x_1 = x_2 =
+\dots = x_k = 0$.
+\end{definition}
+
+An example includes writing $S^1$ in $\mathbb{R}^2$ in polar coordinates, where
+a shifted radius coordinate is 0.
+
+\begin{proposition}
+A submanifold of $Z \subseteq X$ of codimension $k$ is naturally a smooth $n -
+k$ manifold. 
+\end{proposition}
+
+\begin{proof}
+Hausdorffness and second-countability are inherited as subsets. The local
+coordinates in the definition of a submanifold naturally form charts.
+\end{proof}
+
+But this way of defining a submanifold, while better since we do force true
+inheritance of the submanifold structure, is of course much harder to verify. So
+how can we check this more conveniently? We use the following concepts to do so:
+
+\begin{definition}
+  $y$ is a \textbf{regular value} of $F : X \to Y$ if $\forall p \in F^{-1}(y)$ are
+  regular points (meaning that $D_pF$ is surjectve). A value that is a not a
+  regular value is called a \textbf{critical value} (the same holds of points).
+\end{definition}
+
+This corresponds to the notion of critical points/values in calculus, so
+critical points are saddle points/local minima/maxima.
+
+\begin{proposition}
+  For any regular value $q$, $F^{-1}(q)$ is a codimension $m$ (the dimension of
+  $Y$) submanifold of $X$.
+\end{proposition}
+
+\begin{proof}
+  For each $p \in F^{-1}(q)$ we know that $F$ is a submersion at $p$, and so we
+  can find local coordinates $x$ about $p$, and $y$ about $q$ such that $y \circ
+  F = x$, so translating such that $y(q) = 0$, we find that on the domain of $x$
+  we have that $F^{-1}(q)$ is given by $x_1 = \dots = x_m = 0$ as required. In a
+  sense $Z$ is defined by the vanishing of the pullback here.
+\end{proof}
+
+Examples include $F(x, y) = xy$ which is regular everywhere except at 0, leaving
+a smooth 1-manifold there. At 0, the inverse is not a manifold (it is a cross,
+and acts weirdly at the origin). A big example is also using $F(x) = |x|^2$ to
+define the unit sphere as $F^{-1}(1)$.
+
+More useful examples though, include using this to look at submanifolds of
+matrix spaces. If we take the $n^2$ dimensional space $\mathcal{L}(\mathbb{R}^n,
+\mathbb{R}^n)$ a natural map to consider is the determinant map.
+$det^{-1}(\mathbb{R}^*)$ is an open set and so can be taken as a manifold as
+well. Furthermore, we can show that
+
+\begin{claim}
+1 is a regular value of the determinant.
+\end{claim}
+\begin{proof}
+Take $A \in \text{SL}(n, \mathbb{R})$ then to show that $\partial_A \text{det}$
+is surjective it suffices to show it is nonzero at some point. Consider $\gamma
+: t \mapsto e^{t} A$ then
+$$ D_A\text{det}([\gamma]) = [\text{det} \circ \gamma] = [t \mapsto e^{nt}] = n
+\partial_x $$ 
+
+which is indeed nonzero in the tangent space of the reals.
+\end{proof}
+
+Consequently $\text{SL}(n, \mathbb{R})$ is indeed a manifold. Another example
+would be to consider the map $F : \mathcal{L}(\mathbb{R}^n, \mathbb{R}^n) \to S$
+where $S$ the space of symmetric matrices given by $A \mapsto A^T A$. This has
+$I$ as a regular value, and $O(n) = F^{-1}(I)$ so we see that the space of
+orthogonal matrices is indeed a smooth $n(n - 1) / 2$ manifold.
+
+Now it turns out that from a theoretical level, regular values are ``common'' in
+the sense that
+
+\begin{theorem}
+\textbf{Sard's theorem}: the set of critical values has measure 0 in $Y$.
+\end{theorem}
+
+This is certainly not proven here, but it provides some background.
+Nevertheless, this is not necessarily a meaningful statement since one can
+construct maps such that every point in $X$ is a critical point, but then values
+in $Y$ are treated as regular even when $F^{-1}(y)$ are empty sets, so it's not
+always that meaningful. More useful in many cases in the following corollary:
+
+\begin{corollary}
+The set of regular values in dense. (and so there exists at least one such value)
+\end{corollary}
+
+This can be more helpful [End of DG 9].
+
+\subsection{Embeddings}
+
+The above was a geometric definition of a submanifolds, but we can define them
+using a more ``functional'' approach. Here we define
+
+\begin{definition}
+  An \textbf{embedding} is a smooth immersion that is homeomorphic to its image.
+\end{definition}
+
+Here are some results that apply to immersions.
+
+\begin{lemma}
+Any inclusion map $i : Z \to X$ from a submanifold to its
+supermanifold is an immersion.
+\end{lemma}
+\begin{proof}
+About any point $p \in Z$ we have local coordinates $x$ such that in $X$, $Z$
+can be expressed as $x_1 = \dots = x_k = 0$, and $x_{k + 1}, \dots, x_n$
+represent the coordinates inside $Z$. Here $i : (x_{k + 1}, \dots,
+x_n) \mapsto (0, \dots, 0, x_{k + 1}, \dots, x_n)$. This is clearly a
+homeomorphism under subspace topology. 
+\end{proof}
+
+Since we're aiming to look at submanifolds from a different angle, one might
+expect that we're trying to show that the converse holds as well (the image of
+an embedding is a submanifold), which is exactly what we will do.
+
+\begin{lemma}
+  Post composition with the inclusion map gives a bijection
+  $$ \{\text{smooth maps to } Z\} \to \{\text{smooth maps to } X \text{ with
+    image in } Z\} $$
+\end{lemma}
+
+\begin{proof}
+  If $F$ mapping to $Z$ is smooth, certainly $i \circ F$ is smooth. Conversely,
+  if $i \circ F$ is smooth, so is $F$ since if $x$ are local coordinates about
+  some $p$ in the image of $F$, then we can pick $x_1 = \dots = x_k = 0$ so that
+  we get nice coordinates on $Z$. Then, if $x' = (x_{k + 1}, \dots, x_n)$, $x
+  \circ F$ being smooth must mean that $x' \circ F$ is smooth.
+\end{proof}
+
+Now the converse of our first lemma for this section is
+
+\begin{proposition}
+If $F: Y \to X$ is an embedding, then $\text{Im}(F)$ is a submanifold of $X$ of
+codomain $k = n - m$, and $\bar{F} : Y \to \text{Im}(F)$ is a diffeomorphism by
+the above lemma.
+\end{proposition}
+
+\begin{proof}
+Let's call $\text{Im}(F), Z$ and consider the inclusion $i$ such that $i \circ
+\bar{F} = F$. Now by the chain rule, $\bar{F}$ is an immersion, and by
+considering dimension it is a local diffeomorphism. Thus locally $\bar{F}$ is
+smooth and a bijection, so by knitting together local inverses we can form a
+global inverse (recall $F$ is a homeomorphism), so overall as well, $\bar{F}$ is
+a diffeomorphism.
+
+All that's left is to verify that the image has the right dimension ($n - m$). Consider $q
+\in Y$ and let $p = F(q)$, then we see that $F$ being an immersion at $q$ means
+that there exists local coordinates $y$ on a neighbourhood $S$ of $q$ in $Y$ and
+$x$ on a neighbourhood $U$ of $p$ in $X$ such that $x \circ F = (y, 0, \dots,
+0)$. Now, fi we can find open $U' \ni p$ such that $F(y) \cap U' = F(S) \cap
+U'$, then $x$ defines coordinates on $U'$ such that
+
+$$ F(Y) \cap U' = \{x_{m + 1} = \dots = x_n = 0\} \cap U'. $$
+
+This is what we want since then $F(Y)$ is locally given by the vanishing of the
+right number of coordinates. But notice that since $F$ is a homeomorphism onto
+its image, the set $F(S)$ is open in $F(Y)$ so we can find an open neighbourhood
+$W$ of $p$ such that $F(S) = F(Y) \cap W$. Taking $U' = W \cap U$ we get $F(Y)
+\cap U' = F(S) \cap U'$ as required.
+\end{proof}
+
+Finally we can now show a result that we mentioned some time ago.
+
+\begin{proposition}
+The definition of $S^n$ as a submanifold of $\mathbb{R}^{n + 1}$ and the
+definition using the stereographic projection are diffeomorphic.
+\end{proposition}
+\begin{proof}
+Start with the stereographic projection definition of $S^n$, and now let $F :
+S^n \to \mathbb{R}^{n + 1}$ be the inclusion map. If we can show that $F$ is an
+embedding then we're done.
+
+Certainly $F$ is a homeomorphism onto the unit sphere, so we just need to show
+it's a smooth immersion. To do so, STP $F \circ \phi_{\pm}^{-1}$ is a smooth
+immersion $\mathbb{R}^n \to \mathbb{R}^{n + 1}$, where 
+
+$$ \phi_\pm : (x_0, \dots, x_n) \in S^n \setminus \{(\pm 1, 0, \dots, 0)\} =
+\frac{1}{1 \mp x_0} (x_1, \dots, x_n) \in \mathbb{R}^n $$
+
+are the charts. Evaluating explicitly, we see that indeed this map is smooth,
+asking
+
+$$ F \circ \phi_\pm^{-1} = \frac{1}{|y|^2 + 1} (\pm (|y|^2 - 1), 2y) $$
+\end{proof}
+
+Finally, for context, we mention, but do not prove, the following remarkable
+result:
+
+\begin{theorem}
+  Any (smooth?) $n$-manifold is a submanifold of $\mathbb{R}^{2n}$
+\end{theorem}
+
+The proof of this theorem is certainly beyond the scope of this course.
 
 \end{document}
