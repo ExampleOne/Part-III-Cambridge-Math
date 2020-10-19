@@ -21,6 +21,8 @@
     "longtable"
     "adjustbox"
     "physics")
+   (LaTeX-add-labels
+    "figure: DG12_universal_property.jpg")
    (LaTeX-add-amsthm-newtheorems
     "definition"
     "proposition"

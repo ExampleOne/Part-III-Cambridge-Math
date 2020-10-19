@@ -1027,4 +1027,317 @@ result:
 The proof of this theorem is certainly beyond the scope of this course.[End of
 DG 10]
 
+\subsection{Transversality}
+
+Here we will focus on intersections of manifolds. Intersections of manifolds are
+not always manifolds, since for submanifolds $Z_1, Z_2$ of $X$, from the
+definitions we used above it is not evident that $Z_1 \cap Z_2$ is a
+submanifold. This is perhaps most clearly illustrated by considering that $Z_1
+\cap Z_2$ is not necessarily a submanifold of $Z_1$ or $Z_2$, since by choosing
+carefully, one can make almost anything happen.
+
+We do not fully characterise when the intersection is a submanifold here, but
+if $Z_1, Z_2$ have codimensions $k_1, k_2$ one can imagine that the most generic
+of interesection is like two lines crossing in $\mathbb{R}^3$, which means,
+either they don't touch, or they meet at a single point (or coincide). The case
+where the intersection is empty is uninteresting, so we focus on the case where
+they meet at a single point (we assume them coinciding is ``uncommon''). In this
+case the codimension of $Z_1 \cap Z_2$ is $k_1 + k_2$, and so, thinking again
+from a linear algebra perspective, we imagine that the conditions defining these
+spaces - usually done by specifying a set of linear equations, or in other
+words, by specifying the annihilators (the annihilators contain the vectors
+$v_i$ such that $v_i \cdot x = 0$ in defining a subspace)- are linearly
+independent. So the annihilators are linearly independent. This corresponds to
+(on a local level)
+
+$$ (T_p Z_1)^\circ \cap (T_pZ_2)^\circ = \{0\} $$
+
+or in other words
+
+$$ T_p Z_1 + T_p Z_2 = T_p X. $$
+
+(which I suppose can be interpreted as the tangents spanning the whole space, so
+in particular, none of them overlap). This is indeed a sufficient condition to
+characterise a submanifold
+
+\begin{definition}
+  Submanifolds $Z_1, Z_2$ are \textbf{transverse}, written $Z_1 \pitchfork Z_2$ if
+  $\forall p \in Z_1 \cap Z_2, T_pZ_1 + T_pZ_2 = T_pX$.
+\end{definition}
+
+\begin{proposition}
+  If submanifolds $Z_1, Z_2$ of codimension $k_1, k_2$ are transverse, then $Z_1
+  \cap Z_2$ is a submanifold of $X$ of codimension $k_1 + k_2$. Also, $Z_1 \cap
+  Z_2$ is a submanifold of $Z_1$ of codimension $k_2$ and a submanifold of $Z_2$
+  of codimension $k_1$.
+\end{proposition}
+
+\begin{proof}
+The natural approach is to seek local coordinates about a point in $X$ such that
+$Z_1$ is given by $x_1 = \dots = x_k = 0$ and $x_{k + 1} = \dots = x_{k_1 + k_2}
+= 0$.
+
+To do so, consider local coordinates $a$ on open $U \ni p$, and $b$ on open $V
+\ni p$. wlog take $U = U \cap V$, and let $Z_1$ be given by $a_1 = \dots =
+a_{k_1} = 0$, and $Z_2$ be given by $b_1 = \dots = b_{k_2} = 0$. Now consider $F
+: U \to \mathbb{R}^{k_1 + k_2}$ given by $(a_1, \dots, a_{k_1}, b_1, \dots, b_{k
++ 2})$. By transversality, $F$ is a submersinn, so we can find local coordinates
+$x$ such that $F(x) = (x_1, \dots, x_{k_1 + k_2})$. These satisfy the conditions
+we require.
+\end{proof}
+
+Now, as ever, let's see if we can transfer this definition to maps instead of
+sets. Notice first that for inclusion maps, $\iota_1, \iota_2$, $Z_1 \pitchfork
+Z_2$ if and only if $\forall p \in \iota_1^{-1}(Z_2), \text{Im}(D_p \iota_1) +
+T_pZ_2 = T_{\iota_1(p)}X$. Now, smooth maps are really the same as
+inclusion maps when the manifolds have been twisted a bit, so consequently, we
+can define
+
+\begin{definition}
+$F: W \to X$ is \textbf{transverse} to $Z$, written $F \pitchfork Z$ if $\forall
+p \in F^{-1}(Z), \text{Im}(D_pF) + T_{F(p)}Z = T_p X$. In other words, the image
+of $F$ is transverse.
+\end{definition}
+
+\begin{proposition}
+$F: W \to X \pitchfork Z \implies F^{-1}(Z)$ is a codimension $k$ submanifold of
+$W$
+\end{proposition}
+
+Notice that this generalises the notion of a regular value, and that now we've
+generalised our theorem from before that for a regular value $F^{-1}(q)$ is a
+submanifold. 
+
+\begin{proof}
+A handy trick for some of these theorems is to consider the graph
+$$ \Gamma_F = \{(w, F(w)) \in W \times X\}$$
+a submanifold of $W \times X$. Then we note that $F$ is transverse to $Z$ iff
+$\Gamma_F$ is transverse to $W \times X$. Now notice that $\Gamma_F$ is
+diffeomorphic to $W$ via the projection $\pi_1 : (w, F(w)) \mapsto w$ meaning that
+$\pi_1(\Gamma_F \cap (W \times Z))$ is a codimension $k$ submanifold of $W$
+exactly equal to $F^{-1}(Z)$.
+\end{proof}
+
+This exands our set of tools to find submanifolds. [End of DG 12]
+
+\subsection{Transversality of Pairs of Maps}
+
+Now, we can extend our notion of transversality to pairs of maps. To do so
+define
+
+\begin{definition}
+$F_1 : X_1 \to Y$ and $F_2 : X_2 \to Y$ are \textbf{transverse}, written $F_1
+\pitchfork F_2$ if $\forall p_1 \in X_1, p_2 \in X_2$ where $F_1(p_1) =
+F_2(p_2)$ we have $\text{Im}(D_{p_1} F_1) + \text{Im}(D_{p_2} F_2) =
+T_{F_i(p_i)}Y$. This means that the images of the functions, where they overlap,
+are transverse to one another.
+\end{definition}
+
+We then get the following result:
+
+\begin{definition}
+The \textbf{fibre product} of $X_1, X_2$ over $Y$, written
+$$ X_1 \times_Y X_2 = \{(p_1, p_2) \in X_1 \times X_2 : F_1(p_1) = F_2(p_2)\} $$
+notice this clearly depends on the functions $F_1, F_2$ even if they are not
+specified in the notation.
+\end{definition}
+
+\begin{proposition}
+If $F_1 \pitchfork F_2$ then their fibre product $X_1 \times_Y X_2$ is a
+submanifold of dimension $\text{dim}(X_1) + \text{dim}(X_2) - \text{dim}(Y)$. 
+\end{proposition}
+
+\begin{proof}
+$F_1, F_2$ are transverse iff $(F_1, F_2) : X_1 \times X_2 \to Y \times Y$ is
+transverse to diagonal $\Delta = \{(y, y) : y \in Y\}$, meaning that $X_1
+\times_Y X_2 = (F_1, F_2)^{-1}(\Delta)$ is a submanifold of $X_1 \times X_2$.
+\end{proof}
+
+Alternatively, we take the approach
+
+\begin{proof}
+  $\Gamma_{F_i \circ \pi_i}$, the graphs of $F_i \circ \pi_i : X_1 \times X_2
+  \to Y$ are transverse iff $F_1, F_2$ are transverse, and $X_1 \times_Y X_2$ is
+  diffeomorphic to their intersection, as before.
+\end{proof}
+
+The fibre product is quite useful, and there are some important (and familiar)
+examples we can list below:
+
+\begin{example}
+  If $Y$ is a single point, then the fibre product becomes the usual product
+  $X_1 \times X_2$.
+\end{example}
+
+\begin{example}
+  More generally, if $F_2$ is a submersion then it is transverse along any
+  smooth $F_1$. In this case, $X_1 \times_Y X_2$ is called the pullback of $F_2$
+  along $F_1$. This has future uses.
+\end{example}
+
+\begin{example}
+  If $F_i$ are inclusions of submanifolds $X_i \subseteq Y$, then the maps are
+  transverse iff $X_1 \pitchfork X_2$, and the fibre product naturally becomes
+  the intersection $X_1 \cap X_2$. 
+\end{example}
+
+Finally, this approach satisfies the following universal property:
+
+\begin{proposition}
+  If $F_1 \pitchfork F_2$ then
+  \begin{itemize}
+    \item the projection $\text{pr}_i : X_1 \times X_2 \to X_i$ induce a smooth
+      $\overline{\text{pr}}_i : X_1 \times_Y X_2 \to X_i$ such that $F_1 \circ
+      \overline{\text{pr}}_1 = F_2 \circ \overline{\text{pr}}_2$.
+    \item Given a manifold $W$ and smooth maps $G_i : W \to X_i$ satisfying $F_1
+      \circ G_1 = F_2 \circ G_2$ there is a smooth map $G : W \to X_1 \times_Y
+      X_2$ satisfying $\overline{\text{pr}}_i \circ G = G_i$.
+  \end{itemize}
+\end{proposition}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=8cm]{res/DG/DG12_universal_property.jpg}
+  \label{figure: DG12_universal_property.jpg}
+\end{figure}
+
+\begin{proof}
+  This being a more category-theory angle, and not being the focus here, we
+  don't give a very detailed proof.
+  \begin{itemize}
+    \item Let $\iota : X_1 \times_Y X_2 \to X_1 \times X_2$ be the inclusion,
+      then $\overline{\text{pr}}_i = \text{pr}_i \circ \iota$, which is smooth.
+      Since we're using the fibre product, we then get $F_1 \circ
+      \overline{\text{pr}}_1 = F_2 \circ \overline{\text{pr}}_2$ as required.
+    \item Using the fact that post composition with $\iota$ gives a bijection
+      between smooth maps from maps $W \to X_1 \times_Y X_2$ to maps $W \to X_1
+      \times X_2$ with image $X_1 \times_Y X_2$ provides a proof. The details
+      are left as an exercise (unfortunately). [End of DG 12]
+  \end{itemize}
+\end{proof}
+
+\subsection{Manifolds with Boundaries}
+
+All the manifolds we've dealt with so far all had to be more or less open sets,
+so how do we generalise all our notions to manifolds that might be partially
+closed sets, or have non-empty boundaries?
+
+\begin{definition}
+A \textbf{topological $n$-manifold with boundary} is a Hausdorff,
+second-countable topological space $X$ such that for every point $p \in X$ we
+can find an open set $U \ni p$, and (new) also a set $V$ open in either
+$\mathbb{R}^n$ or $\mathbb{R}_{\geq 0} \times \mathbb{R}^{n - 1}$ together with
+homeomorphism $\phi : U \to V$. Here points where $V$ can be picked to be an open
+set in $\mathbb{R}^n$ are called the \textbf{interior} of $X$, denoted
+$\mathring{X}$ , and points where $V$ must be a subset of $\mathbb{R}_{\geq 0}
+\times \mathbb{R}^{n - 1}$ are called part of the boundary, denoted $\partial X$.
+\end{definition}
+
+One can use algebraic topology (use contractibility) to show that the boundary
+and interior are well-defined. Also, note that $\mathbb{R}^n$ is embedded in
+$\mathbb{R}_{\geq 0} \times \mathbb{R}^{n - 1}$ so really it is not necessary to
+consider the possibility that $V$ lies in $\mathbb{R}^n$. Nevertheless, it is
+convenint to think of things this way, and that is generally how we split
+between the interior and the boundary, even though it is not strictly necessary.
+
+Now, do we run into any problems generalising all the notions we had previously
+come up with to these manifolds with boundaries? In fact, surprisingly little
+changes. The only modification has to be made is that
+
+\begin{definition}
+A map $F : W \to \mathbb{R}^m$ for manifold with boundary $W \subseteq
+\mathbb{R}_{\geq 0} \times \mathbb{R}^n$ is \textbf{smooth}
+if there exists open $W' \subseteq \mathbb{R}^n$ such that $W' \supseteq W$ and
+extension $\bar{F}$ of $F$ to $W'$ that is smooth as a map from $W' \to
+\mathbb{R}^m$. 
+\end{definition}
+
+For the rest, we can easily transfer all definitions, including the notion of a
+smooth $n$-manifold with boundary as just adding a smooth structure as before.
+This notion also is highly compatible with our original notion in the sense that
+if the boundary is empty we simply recover our original manifold. Now, we just
+have the advantage that we can consider space such as $[0, 1]$ to be a manifold
+with boundary with interior (always a normal manifold) $(0, 1)$ and boundary
+$\{0, 1\}$.
+
+\begin{proposition}
+If $X$ is an $n$-manifold with boundary then $\mathring{X}$ is a $n$-manifold,
+and $\partial X$ is an $(n - 1)$-manifold.
+\end{proposition}
+\begin{proof}
+  It is obvious for the interior, just by transferring charts. For the boundary,
+  take a point $p \in \partial X$, then there exists $\phi : U \to V \subseteq
+  \mathbb{R}_{\geq 0} \times \mathbb{R}^{n - 1}$, so restricting to $\partial U
+  = \phi^{-1}(V \cap (\{0\} \times \mathbb{R}^{n - 1}))$ an open neighbourhood
+  of $p \in \partial X$. $\phi$ restricted to $\partial U$ forms a chart, and
+  together these form the required smooth structure on $\partial X$.
+\end{proof}
+
+\begin{example}
+  If $X$ is a manifold with boundary and $Y$ is an ordinary manifold, then $X
+  \times Y$ is a manifold with boundary with interior $\mathring{X} \times Y$
+  and boundary $\partial X \times Y$.
+\end{example}
+
+\begin{example}
+  If both $X, Y$ are manifolds with boundaries, then $X \times Y$ may not be a
+  manifold with boundary. THe chief example is with $[0, 1]^2$ the corners fail
+  to be part of the $boundary$ as we defined it, sicne they are two dimensions
+  lower, not just one dimension lower than the interior of the manifold. There
+  exists a good theory of such manifolds, but they are not described in this
+  course.
+\end{example}
+
+\begin{example}
+All 1-manifolds with boundary that are also connected are up to diffeomorphism:
+$(0, 1), [0, 1], [0, 1), $ and $S^1$. To justify this, Hausdorff and
+second-countability are very important. 
+\end{example}
+
+Perhaps one other definition needs a bit of modifying:
+
+\begin{definition}
+  A smooth map $F : W \to X$ is \textbf{transverse} to $Z$ if $F|_{\mathring{X}}
+  \pitchfork Z$ and $F|_{\partial W} \pitchfork Z$.
+\end{definition}
+
+\begin{proposition}
+  If $F \pitchfork Z$ then $F^{-1}(Z)$ is a manifold with boundary of
+  dimension $\text{dim}(W) - \text{codim}(Z)$. Moreover,
+  $$ \partial F^{-1}(Z) = F^{-1}(Z) \cap \partial W $$
+\end{proposition}
+
+The proof of this is left as an exercise. An example of this that will be useful
+later on is:
+
+\begin{example}
+  If $F_0, F_1$ are homotopic with homotopy $F: [0, 1] \times W \to X$ then if
+  $F \pitchfork Z \subseteq X$ then $F^{-1}(Z)$ is a manifold with boundary with
+  $$ \partial(F^{-1}(Z)) = F_0^{-1}(Z) \coprod F_1^{-1}(Z) $$
+  [End of DG 13]
+\end{example}
+
+\subsection{Intersection Theory}
+
+Now that we've set up the basics of our theory, we look at some of the
+consequences it has, most notably in topology. In this (sub)section we will
+assume that $X$ is an $n$-manifold, $Z$ is a submanifold of codimension $k$ that
+is closed as a set in $X$, and $W$ is a compact $k$-manifold.
+
+Notice that $Z$ is closed in $X$ iff the inclusion of $Z$
+in $X$ is \textbf{proper} (pre-images of compact sets are compact), so such submanifolds
+are somtimes called \textbf{properly embedded}.
+
+Also, notice that $Z$ being closed and a submanifold of $X$ is equivalent to the
+statement $\forall p \in X$ (not just $Z$ this time) $\exists$ local coordinates
+$X$ on an open set $U \ni p$ such that $Z$ is given by $x_1 = \dots = x_k = 0$.
+
+Finally, just in terms of terminology, a manifold is sometimes called
+$\textbf{closed}$ if it is compact without boundary, but this is a strictly
+stronger statement than it being closed in the set sense. That's why the term
+properly embedded is sometimes preferred to describe the situation we have here
+(or just closed as sets).
+
+
+
 \end{document}
