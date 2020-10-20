@@ -484,4 +484,85 @@ corresponds precisely to electromagnetic charge.
 
 [End of Noether's theorem rewrite]
 
+Today we will look at certain examples of Noether's theorem. In particular, we
+will define the energy-momentum constant as the Noether current arising from
+translation invariance. Under the symmetry $x^\mu \mapsto x^\mu + \epsilon^\mu$,
+we get $\phi \mapsto \phi(x - \epsilon) \approx \phi(x) - \epsilon^\mu
+\partial_\mu \phi + \dots$. We also get $\delta \mathcal{L} = -\epsilon^\mu
+\partial_\mu \mathcal{L}$. Consequently we get energy-momentum tensor
+
+$$ T^\mu_\nu = j^\mu_\nu = \partial_{\partial_\mu \phi} \mathcal{L} \partial_\nu
+\phi - \delta^\mu_\nu \mathcal{L} $$
+
+As Noether current, this is conserved, meaning $\partial_\mu T^\mu_\nu = 0$. We
+consequently get conserved quantities:
+
+$$ E = \int d^3x T^{00} $$
+$$ p^i = \int d^3xT^{0i} $$
+
+or equivalently, the 4-momentum is conserved:
+
+$$ p^\nu = \int d^3x T^{0\nu}. $$
+
+[Lecturer computes example in Klein-Gordon case.] In many cases, such as the
+Klein-Gordon case we find the energy-momentum tensor to be symmetric, but this
+need not be the case in general. However, just as the Lagrangian gives rise to
+the same physics if we add a total derivative, one can show that the
+energy-momentum tensor has a similar symmetry, and if a particular choice of
+total derivative is made, we find that we can always make $T^{\mu \nu}$
+symmetric.
+
+More specifically, we find that if we use the formula from general relativity
+for the energy-momentum tensor:
+
+$$ T_{\mu\nu}(x) = \frac{-2}{\sqrt{-g}} \partial_{g^{\mu\nu}} (\sqrt{-g}
+\tilde{\mathcal{L}}) $$
+
+for $g = \text{det}(g_{\mu \nu})$ then we always get a symmetric result. By
+using the Minkowski metric we can recover our original result.
+
+\section{Canonical Quantisation}
+
+In the Advanced Quantum Field Theory course in Lent, we will use the Lagrangian
+directly to formulate the path integral version of quantum mechanics. Here,
+however, we will stick to the Hamiltonian approach. For that we do a small
+review of Hamiltonian mechanics by starting with the Lagrangian
+
+$$ L(q, \dot{q}) = \frac{1}{2}\dot{q}^2 - V(q) $$
+
+We then define the \textbf{momentum conjugate to $q$} to be $p =
+\partial_{\dot{q}} L$. Performing the Legendre transform we then can define the
+\textbf{Hamiltonian} to be
+
+$$ H = p\dot{q} - \mathcal{L} = \frac{1}{2}p^2 + V(q) = H(p, q) $$
+
+since $H$ is really seen as a functino of $p$ and $q$. It is also clear that
+Hamiltonian can be seen as the total energy of a point in state space $(p, q)$.
+
+Now, we generalise our system to $N$ particles as
+
+$$ H = \sum_{i=1}^N p_i q_i - \mathcal{L} $$
+
+and introduce the \textbf{Poisson
+  bracket} (which is related to the commutator) as 
+
+$$ \{F, G\} = \sum_{i = 1}^N \partial_{q_i} F \partial_{p_i} G - \partial_{p_i}
+F \partial_{q_i} G $$
+
+for functions $F, G$ of $p, q$. We can then get the following important result:
+the Hamiltonian is the generator of time evolution, meaning that $\forall F(p,
+q)$ we find
+
+$$ \dot{F} = \{H, F\}. $$
+
+An important special case of this is that we can write the principle of least
+action by applying the time evolution property to $p$ and $q$ asking
+
+\begin{align*}
+  \dot{q}_i &= \{H, q_i\} = \partial_{p_i} H \\
+\dot{p}_i &= -\partial_{q_i} H
+\end{align*}
+
+and for any conserved $Q$, we get $\{H, Q\} = 0$.
+
 \end{document}

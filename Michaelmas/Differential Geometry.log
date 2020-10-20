@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.10.15)  19 OCT 2020 20:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.10.15)  20 OCT 2020 17:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -412,37 +412,58 @@ Package pdftex.def Info: res/DG/DG12_universal_property.jpg  used on input line
  1200.
 (pdftex.def)             Requested size: 227.62204pt x 138.25648pt.
  [20 <./res/DG/DG12_universal_property.jpg>]
-[21] [22] [23] (./Differential Geometry.aux) ) 
+[21] [22]
+<res/DG/DG14_intersecting_spaces.jpg, id=93, 446.66875pt x 261.97874pt>
+File: res/DG/DG14_intersecting_spaces.jpg Graphic file (type jpg)
+<use res/DG/DG14_intersecting_spaces.jpg>
+Package pdftex.def Info: res/DG/DG14_intersecting_spaces.jpg  used on input lin
+e 1351.
+(pdftex.def)             Requested size: 142.26378pt x 83.43915pt.
+<res/DG/DG14_moving_line.jpg, id=94, 1125.20375pt x 1402.23875pt>
+File: res/DG/DG14_moving_line.jpg Graphic file (type jpg)
+<use res/DG/DG14_moving_line.jpg>
+Package pdftex.def Info: res/DG/DG14_moving_line.jpg  used on input line 1362.
+(pdftex.def)             Requested size: 170.71652pt x 212.74452pt.
+ [23 <./res/DG/DG14_intersecting_spaces.jpg>] [24 <./res/DG/DG14_moving_line.jp
+g>]
+<res/DG/DG14_torus_sphere.jpg, id=101, 1807.75375pt x 853.1875pt>
+File: res/DG/DG14_torus_sphere.jpg Graphic file (type jpg)
+<use res/DG/DG14_torus_sphere.jpg>
+Package pdftex.def Info: res/DG/DG14_torus_sphere.jpg  used on input line 1446.
+
+(pdftex.def)             Requested size: 284.52756pt x 134.2866pt.
+ [25 <./res/DG/DG14_torus_sphere.jpg>] [26]
+(./Differential Geometry.aux) ) 
 Here is how much of TeX's memory you used:
- 6528 strings out of 480478
- 96317 string characters out of 5905958
- 351486 words of memory out of 5000000
- 22453 multiletter control sequences out of 15000+600000
+ 6549 strings out of 480478
+ 96961 string characters out of 5905958
+ 351507 words of memory out of 5000000
+ 22471 multiletter control sequences out of 15000+600000
  542209 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,10n,40p,336b,280s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/
-dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.
-pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
-/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/ty
-pe1/public/amsfonts/euler/eufm10.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/m
-sbm7.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on "Differential Geometry.pdf" (23 pages, 329753 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/
+cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.p
+fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
+onts/euler/eufm10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/
+share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on "Differential Geometry.pdf" (26 pages, 515368 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
+ 174 PDF objects out of 1000 (max. 8388607)
+ 120 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

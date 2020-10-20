@@ -22,7 +22,9 @@
     "adjustbox"
     "physics")
    (LaTeX-add-labels
-    "figure: DG12_universal_property.jpg")
+    "figure: DG12_universal_property.jpg"
+    "DG14_interesecting_spaces.jpg"
+    "DG14_moving_line.jpg")
    (LaTeX-add-amsthm-newtheorems
     "definition"
     "proposition"

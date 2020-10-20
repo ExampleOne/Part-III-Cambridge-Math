@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+
+\title{Quantum Field Theory Equation Sheet}
+\author{quinten tupker}
+\date{October 7 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+Here are some useful equations
+
+\begin{table}[H]
+  \caption{Equation Sheet}
+  \begin{adjustbox}{center}
+    \begin{tabular}{|p{5cm}|p{10cm}|p{5cm}|}
+      \hline
+      \label{equations_1}
+      Name/Description & Equation & Remarks \\
+      Noether conserved current & $j^\mu = \partial_{\partial_\mu \phi} \mathcal{L} \delta \phi - F^\mu$ & here $\mathcal{L}(x + \delta x) = \mathcal{L} + \delta x \partial_\mu F^\mu$, $\partial_\mu j^\mu = 0$ \\ \hline
+      The conserved charge arising from a conserved current & $Q = \int d^3x j^0$ & \\ \hline
+      The Energy-Momentum Tensor & $T^\mu_\nu = \partial_{\partial_\mu \phi} \mathcal{L} \partial_\nu \phi - \delta^\mu_\nu \mathcal{L}$ & This is the Noether current under translation. This tensor can always be chosen to be symmetric. It is a Noether current, so conserved as $\partial_\mu T^{\mu \nu} = 0$ \\ \hline
+    \end{tabular}
+  \end{adjustbox}
+\end{table}
+
+\end{document}
