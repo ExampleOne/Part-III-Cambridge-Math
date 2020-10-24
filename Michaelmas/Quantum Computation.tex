@@ -265,8 +265,47 @@ $\mathcal{H}_{|G|} \otimes \mathcal{H}_{|K|}$
   \frac{1}{\sqrt{|K|}} \sum_{k \in K} \ket{k}$. 
 \item Apply QFT and measure to get some state $\chi_g$. Note that here $g$
   does not depend on $g_0$ due to the QFT, which is the strength of this
-  algorithm. [End of lecture 4]
+  algorithm. [End of lecture 4] From here we can identify representations that
+  become trivial when restricted to $K$ since we see that
+  \begin{align*}
+    QFT \ket{K}
+    &= \frac{1}{\sqrt{|G||K|}} \sum_{l \in G} \left( \sum_{k \in K} \chi_l(k) \right) \ket{l} \\
+    &= \sqrt{\frac{|K|}{|G|}} \sum_{l \in G \text{ st } \chi_l|_K \text{ is trivial}} \ket{l}
+  \end{align*}
+  using the fact that $\sum \chi_l(k)$ is either $|K|$ or 0 depending on whether
+  or not $\chi_l$ becomes trivial.
 \end{enumerate}
 
+That ends the quantum part of the algorithm, where one essentially identifies
+the representation $\chi_g$ that is irreducible on $G$ but that becomes the
+trivial representation when restricted to $K$. This is enough to find the
+subgroup of interest.
+
+\begin{example}
+  For example, one can show that if $K$ has generators $k_1, \dots, k_M$ for $K
+  = O(\ln(|K|)) = O(\ln(|G|))$ then if we repeat the algorithm $O(\ln(|G|))$
+  times we can find the generators (so the subgroup) with probability $> 2/3$.
+\end{example}
+
+\begin{example}
+  In the $G = \mathbb{Z}_{M_1} \times \dots \times \mathbb{Z}_{M_r}$, one can
+  find that finding the group is equivalent to solving a set of linear
+  equations.
+\end{example}
+
+Now what goes wrong in the non-abelian case? Essentially two things can break
+down. Firstly, we might not be able to implement the quantum fourier transform
+in an efficient way. Secondly, because elements don't commute, we cannot
+simultaneously (block) diagonalise the basis into a set of shift-invariant
+states. This means one cannot fully recover the representations as one might
+wish. It has nevertheless been proven when the subgroup is normal, one can solve
+this efficiently (Hallgren, Russel, Ta-Shma 2003 SIAM J Comp The Hidden Subgroup
+Problem and Quantum Computation Using Group Representations), and that in fact,
+even in the most general non-abelian case the information we deduce is
+sufficient to find $K$, however there is no efficient way to deduce $K$ from the
+information we can gain using the more coarse-grained approach here (Ettinger,
+Hoyer and Knill, Hidden Subgroup States are Almost Orthogonal) (so query
+complexity is not high, but deducing the right information from it is high).
+[End of lecture 5]
 
 \end{document}
