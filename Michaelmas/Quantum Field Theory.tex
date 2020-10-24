@@ -560,9 +560,67 @@ action by applying the time evolution property to $p$ and $q$ asking
 
 \begin{align*}
   \dot{q}_i &= \{H, q_i\} = \partial_{p_i} H \\
-\dot{p}_i &= -\partial_{q_i} H
+  \dot{p}_i &= -\partial_{q_i} H
 \end{align*}
 
-and for any conserved $Q$, we get $\{H, Q\} = 0$.
+and for any conserved $Q$, we get $\{H, Q\} = 0$. Finally, we note that these
+also satisfy the property that
+
+$$ \{q_i, p_j\} = \delta_{ij}$$
+
+[End of lecture 5]
+
+How do translate this Hamiltonian to field theory? Firstly we define the
+\textbf{momentum conjugate to the field} as
+
+$$ \pi = \partial_{\partial_{\dot{\phi}}} \mathcal{L} $$
+and we apply the Legendre transform to get the \textbf{Hamiltonian density}
+
+$$ \mathcal{H} = \pi \dot{\phi} - \mathcal{L} = \mathcal{H}(\phi, \pi) $$
+
+and, as expected the normal Hamiltonian can then be calculated as
+
+$$ H = \int d^3x \mathcal{H}. $$
+
+As a check, and example, if we use $\mathcal{L} = \frac{1}{2}\partial_\mu \phi
+\partial^\mu \phi - V(\phi)$ (a ``suitably'' general Lagrangian) we get
+
+$$ \mathcal{H} = \frac{1}{2} \dot{\phi}^2 + \frac{1}{2} | \nabla \phi|^2 +
+V(\phi) = T^{00} $$
+
+the energy density, as one might hope.
+
+\subsection{The Canonical Quantisation}
+
+Now to actually quantise things we convert the Poisson bracket $\{\}$ to the
+commutator $\frac{1}{i\hbar} []$, with overall quantities staying the same. That
+means that for $\pi, \phi$ we get that
+
+$$ [\pi_i, \pi_j] = [\phi_i, \phi_j] = 0$$
+
+but that
+
+$$ [ \pi_i, \phi_j] = i\hbar \delta(x - y), $$
+
+as one might expect. The time evolution property of $H$ becomes 
+
+$$ H \ket{\psi} = -i \hbar \partial_t \ket{\psi}. $$
+
+In particular that means that for any conserved quantity (commutes with $H$), we
+can simultaneously diagonalise these to get a simultaneous basis $H$ and the
+conserved quantity. Also, note here that we later set $\hbar = 1$.
+
+Anyways, using the standard Hamiltonian approach we then find that
+
+$$ H = \int d^3x \frac{1}{2} \pi^2 + \frac{1}{2} |\nabla \phi|^2 + V(\phi) $$
+
+In practice, this is very hard to calculate, so not very helpful (one would have
+to diagonalise this function to find the energy eigenstates...). Instead we find
+some other ways.
+
+Finally, on interpretation, we note that the eigenvalues have become functions
+$f : \mathbb{R}^3 \to \mathbb{R}$, which we assume span the Hilbert space as
+usual. However, this has never been formalised mathematically, so it is a bit of
+a grey area... [End of lecture 6]
 
 \end{document}
