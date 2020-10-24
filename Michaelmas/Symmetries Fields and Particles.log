@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.10.15)  24 OCT 2020 15:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.10.15)  24 OCT 2020 16:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -369,7 +369,14 @@ en $[](\OML/cmm/m/it/10 Hom[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V; W\OT1/cmr/m/n
 /10 )) =
  []
 
-[3] [4] [5] (./Symmetries Fields and Particles.aux) ) 
+[3] [4] [5]
+Overfull \hbox (60.33711pt too wide) detected at line 365
+\OML/cmm/m/it/10 R[] \OT1/cmr/m/n/10 = [] [][][] = [] [][][] = [][][] \OMS/cmsy
+/m/n/10 ^^@ [] [][][] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 j [][][]j[] ^^@ \OT1/c
+mr/m/n/10 1
+ []
+
+[6] [7] [8] (./Symmetries Fields and Particles.aux) ) 
 Here is how much of TeX's memory you used:
  6471 strings out of 480478
  95626 string characters out of 5905958
@@ -377,7 +384,7 @@ Here is how much of TeX's memory you used:
  22408 multiletter control sequences out of 15000+600000
  541783 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,9n,41p,346b,221s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,13n,76p,346b,247s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fon
 ts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
@@ -394,11 +401,11 @@ msfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 re/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type
 1/public/cm-super/sfrm1000.pfb>
-Output written on "Symmetries Fields and Particles.pdf" (5 pages, 185713 bytes)
+Output written on "Symmetries Fields and Particles.pdf" (8 pages, 199498 bytes)
 .
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
+ 100 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

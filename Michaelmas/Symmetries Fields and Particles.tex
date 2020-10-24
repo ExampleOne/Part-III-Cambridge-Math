@@ -309,6 +309,150 @@ we get
 $$ A = \frac{1}{2} \tr{\sigma_\mu A} \sigma_\mu, \,\, \mu = 0, 1, 2, 3 $$
 
 which is really just writing it in a new orthogonal basis according to a certain
-dot product. [lecture 5]
+dot product. [End of lecture 5]
+
+So what is the isomorphism we are going to use. Consider the map
+
+$$ x \mapsto x_i \sigma_i $$
+
+which has inverse
+
+$$ x_i \sigma_i \mapsto \frac{1}{2} \tr(\sigma_j x_i \sigma_i) $$
+
+and satisfies $(x_i \sigma_i)^2 = x^2 I$, and $x_i \sigma_i$ has eigenvalues
+$\pm\sqrt{x^2}$, leaving determinant $\det(x_i \sigma_i) = -x^2$.
+
+Now, for any $A \in SU(2)$ let $x \mapsto x'$ via
+
+$$ x'_i \sigma_i = Ax_i \sigma_i A^\dagger $$
+
+which has $x'^2 = -det{x'_i \sigma_i} = \det{x_i \sigma_i} = x^2$ since $A$ is
+unitary. That means this map preserves length and so sits in $O(3)$. How do we
+show it is a rotation, not a reflection? We notice that the determinant as a map
+is continuous, and as $A \to I$, $R_A \to I$ as well, so we must get $\det{R_A}
+= 1$. So if we assume that $SU(2)$ has only a single connected component, we see
+that we map entirely onto $SO(3)$.
+
+Now, we'd like to invert this map as well, and a first step for us would be to
+see if we can write this map down explicitly. To do so, we notice that
+
+$$ (Rx)_i \sigma_i = \sigma_i R_{ij} x_j = x'_i \sigma_i = Ax_j \sigma_j
+A^\dagger $$
+
+which is true for any $x$, meaning that
+
+$$ \sigma_i R_{ij} = A \sigma_j A^\dagger $$
+
+Here, the LHS is just a decomposition of a matrix into a sum of Pauli, matrices,
+so taking a dot product (trace) with the appropriate matrices to undo the
+composition we get
+
+$$ R_{ij} = \frac{1}{2} \tr(\sigma_i A \sigma_j A^\dagger) $$
+
+which gives us one direction for our map. To reverse this, we notice that
+$\sigma_i \sigma_j \sigma_i = -\sigma_j$, and $\sigma_i^2 = I$, meaning that
+$\sigma_\mu \sigma_\nu \sigma_\mu = 4\delta_{0 \nu} I$. 
+
+$$ \sigma_\mu A^\dagger \sigma_\mu = 2 \tr(A) I \implies \sigma_i A^\dagger
+\sigma_i = 2 \tr(A) - \sigma_0 A^\dagger \sigma_0 $$
+
+(the implication refers to an equation in lectures).
+
+Applying this to our formula for $R_{ij}$ we gets
+
+$$ R_{jj} = \frac{1}{2} \tr(\sigma_j A \sigma_j A^\dagger) = \frac{1}{2}
+\tr(\sigma_\mu A \sigma_\mu A^\dagger - \sigma_0 A \sigma_0 A^\dagger) =
+\tr(\tr(A) A^\dagger) - \frac{1}{2} \tr(AA^\dagger) = |\tr(A)|^2 - 1 $$
+
+Furthermore, we get
+
+\begin{align*}
+\sigma_i R_{ij} \sigma_j
+&= \frac{1}{2} \sigma_i \tr(\sigma_i A \sigma_j A^\dagger) \sigma_j \\
+&= \frac{1}{8} \sigma_i \tr(\sigma_i \tr(\sigma_\mu A) \sigma_\mu \sigma_j \tr(\sigma_\nu A^\dagger) \sigma_\nu) \sigma_j \\
+&= \dots \\
+&= 2\tr(A)A - I
+\end{align*}
+
+(I am not sure on the proof of this). These together leave
+
+$$ A = \pm \frac{I + \sigma_i R_{ij} \sigma_j}{2\sqrt{1 + R_{jj}}} $$
+
+which completes our isomorphism.
+
+We also find we can express these relations efficiently infinitesimally:
+
+$$ R_{ij} = \delta_{ij} - \delta \theta \epsilon_{ijk} n_k $$
+
+$$ A = I - i \delta \theta n_k \sigma_k / 2 $$
+
+since $\det(I + X) = 1 + \tr(X)$ meaning that in order to keep $\det = 1$ to
+first order we need $\tr(X) = 0$ above. Now, we can recover an arbitrary
+rotation by exponentiation, and then see that
+
+$$ A(\theta, n) = e^{-\frac{i}{2} n_k \sigma_k \theta} = 2 \cos(\theta / 2) - i
+  n_k \sigma_k \sin(\theta / 2) $$
+
+This makes it clearer where the $\mathbb{Z}_2$ symmetry comes from.
+
+\subsection{Infinitesimal Generators and Rotations}
+
+Now for rotations $R_1 = R(\delta \theta_1, n_1), R_2 = R(\delta \theta_2, n_2)$
+we find that commutator $R_c = R_2^{-1}R_1^{-1}R_2R_1$ is given infinitesimally
+by
+
+$$ x \mapsto x + \delta \theta_1 \theta_2 (n_2 \times (n_1 \times x) - n_1
+\times (n_2 \times x)) = x + \delta \theta_1 \delta \theta_2 $$
+
+In general, in quantum mechanics we assume any unitary operation has a
+generator, such as for rotations
+
+$$ U(R(\delta \theta, n)) = I - i \delta \theta n \cdot J $$
+
+for generators $J$ of rotations about each axis. Note that in general, $U$
+unitary means that generators $J_i$ are all Hermitian. As such we see that
+
+$$ U(R_c) = I - i \delta \theta_1 \delta \theta_2 (n_2 \times n_1) \cdot J = 1 -
+\delta \theta_1 \delta \theta_2 [n_2 \cdot J, n_1 \cdot J_2] $$
+
+which gives us the famous commutation relation
+
+$$ [J_i, J_j] = i \epsilon_{ijk} J_k $$
+
+Similarly, for a function of space, where we use $L$ instead of $J$ as a
+generator of rotations we gets
+
+$$ f \mapsto (1 - i \delta \theta \cdot n L) f(x) $$
+
+which gives rise to thse same commutation relations as we had before. We can
+then recover finite rotations by exponentiating as expected. Now, we also see
+that rotations correspond to conservation of angular momentum since they
+conserve the Hamiltonian.
+
+\subsection{Representations of the Angular Momentum Commutation Relations}
+
+For convenience when dealing with the angular momentum operator (generator of
+rotations) we we define $J_{\pm} = J_1 \pm iJ_2$ (which become our ladder
+operators), and gives rise to the commutation relations
+
+$$ [J_3, J_\pm] = \pm J_\pm $$
+
+$$ [J_+, J_-] = 2 J_3 $$
+
+and of course, $J_3^* = J_3, J_+^* = J_-$. We then pick our basis, which leads
+us to
+
+$$ J_3 \ket{m} = m \ket{m} $$
+
+$$ J_+ \ket{m} = \lambda_m \ket{m \pm 1} $$
+
+$$ J_- \ket{m} = \ket{m - 1} $$
+
+or 0 (sometimes $J_\pm$ annihilates a state). Using commutation relations we can
+then deduce that
+
+$$ \lambda_m = j(j + 1) - m(m + 1). $$
+
+[End of lecture 6]
 
 \end{document}
