@@ -13,6 +13,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
 
 \title{Quantum Computation}
 \author{quinten tupker}
@@ -189,5 +190,83 @@ quasi-polynomial time.
 But how far will we get with quantum algorithms. The abelian case has been fully
 solved, but unfortunately the non-abelian case (which the above two problems
 belong to) remains an important unsolved problem in the field. [End of lecture 3]
+
+Briefly, another example of an HSP involving the Dihedral group is how to
+calculate the shortest vector within a lattice. No good quantum algorithm exists
+to solve this problem.
+
+Now, let's develop the formalism to describe the quantum algorithm to solve the
+hidden subgroup problem for any finite abelian group. Contrary to my
+expectations, we jump straight into representation theory. Well, that is not
+really contrary to my expectations, but I had imagine it would be more natural
+to look at the problem as permutations, and to define invariant states from
+there. Apparently, while it is not mentioned, it does not seem to be the central
+approach thought of here.
+
+Instead we rely on the fact that for a finite abelian group, all representations
+can be seen as one dimensional representations $\chi : G \to S^1$, the unit
+circle embedded in the complex plain. Being one dimensional they are all
+irreducible, and also satisfy the following three properties:
+
+\begin{itemize}
+\item $\chi(g) = e^{2\pi i k / |G|}$ some $k \in \mathbb{Z}$
+\item $\langle \chi_i, \chi_j \rangle = \frac{1}{|G|} \sum_{g \in G} \chi_i(g)
+  \chi_j^*(g) = \delta_{ij}$
+\item There are exactly $|G|$ distinct such representations, which we may label
+  $\chi_g$
+\item the restriction of an irreducible representation to a subgroup is also
+  irreducible
+\end{itemize}
+
+A particular application of this is that \textbf{trivial representation}
+$\chi_0(g) = 1$ is orthogonal to all other representations, so in general
+$\sum_g \chi_k(g) = 0$. This will be helpful later on. Also, note that since
+this is an abelian group, we will use $+$ to denote the group operation.
+
+Now the crucial advantage that the abelian case has over the non-abelian case is
+that all elements commute, meaning in particular that all representations can be
+simultaneously diagonalised, which means a universal shift invariant state
+exists. In particular, we notice that
+
+$$ \ket{\chi_k} = \frac{1}{\sqrt{|G|}} \sum_{g \ in G} \overline{\chi_k(g)}
+\ket{g} $$
+
+Here the complex conjugate is really just convention, but it makes things look
+similar to Schur's algorithm. Here it is easy to see that the eigenvalues of a
+shift by $g$, denoted $U(g)$ is $U_k(g) \ket{\chi_k} = \chi_k(g) \ket{\chi_k}$.
+
+The Quantum Fourier Transform (QFT) then as expected swaps the standard unit
+basis with the shift invariant basis meaning that $QFT \ket{\chi_g} = \ket{g}$
+so considering components approrpiately, and transposing to get the inverse we
+find
+
+$$ QFT \ket{g} = \frac{1}{\sqrt{|G|}} \sum_{k \in G} \chi_k(g) \ket{k} $$
+
+Now, since we can classify all finite abelian groups as the product of cyclic
+groups, the following result on representations of such groups is quite valuable
+
+\begin{example}
+For $G = \mathbb{Z}_M$, $\chi_a(b) = e^{2 \pi i ab / M}$ describes all
+representations of $G$. Even better is that for $G = \mathbb{Z}_{m_1} \times
+\dots \times \mathbb{Z}_{M_r}$, $\chi_{a}(b) = e^{2\pi i (a_1b_1 / M_1 + \dots +
+  a_r b_r / M_r)}$. Furthermore, in this case
+
+$$ QFT_G = QFT_{M_1} \otimes \dots \otimes QFT_{M_r} $$
+\end{example}
+
+Now let's start to truly describe the HSP algorithm for finite abelian groups.
+Here we are given oracle $f:G \to K$ and we work on state space
+$\mathcal{H}_{|G|} \otimes \mathcal{H}_{|K|}$
+
+\begin{enumerate}
+\item form the state space $ \frac{1}{\sqrt{|G|}} \sum_{g \in G} \ket{g}\ket{0}$
+\item Apply $U_f$ for form $\frac{1}{\sqrt{|G|}} \sum_{g \ in G} \ket{g} \ket{f(g)}$
+\item measure second register to get $\ket{g_0 + K}$ where $\ket{K} =
+  \frac{1}{\sqrt{|K|}} \sum_{k \in K} \ket{k}$. 
+\item Apply QFT and measure to get some state $\chi_g$. Note that here $g$
+  does not depend on $g_0$ due to the QFT, which is the strength of this
+  algorithm. [End of lecture 4]
+\end{enumerate}
+
 
 \end{document}
