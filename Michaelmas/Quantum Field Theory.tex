@@ -623,6 +623,161 @@ $f : \mathbb{R}^3 \to \mathbb{R}$, which we assume span the Hilbert space as
 usual. However, this has never been formalised mathematically, so it is a bit of
 a grey area... [End of lecture 6]
 
+In general, solving this Hamiltonian works out to be a functional differential
+equation, which is predictably hard. Instead, we tend to work with special
+cases. That is how we will proceed.
 
+\subsection{Free Field Theory}
+
+The simplest case is to assume everything is non-interacting, and that the
+Lagrangian obeys the Klein-Gordon equation. That means we are left with
+
+$$ \mathcal{L} = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi -
+\frac{m^2}{2}\phi^2 \implies \partial_\mu \partial^\mu \phi + m^2 \phi = 0 $$
+
+We can solve this using a Fourier transform to get
+
+$$ (\partial_t^2 + |p|^2 + m^2) \tilde(\phi) = 0 $$
+
+which has solutions for $\omega_p = \sqrt{|p|^2 + m^2}$ of the form
+
+$$ \tilde{\phi} = A_p e^{-i\omega_p t} + B_p e^{-i\omega_p t} $$
+
+which form the modes of a Harmonic oscillator. In fact, calculating the action
+we find
+
+$$ S = \frac{1}{2} \int dt \int \frac{d^3p}{(2\pi)^2} \tilde{\phi}^*
+(-\partial_t^2 - |p|^2 - m^2) \tilde{\phi} $$
+
+which means really do get a infinite number of decoupled complex simple harmonic
+oscillators. This is essential, since it is this simplicity locally that gives
+us a chance at solving the problem at all!
+
+\subsubsection{The Quantum Simple Harmonic Oscillator (review)}
+
+Firstly, though, let's review the quantum simple harmonic oscillator (SHO) so
+that we can use it for comparison. In this case
+
+$$ L = \frac{1}{2} \dot{q}^2 - \frac{\omega^2}{2} q^2 \implies H = \frac{p^2}{2}
++ \frac{\omega^2}{2}q^2 $$
+
+We can quantise this as usual for $p, q$, and then solve it using general
+methods. The unique aspect of the SHO though is that we can use purely its
+algebra to gain a solution by considering the raising and lowering/ladder
+operators
+
+$$ a = \sqrt{\frac{\omega}{2}} q + \frac{i}{\sqrt{2\omega}} p, a^\dagger =
+\sqrt{\frac{\omega}{2}} q - \frac{i}{\sqrt{2\omega}} p $$
+
+where we find $[a, a^\dagger] = \hbar$, which crucially means that
+
+$$ H = \frac{1}{2}\omega(aa^\dagger + a^\dagger a) = \omega(a^\dagger a +
+\frac{1}{2}\hbar) $$
+
+where one can identify $N = a^\dagger a$ as the number operator. Even more
+importantly we see that
+
+$$ [H, a] = - \omega \hbar a, [H, a^\dagger] = \omega \hbar a^\hbar $$
+
+The fact that the commutator is still proportional to $a, a^\dagger$ means that
+when applied to an energy eigenstate, $a, a^\dagger$ either annihilate the
+state, keep the same state, or create a new state. As such, we create the ladder
+operators as usual, and we find a state $\ket{0}$ such that $a\ket{0} = 0$, but
+we can define an inifite ladder of states $\ket{n} = (a^\dagger)^n \ket{0}$. The
+energies of these states are given by $E_n = \hbar \omega(n + \frac{1}{2})$. 
+
+\subsubsection{Back to Field Theory}
+
+To generalise to field theory we might define our ladder operators as:
+
+$$ \phi = \int \frac{d^3p}{(2\pi)^2} \frac{1}{\sqrt{2\omega_p}} \left( a_p
+    e^{ip\cdot x} + a_p^\dagger e^{-ip \cdot x} \right) $$
+
+$$ \pi = \int \frac{d^3p}{(2\pi)^2} (-i) \sqrt{\frac{\omega_p}{2}} \left( a_p
+    e^{ip\cdot x} - a_p^\dagger e^{-ip \cdot x} \right) $$
+
+If we gain the same commutation relations, from these definitions then we can
+call ourselves satisfied that these definitions have the properties what we
+want. As such, we wish to show that the following commutation relations
+
+$$ [\phi(x), \phi(y)] = [\pi(x), \pi(y)] = 0, [\phi(x), \pi(y)] = i\delta(x -
+y) $$
+
+if and only ifoddpage
+
+$$ [a_p, a_q] = [a_p^\dagger, a_q^dagger] = 0, [a_p. a_q^\dagger] = i\delta(x -
+y) $$
+
+Some algebra shows that indeed this is the case. 
+
+Having shown that these definitions can make sense, we want to see if we can
+calculate the energy eigenstates from here, as we do in the non-field theory
+case. As such we calculate
+
+$$ H = \frac{1}{2} \int d^3x (\pi^2 + |\nabla p|^2 + m^2 \phi^2) $$
+
+by writing every term in terms of $a, a^\dagger$ and find that as expected
+
+$$ H = \frac{1}{2} \int \frac{d^3p}{(2\pi)^3} \omega_p (a_p a_p^\dagger +
+a_p^\dagger a_p) $$
+
+[End of lecture 7] This calculation can be simplified by creating and eliminating delta functions
+as soon as possible. So our first step here would be to calculate the ground
+state energy, which in the context of field theory is called the ``vacuum'' (or
+the energy of the vacuum). Doing so for $\ket{0}$ such that $a\ket{0} = 0$ we
+find that
+
+$$ H\ket{0} = \frac{1}{2} \int d^3 p \omega_p \delta(0) \ket{0} = \infty
+\ket{0} $$
+
+which points us to a general aspect of field theory: many things diverge. How do
+we get around this? There are two types of divergence present here, which are
+called \textbf{infrared divergence} (IR divergence) and \textbf{ultraviolet
+  divergence} (UV divergence). IR divergence refers to divergence that occurs
+due to the large distances (but possibly low energies) involved. Ultraviolet
+divergence on the other hand occurs due to the high energies (but often short
+distances) involved. The infrared divergence is relatively simple to solve: we
+consider the energy density $\mathcal{E}$ instead of the total energy, which
+makes sense since almost everything else we're working with is a density.
+Formally this can be expressed as restricting the energy to a box of limited
+size.
+
+That solves the IR divergence, leaving us with
+
+$$ \mathcal{E}_0 = \int \frac{d^3p}{(2\pi)^3} \frac{1}{2} \omega_p \sim \int
+|p|^3 d|p| = \infty $$
+
+(where exactly does this come from?), but we still have UV divergence. To
+resolve this, we use a rather crude UV cutoff, which is an energy cutoff,
+limiting our integrals to only energies lower than $\Lambda >> 1/m$ where $1/m$
+is the only natural length scale available to us in this context. Calculating
+$\mathcal{E}_0$ in this limit for $\Lambda$ gives us
+
+$$ \mathcal{E}_0^\Lambda = \frac{1}{16 \pi^2} \Lambda^4 (1 + O(m^2 /
+\Lambda^2)). $$
+
+An alternative, and more intuitive approach would be to replace continuous
+spacetime with a lattice. This does work, and gives a similar result in fact,
+but is much harder to do. The equivalence between this relates to a somewhat
+profound relationship between small distances and high energies, and in fact the
+lattice spacing $a$ is inversely proportional to our energy cutoff in a certain
+sense. 
+
+Some interpretations can be offered for the situations we get here. One involves
+the fact that we don't really know what happens at high energies, and so we
+focus on where we know our field theory works (referred to as \textbf{effective
+  field theory}). Another approach is that the method that we quantise our
+theory is more or less arbitrary and so we could instead use a different
+quantisation called the ``natural ordering'' which forces all terms involving
+$a, a^\dagger$ to put $a$s in front, leaving $\mathcal{E}_0 = 0$. I don't know
+how well this works in general.
+
+Finally, another approach to this issue is simply not to care, since why should
+inifinite energies really make a difference (closest to my attitude to the
+situation). After all, we can only really measure energy differences in
+experiment. That's not entirely true though, since once one starts to
+incorporate gravity, one sees that through the energy-momentum tensor relativity
+does introduce a certain absolute measure of energy... This relation remains a
+relatively mysterious aspect of physics. [End of lecture 8]
 
 \end{document}
