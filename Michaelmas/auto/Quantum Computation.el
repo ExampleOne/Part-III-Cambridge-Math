@@ -18,8 +18,12 @@
     "longtable"
     "adjustbox"
     "physics")
+   (LaTeX-add-labels
+    "figure: controlled_U"
+    "figure: generalised_controlled_U")
    (LaTeX-add-environments
     "definition"
+    "theorem"
     "example"))
  :latex)
 
