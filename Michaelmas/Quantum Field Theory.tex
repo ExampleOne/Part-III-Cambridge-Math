@@ -780,4 +780,126 @@ incorporate gravity, one sees that through the energy-momentum tensor relativity
 does introduce a certain absolute measure of energy... This relation remains a
 relatively mysterious aspect of physics. [End of lecture 8]
 
+To give some more detail on this relationship, we notice that the Einstein
+equations $R_{\mu\nu} - \frac{1}{2} R g_{\mu \nu} = 8\pi G T_{\mu \nu}$ mean
+that if we have constant vacuum energy $\bra{0} T_{\mu \nu} \ket{0} =
+\mathcal{E}_0 g_{\mu \nu}$ essentially is equivalent to introducing a new
+cosmological constant $\lambda$. This was significant,
+especially since until around 20 years ago (~2000) the cosmological constant was
+assumed to be 0. In truth though it  remains one of the greatest mysteries in
+physics since $\lambda \sim \mathcal{E}_0 G \sim (10^{-3} \text{eV})^2$, while
+if instead we assume that there is an energy cutoff around the Planck length
+$\Lambda \sim M_L = \sqrt{\frac{\hbar c}{G}}$ then we find $\lambda \sim 10^{28}
+\text{eV}$. So we really don't know what we're doing when it comes to the
+cosmological constant.
+
+Another approach is that some argue that the vacuum energy is something that is
+an input to the theory, and that it should be fitted instead of fixed by some
+prediction, but of course, that unsatisfactory to some people. One can also
+wonder whether it really has much meaning, since - excluding relativity - there
+are no obvious implications of it. There is in fact, however, a place where even
+ignoring general relativity, quantum field theory has very physical effects,
+although this only depends on local changes in the vacuum energy - unlike the
+relativity. 
+
+\subsubsection{Casimir Effect}
+
+Here we consider two parallel conducting plates each of area $A$ separated by
+distance $d$. We assume that boundary requirements mean that a scalar field
+(sufficient for electromagnetism) on conducting plates mean that the field $\phi
+= 0$ on these plates. In particular, this restricts the momentum to $p = (n\pi /
+d, p_y, p_z)$ so one of the components has been discretised. If we then
+calculate the change in energy compared to the vacuum between the plates
+$\mathcal{E}_0 - \tilde{\mathcal{E}}_0$ where
+
+$$ \mathcal{E}_0 = \int \frac{d^3p}{(2\pi)^2} \frac{1}{2} \omega_p $$
+
+$$ \tilde{\mathcal{E}}_0 = \frac{1}{d} \sum_{n = 1}^\infty \int \frac{dp_y
+  dp_z}{(2\pi)^2} \frac{1}{2} \sqrt{(n\pi / d)^2 + p_y^2 + p_z^2} $$
+
+then we find that the energy shift $\Delta E(d) = (\tilde{\mathcal{E}}_0 -
+\mathcal{E}_0) A d$ is nontrivial (see David Tong's notes for more detail), and
+in particular, an energy change means a force, which means a pressure, meaning
+that $p = - \partial_d \Delta E(d) / A = \frac{-\pi^2}{480 d^4}$ can be
+calculated (note that $d^4$ is the right scaling constant for pressures).
+
+This can be measured in experiment, and turns out to agree well with this
+calculation, giving some extra weight to the notion of at least some vacuum
+energy, although admittedly, this only detects changes in it.
+
+\subsubsection{Excited States}
+
+Let's denote a state with ``momentum'' $p$ by $\ket{p} = a_p^\dagger \ket{0}$.
+We want to calculate its energy $H - E_0$. Since this would be 0 for the vacuum,
+this is equivalent to calculating the energy under normal ordering, meaning that
+we can write this as
+
+$$ H - E_0 = \int \frac{d^3q}{(2\pi)^3} \omega_q a^\dagger_q a_q $$
+
+Using commutation relations $[a_q^\dagger a_q, a^\dagger_p] = a^\dagger_q[a_q,
+a_p^\dagger] = (2\pi)^3 \delta(p - q)a^\dagger_q$, meaning 
+
+$$ [H - E_0, a_p^\dagger] = \omega_p a^\dagger_p $$
+
+which is exactly what we require of a ladder operator. Using the standard
+procedure to calculate energies from ladder operators we then find that
+
+$$ (H - E_0) ket{p} = \omega_p a^\dagger_p \ket{0} $$
+
+so the energy of a state of this kind is $E_p = \omega_p = \sqrt{|p|^2 + m^2}$.
+This corresponds exactly to the energy of a particle with momentum $p$ in
+standard quantum theory. To confirm it really does resemble that though, we
+should calculate the ``momentum'' of the state to verify that it truly is $p$.
+This is indeed the case, as is seen in Example Sheet 2, Question 1. 
+Combining the number ``density''-like operator with the momentum integral, we
+can then write the momentum operator as 
+
+$$ \hat{p} = \int \frac{d^3p}{(2\pi)^3} p a_p^\dagger a_p $$
+
+which certainly has the property that $\hat{p} \ket{p} = p \ket{p}$. Finally, to
+really check it is a particle, one might want to verify that it has 0 intrinsic
+angular momentum, since this theory so far deals with scalar particles with no
+spin. This is indeed the case, as one can find that $\bra{0} J \ket{0} = 0$.
+
+\subsubsection{Multiparticle States}
+
+To expand our notation we may write $\ket{p_1 \dots p_n} = a_{p_1}^\dagger \dots
+a_{p_n}^\dagger \ket{0}$. We can consequently check that the energy and
+momentum are additive as one might hope (note that energies as such are only
+additive in free field theory which is non-interactive). 
+
+In this particular scenario we may also formulise the notion of the number
+operator as 
+
+$$ N = \int \frac{d^3p}{(2\pi)^3} a_p^\dagger a_p $$
+
+which indeed gives us the total number of particles in the system. It also is a
+true quantum number in free field theory meaning that it commutes with $H$ or is
+conserved.
+
+Finally, we might wonder if we truly get identical particles. It is easy to see
+that
+
+$$ \ket{p_1 p_2} = \ket{p_2 p_1} $$
+
+meaning that we indeed get the bosonic behaviour expected for scalar particles
+(in scalar field theory).
+
+\subsubsection{Normalisation}
+
+We can simply define $\bra{0} \ket{0} = 1$, but getting all states to normalise
+properly after arbitrary ladder operators is a bit trickier. As such, we might
+calculate
+
+$$ \bra{p} \ket{q} = \bra{0} a_p a_q^\dagger \ket{0} = \bra{0} [a_p,
+a_q^\dagger] \ket{0} = (2\pi)^3 \delta(p - q) $$
+
+but the issue with this RHS is that it is not Lorentz invariant, since it uses a
+3-vector instead of a 4-vector. We can fix this with a completeness operators
+
+$$ \mathbb{1} = \int \frac{d^3p}{(2\pi)^3} \ket{p} \bra{p} $$
+
+where the LHS is manifestly invariant, but the RHS is a bit tricker [End of
+lecture 9].
+
 \end{document}
