@@ -404,4 +404,67 @@ sum of the desired accuracy $m$ and the chance of that accuracy (expressed in
 binary) $\log_2(1/\eta)$. The fact these are equivalent in a sense is curious.
 [End of lecture 6]
 
+\begin{proof}
+  First note that
+  $$ QFT^{-1} \ket{A} = \frac{1}{2^n} \sum_y \sum_x e^{2\pi i (\phi - y / 2^n)x}
+  \ket{y} $$
+  So in particular, the probability of observing the value $y$ is
+  $$ \mathbb{P}(y) = \frac{1}{y^{2n}} \left| \sum_x e^{2 \pi i (\phi - y / 2^n)}
+  \right|^2 = \frac{1}{2^{2n}} \left| \frac{1 - e^{2\pi i \delta(y)}}{1 - e^{2\pi
+          i \delta(y)}} \right|^2 $$
+  where $\delta(y) = \phi - y / 2^n$. We use the following estimates to
+  establish bounds on this quantity. Firstly, $|1 - e^{i\alpha}| = 2|\sin(\alpha
+  / 2) \geq \frac{2}{\pi} |\alpha| $ if $|\alpha| < \pi$ and $|1 - e^{i \beta}|
+  \leq \beta$ which can both be seen geometrically.
+
+  Then for our first estimate, by bounding appropriately we see that
+
+  $$ \mathbb{P}(y) \geq \frac{1}{2^n} \left( \frac{2^{n + 1} \delta(y)}{2\pi
+      \delta(y)} \right)^2 = \frac{4}{\pi^2} $$
+  as required.
+
+  Our other estimate is a bit trickier. We see that
+
+  $$ \mathbb{P}(y) \leq \frac{1}{2^{2n}} \left( \frac{2}{4\delta(y)} \right)^2 \leq
+  \frac{1}{2^{2n + 2} \delta(y)^2} $$
+
+  But we now also have to sum over all $y$ such that $|\delta(y)| > \epsilon$.
+  To do so we see that in general $\delta(y)$ takes the form $\delta(\gamma) =
+  \delta_\pm + k / 2^n$ meaning that $|\delta(y)| \geq \epsilon + k / 2^n$, so
+
+  $$ \mathbb{P}(|\delta(\gamma) \geq \epsilon) \leq 2 \sum_{k=0}^\infty
+\frac{1}{2^{2n + 2} (\epsilon + k / 2^n)^2} \leq \frac{1}{2} \int_0^\infty
+\frac{1}{(2^n \epsilon + k)^2} dk = \frac{1}{2^{n + 2}\epsilon} $$
+as required.
+\end{proof}
+
+Now a few remarks. Firstly, if $c-U^{2^k}$ is implemented as $(c-U)^{2^k}$ then
+this algorithm is exponentially slow, however, for some special $U$, such as
+simple exponentiation $a \mapsto a^p$ this can be done in polynomial time.
+Secondly, if we apply the unitary part $U_{PE}$ to an arbitrary state, we get a
+superposition in terms of eigenstates, but when we make a measurement, the
+estimate for every eigenstate is good. It is just that it is random which
+eigenstate we are actually measuring.
+
+This second perspective is handy, as we can now express getting $m$ digits
+correct with probability $1 - \eta$ as
+
+$$ U_{PE} \ket{\xi} = \sqrt{1 - \eta} \ket{\phi_j} + \sqrt{\eta} \ket{\phi_\perp} $$
+
+where $\phi_j$ are all states with $m$ correct digits, and $\phi_\perp$ are the
+incorrect states.
+
+Finally, we note that Dr Jorza, in his notes, also describes how one might
+implement a quantum fourier transform in an arbitrary dimension (not necessarily
+a power of two) using quantum phase finding.
+
+\section{Amplitude Amplification}
+
+Our next algorithm we look at is a generalisation of the essence of Grover's
+search algorithm. For such, we start with some notation. We use $P_A$ to denote
+projection onto the linear space $A$ which if spanned by orthogonal basis
+$\alpha_i$ can be calculated as $P_A = \sum_i \ket{\alpha_i}\bra{\alpha_i}$. We
+can then write a reflection as $I_A = I - P_A$. Finally, we note for convenience
+that for any unitary $U,$ $UI_AU^\dagger = U_{UA}$ [End of lecture 7].
+
 \end{document}
