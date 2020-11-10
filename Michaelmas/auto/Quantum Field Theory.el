@@ -17,10 +17,14 @@
     "amsthm"
     "longtable"
     "adjustbox"
-    "physics")
+    "physics"
+    "dsfont")
+   (LaTeX-add-labels
+    "feynman_contour")
    (LaTeX-add-environments
     "definition"
     "example"
-    "theorem"))
+    "theorem"
+    "claim"))
  :latex)
 

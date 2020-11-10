@@ -10,11 +10,13 @@
 \usepackage{longtable}
 \usepackage{adjustbox}
 \usepackage{physics}
+\usepackage{dsfont}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{example}{Example}
 \newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
 
 \title{Quantum Field Theory}
 \author{quinten tupker}
@@ -779,5 +781,492 @@ experiment. That's not entirely true though, since once one starts to
 incorporate gravity, one sees that through the energy-momentum tensor relativity
 does introduce a certain absolute measure of energy... This relation remains a
 relatively mysterious aspect of physics. [End of lecture 8]
+
+To give some more detail on this relationship, we notice that the Einstein
+equations $R_{\mu\nu} - \frac{1}{2} R g_{\mu \nu} = 8\pi G T_{\mu \nu}$ mean
+that if we have constant vacuum energy $\bra{0} T_{\mu \nu} \ket{0} =
+\mathcal{E}_0 g_{\mu \nu}$ essentially is equivalent to introducing a new
+cosmological constant $\lambda$. This was significant,
+especially since until around 20 years ago (~2000) the cosmological constant was
+assumed to be 0. In truth though it  remains one of the greatest mysteries in
+physics since $\lambda \sim \mathcal{E}_0 G \sim (10^{-3} \text{eV})^2$, while
+if instead we assume that there is an energy cutoff around the Planck length
+$\Lambda \sim M_L = \sqrt{\frac{\hbar c}{G}}$ then we find $\lambda \sim 10^{28}
+\text{eV}$. So we really don't know what we're doing when it comes to the
+cosmological constant.
+
+Another approach is that some argue that the vacuum energy is something that is
+an input to the theory, and that it should be fitted instead of fixed by some
+prediction, but of course, that unsatisfactory to some people. One can also
+wonder whether it really has much meaning, since - excluding relativity - there
+are no obvious implications of it. There is in fact, however, a place where even
+ignoring general relativity, quantum field theory has very physical effects,
+although this only depends on local changes in the vacuum energy - unlike the
+relativity. 
+
+\subsubsection{Casimir Effect}
+
+Here we consider two parallel conducting plates each of area $A$ separated by
+distance $d$. We assume that boundary requirements mean that a scalar field
+(sufficient for electromagnetism) on conducting plates mean that the field $\phi
+= 0$ on these plates. In particular, this restricts the momentum to $p = (n\pi /
+d, p_y, p_z)$ so one of the components has been discretised. If we then
+calculate the change in energy compared to the vacuum between the plates
+$\mathcal{E}_0 - \tilde{\mathcal{E}}_0$ where
+
+$$ \mathcal{E}_0 = \int \frac{d^3p}{(2\pi)^2} \frac{1}{2} \omega_p $$
+
+$$ \tilde{\mathcal{E}}_0 = \frac{1}{d} \sum_{n = 1}^\infty \int \frac{dp_y
+  dp_z}{(2\pi)^2} \frac{1}{2} \sqrt{(n\pi / d)^2 + p_y^2 + p_z^2} $$
+
+then we find that the energy shift $\Delta E(d) = (\tilde{\mathcal{E}}_0 -
+\mathcal{E}_0) A d$ is nontrivial (see David Tong's notes for more detail), and
+in particular, an energy change means a force, which means a pressure, meaning
+that $p = - \partial_d \Delta E(d) / A = \frac{-\pi^2}{480 d^4}$ can be
+calculated (note that $d^4$ is the right scaling constant for pressures).
+
+This can be measured in experiment, and turns out to agree well with this
+calculation, giving some extra weight to the notion of at least some vacuum
+energy, although admittedly, this only detects changes in it.
+
+\subsubsection{Excited States}
+
+Let's denote a state with ``momentum'' $p$ by $\ket{p} = a_p^\dagger \ket{0}$.
+We want to calculate its energy $H - E_0$. Since this would be 0 for the vacuum,
+this is equivalent to calculating the energy under normal ordering, meaning that
+we can write this as
+
+$$ H - E_0 = \int \frac{d^3q}{(2\pi)^3} \omega_q a^\dagger_q a_q $$
+
+Using commutation relations $[a_q^\dagger a_q, a^\dagger_p] = a^\dagger_q[a_q,
+a_p^\dagger] = (2\pi)^3 \delta(p - q)a^\dagger_q$, meaning 
+
+$$ [H - E_0, a_p^\dagger] = \omega_p a^\dagger_p $$
+
+which is exactly what we require of a ladder operator. Using the standard
+procedure to calculate energies from ladder operators we then find that
+
+$$ (H - E_0) ket{p} = \omega_p a^\dagger_p \ket{0} $$
+
+so the energy of a state of this kind is $E_p = \omega_p = \sqrt{|p|^2 + m^2}$.
+This corresponds exactly to the energy of a particle with momentum $p$ in
+standard quantum theory. To confirm it really does resemble that though, we
+should calculate the ``momentum'' of the state to verify that it truly is $p$.
+This is indeed the case, as is seen in Example Sheet 2, Question 1. 
+Combining the number ``density''-like operator with the momentum integral, we
+can then write the momentum operator as 
+
+$$ \hat{p} = \int \frac{d^3p}{(2\pi)^3} p a_p^\dagger a_p $$
+
+which certainly has the property that $\hat{p} \ket{p} = p \ket{p}$. Finally, to
+really check it is a particle, one might want to verify that it has 0 intrinsic
+angular momentum, since this theory so far deals with scalar particles with no
+spin. This is indeed the case, as one can find that $\bra{0} J \ket{0} = 0$.
+
+\subsubsection{Multiparticle States}
+
+To expand our notation we may write $\ket{p_1 \dots p_n} = a_{p_1}^\dagger \dots
+a_{p_n}^\dagger \ket{0}$. We can consequently check that the energy and
+momentum are additive as one might hope (note that energies as such are only
+additive in free field theory which is non-interactive). 
+
+In this particular scenario we may also formulise the notion of the number
+operator as 
+
+$$ N = \int \frac{d^3p}{(2\pi)^3} a_p^\dagger a_p $$
+
+which indeed gives us the total number of particles in the system. It also is a
+true quantum number in free field theory meaning that it commutes with $H$ or is
+conserved.
+
+Finally, we might wonder if we truly get identical particles. It is easy to see
+that
+
+$$ \ket{p_1 p_2} = \ket{p_2 p_1} $$
+
+meaning that we indeed get the bosonic behaviour expected for scalar particles
+(in scalar field theory).
+
+\subsubsection{Normalisation}
+
+We can simply define $\bra{0} \ket{0} = 1$, but getting all states to normalise
+properly after arbitrary ladder operators is a bit trickier. As such, we might
+calculate
+
+$$ \bra{p} \ket{q} = \bra{0} a_p a_q^\dagger \ket{0} = \bra{0} [a_p,
+a_q^\dagger] \ket{0} = (2\pi)^3 \delta(p - q) $$
+
+but the issue with this RHS is that it is not Lorentz invariant, since it uses a
+3-vector instead of a 4-vector. We can fix this with a completeness operators
+
+$$ \mathds{1} = \int \frac{d^3p}{(2\pi)^3} \ket{p} \bra{p} $$
+
+where the LHS is manifestly invariant, but the RHS is a bit tricker [End of
+lecture 9]. (What is a completeness relation?)
+
+To establish equivalence, we consider the Lorentz invariant measure
+
+$$ \int d\mu_p = \int d^4 p \delta(p_\mu p^\mu - m^2) \Theta(p_0) $$
+
+where $\Theta$ is the Heaviside step function. This implicitly imposes the
+constraint that $p_\mu p^\mu - m^2$ and $p_0 > 0$ which equivalent to the
+condition that $p_0 = \sqrt{|p|^2 + m^2}$ as we require. In particular, we may
+write this
+
+$$ \int dp_\mu = \int d^3p \int_0^\infty \frac{d(p_0)^2}{2 p_0} \delta(p_0^2 -
+|p|^2 - m^2) = \int \frac{d^3p}{2E_p} $$
+
+So if we can somehow squeeze in a $2E_p$ factor, we'd be fine. Hence we redefine
+our states as
+
+$$ \ket{p} = \sqrt{2E_p} a_p^\dagger \ket{p} $$
+
+meaning from before we get
+
+$$ \mathds{1} = \int \frac{d^3p}{(2\pi)^3} \frac{\bra{p}\ket{p}}{2 E_p} $$
+
+is indeed Lorentz invariant. We can similarly generalise our definition of
+$\ket{p_1 \dots p_n}$ by multiplying by $\prod \sqrt{2E_{p_i}}$.
+
+\subsubsection{Complex Scalar Fields}
+
+(see David Tong page 33) here we consider field $ \psi : \mathbb{R}^{3, 1} \to
+mathbb{C}$ with Lagrangiange
+
+$$ \mathcal{L} = \partial_\mu \psi^* \partial^\mu \psi - M^2 \psi^* \psi $$
+
+Now, if one writes $\psi = (\phi_1 + i \phi_2) / \sqrt{2}$ one can convert this
+to two scalar fields, but there is some additional insight we can gain by
+treating it purely as a complex field. Importantly, just as seen on example
+sheet 1, we have global symmetry $\psi \mapsto e^{-i\alpha} \psi$ which has
+conserved current
+
+$$ j^\mu = i(\partial^\mu \psi^*)\psi - i \psi^*(\partial^\mu \psi) $$
+
+and the conserved quantity $Q = \int d^3x j^0$. Here this corresponds to the
+probability current, and the total probability in standard theory.
+
+Developing further to find the Hamiltonian we see that the conjugate momentum is
+
+$$\pi = \partial_{\dot{\psi}} \mathcal{L} = \psi^* $$
+
+and quantising we get the standard commutation relations with in particular that
+
+$$ [\psi(x), \pi(y)] = i\delta(x - y) $$
+
+$$ [\psi^\dagger(x), \pi^\dagger(y)] = i \delta(x - y) $$
+
+(see the latter by taking the Hermitian conjugate of the first). By taking a
+mode expansion, and repeating the approach we employed earlier we find that
+
+$$ \psi = \int \frac{d^3p}{(2\pi)^3} \frac{1}{2 E_p} (b_p e^{ip \cdot x} + c_p
+e^{-ip \cdot x}) $$
+
+for two different creation operators $b_p, c_p$. Writing the corresponding
+states as $\ket{p, +}, \ket{p, -}$ for the states created by $b_p, c_p$
+respectively we find that
+
+$$ Q = i \int d^3x (\pi \psi - \psi^\dagger \pi^\dagger) = \dots = \int
+\frac{d^3p}{(2\pi)^3} (c_p^\dagger c_p - b_p^\dagger b_p) $$
+
+which corresponds to the number operators of each ladder operators. This
+quantity being conserved, we find this corresponds precisely to the notion of
+particles and anti-particles, and these always being created and annihilated in
+pairs. 
+
+\subsubsection{Time Dependence}
+
+To complete our discussion of free field theory we'd like to examine time
+dependence. In particular, we take this opportunity to review the notions of the
+Schr{\"o}dinger and Heisenberg pictures. The Schr{\"o}dinger picture assumes
+that operators are constant in time, while states are not, and the Heisenberg
+picture does it the other way around. To translate between them we may use that
+
+$$ \ket{\psi}_H = e^{iHt} \ket{\psi}_S $$
+
+for states, and so operators translate by the conjugate of that
+
+$$ O_H = e^{iHt} O_S e^{-iHt}. $$
+
+The Schr{\"o}dinger picture can be helpful since there the time evolution reduces to
+a simple differential equation
+
+$$ i \partial_t \ket{\psi} = H \ket{\psi} $$
+
+whereas the Heisenberg picture can be helpful in expressing Lorentz invariance
+(the time dependence is no longer special) as we can write
+
+$$ \phi_H(x) = e^{iHT} \phi_S(\vec{x}) e^{-iHt} $$
+
+where the Heisenberg version of the field operator uses the 4-vector $x$ and the
+Schr{\"o}dinger version uses the 3-vector $\vec{x}$ (although I often just write
+$x$). In particular, by expanding in modes as
+
+$$ \phi_H = \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2 E_p}} (a_{p, H}
+e^{ip_\mu x^\mu} + a^\dagger_{p, H} e^{-ip_\mu x^\mu}) $$
+
+we find that
+
+$$ a_{p, H}(t) = e^{-iE_n t} a_{p, H}(0) = e^{-iE_n t} a_{p, H} $$
+
+and the same for $a_{p, H}^\dagger$.
+
+\section{Interacting QFT}
+
+We now consider Lagrangian
+
+$$ \mathcal{L} = \frac{1}{2} \partial_\mu \tilde{\phi} \partial^\mu \tilde{phi}
+- V(\tilde{\phi}) $$
+
+where we assume, wlog, $\partial_{\tilde{\phi}} V |_{\tilde{\phi}_0} = 0$, and
+$\partial^2_{\tilde{\phi}} V |_{\tilde{\phi}_0} \geq 0$ and $V(\tilde{\phi}_0) =
+0$ so that if $\phi = \tilde{\phi} - \tilde{\phi}_0$ and writing
+
+$$ V(\tilde{\phi}) = \sum_0^\infty \frac{1}{n!} \partial_{\tilde{\phi}}^n V
+|_{\tilde{\phi}_0} \phi^n = \frac{1}{2} \lambda_2 \phi^2 + \frac{1}{6} \lambda_3
+\phi^3 + \dots $$
+
+then we can write our Lagrangian as $\mathcal{L} = \mathcal{L}_0 +
+\mathcal{L}_{int}$ where $\mathcal{L}_0$ is free where as $\mathcal{L}_I$ is
+interacting. Here $\mathcal{L}_0$ takes the Klein-Gordon form:
+
+$$ \mathcal{L}_0 = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - m^2 \phi^2
+/ 2 $$
+
+where $\lambda_2 \geq 0$ means that $m$ is real. The interacting bit, on the
+other hand is
+
+$$ \mathcal{L}_{int} = - \sum_3^\infty \lambda_n \phi^n / n! $$
+
+Now, in this pertubation, it would be helpful to have a sense for when the
+$\lambda_n$ are small. A simple, and effective approach is dimensional analysis.
+It is also wrong. Well, it's wrong after tree level (first order pertubations),
+but we only are interested in tree level, so this does not affect us here.
+Anyways, starting with $[S] = 0$ for the action (since $[\hbar] = [S] = 0$ after
+we set $\hbar = 1$), we can deduce that $[\phi] = 1$ and consequently
+$[\lambda_n] = 4 - n$. To normalise to a dimensionless pertubation parameter
+(which is certainly desirable) we use the energy $E$ and define dimensionless
+pertunbation paraemeters
+
+$$ \tilde{\lambda_n} = \lambda_n E^{n - 4} $$
+
+however this depends on the energy scale. We consequently get three cases
+
+\begin{itemize}
+  \item when $n < 4$ we get the \textbf{relevant coupling} which is weakly
+    coupled at high energies, but strongly coupled at low energies. Fortunately,
+    $E \geq m$ provides a lower bound on the energy, and so we say that if
+    $\lambda_n << m^{4 - n}$ our pertubation is good for all energies.
+  \item we get the \textbf{marginal} coupling for $n = 4$ which is good as long
+    as $\lambda_4 << 1$ for any energy.
+  \item we get \textbf{irrelevant couplings} for $n > 4$ since these only work
+    for small energies $\lambda_n << E^{4 - n}$. This also means we cannot use
+    the continuum limit here, although under certain interpretations we can
+    partially circumvent this.
+\end{itemize}
+
+Despite its simplicity, this analysis is quite possible, and gives a simple
+explanation of why some solutions are not renormalisable, but more on that
+later.
+
+\begin{example}
+  A key example will be $\phi^4$-theory, or the marginal case. We start this as
+  a running example here, and will expand below, but for reference, here we get
+  $$ \mathcal{L} = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - m^2 \phi^2
+  / 2 - \lambda / 4! \phi^4 $$
+\end{example}
+
+\begin{example}
+  Scaler-Yukawa theory refers to a combination of two fields $\phi :
+  \mathbb{R}^{3, 1} \to \mathbb{R}, \psi: \mathbb{R}^{3, 1} \to \mathbb{C}$ for
+  masses $m, M$ where in additional to the momentum, and mass terms, we also get
+  a
+  $$ g \psi^* \psi \phi $$
+  term in the expansion (a cubic term?). We are weakly coupled for $g << m, M$,
+  and notice we use the complex norm squared to maintain our global phase shift
+  symmetry for complex values.
+\end{example}
+
+\subsection{Scattering}
+
+An obvious question of interest, since it can be verified by experiment, is that
+of how particles scatter. Now, unlike classical mechanics or the quantum
+mechanics that has been covered before, the number of particles entering the
+collision, and exiting is not constant here, which leads to extra complexity.
+Nonetheless, we seek to find
+
+$$ A_{i\to f} = \lim_{T \to \infty} \bra{f, t = T/2} e^{-iHT} \ket{i, t =
+  T/2} $$
+
+where $\ket{i}, \ket{f}$ are the initial and final states of interest. Also, we
+assume that we can take $t = \pm \infty$ for $\ket{i}$ and $\ket{f}$ and that
+the free theory approximation holds in these cases. Then we write that
+
+$$ H = H_0 + H_{int} $$
+
+\begin{example}
+  In $\phi^4$ theory we have
+
+  $$ H_0 = \frac{1}{2} \int d^3x (\pi^2 + |\nabla \phi|^2 + m^2 \phi^2) $$
+  $$ H_{int} = \frac{\lambda}{4!} \int d^3x \phi^4 $$
+
+  for $\lambda << 1$. We can see that the particle number might change, as
+  unlike the free field theory case we now get terms of the form
+  $a_{p_1}^\dagger a_{p_2}^\dagger a_{p_3}^\dagger a_{p_4}$, which changes the
+  overall particle number (here $p_1 + p_2 + p_3 = p_4$). Also, notice
+  importantly now that many of our operators no longer commute, such as $H_0,
+  H_{int}, N$.
+\end{example}
+
+Now, the key advantage of taking $t=\pm \infty$ is that we can assume that
+$\ket{i}, \ket{f}$ can be eigenstates of $H_0$. Now, our key to reasoning about
+scattering will be the \textbf{interaction picture}. The interaction picture is
+a weird mix of the Schr{\"o}dinger and Heisenbergs picture where $H_0$ is kept
+as Heisenberg, but $H_{int}$ is kept as Schr{\"o}dinger. As such
+
+$$ \ket{\psi}_I = e^{iH_0 t} \ket{\psi}_S, O_I = e^{iH_0t} O_S e^{-iH_0t} $$
+
+In particular, we use $H_I$ the interaction picture version of $H_{int}$ in this
+manner. Notice importantly that $[H_I(t), H_I(t')] \neq 0$. [End of lecture 11]
+As such we see that
+
+$$ i\partial_t \ket{\psi}_I = H_I \ket{\psi}_I $$
+
+which is quite nice since we get rid of the free field noise, and can focus on
+what's ``actually'' happening. Assuming that $H_I = \lambda \mathbb{H}$ then we
+see that for$\ket{\psi}_I = U(t) \ket{\psi(0)}_I$
+
+$$ U = \sum_0^\infty \lambda^n \mathbb{K}_n(t) $$
+
+where substituting the Schr{\"o}dinger equation leaves
+
+$$ i \partial_t \mathbb{K}_n(t) = \mathbb{H}(t) \mathbb{K}_n(t) $$
+
+so we find $\mathbb{K}_0 = \mathds{1}$, $\mathbb{K}_t = \frac{1}{i} \int_0^t dt'
+\mathbb{H}(t')$, $\mathbb{K}_2(t) = \frac{1}{i^2} \int_0^t dt' \mathbb{H}(t')
+\int_0^{t'}dt'' \mathbb{H}(t'')$, etc. As such we define the time ordering
+symbol $T$ which replaces a list of operators $A_1(t_1) A_2(t_2) \dots$ with
+$A_{n_1}(t_{n_1}) A_{n_2}(t_{n_2}) \dots$ where $t_{n_1} \geq t_{n_2} \geq
+\dots$. By forcing this ordering symbol onto our expression we can write our
+solution in a nice form
+
+$$ \ket{\psi}_I = T(e^{\frac{1}{i} \int_0^t dt' H_I(t')}) \ket{\psi(0)}_I $$
+
+where the $T$ is applied to each term in the power series. Using the time
+ordering symbol, verifying the validity of this formula is straigthforward.
+
+\subsubsection{Dyson Formula}
+
+The \textbf{Dyson formula} is the name of our solution to the scattering
+problem, and we explain it here. In particular we write
+
+\begin{align*}
+  A_{i \to f} &= \lim_{T \to \infty} \bra{f, t = T /2}_S e^{-iHt} \ket{i, t = -T/2} \\
+              &= \lim_{T \to \infty} \langle f, t = T/2 |_S i, t=-T/2 \rangle_S \\
+              &= \lim_{T \to \infty} \langle f, t = T/2 |_S i, t=-T/2 \rangle \\
+              &= \bra{f} S \ket{i}
+\end{align*}
+
+where the \textbf{scattering operator} (S-matrix) $S$ is
+
+$$ S = T(e^{\frac{1}{i} \int_{-\infty}^\infty H_I(t) dt}) $$
+
+This expression for $A_{i\to f}$ is called Dyson's formula.
+
+\begin{example}
+  In $\phi^4$-theory we find $H_I = \lambda / 4! \int d^3x \phi^4_H$. And if we
+  write $\phi = \phi_+ + \phi_-$ where
+  $$ \phi_+ = \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2E_p}} a_p e^{-p_\mu
+    x^\mu}, \phi_- = \int \frac{d^3p}{(2\pi)^^3} \frac{1}{\sqrt{2 E_p}}
+  a_p^\dagger e^{ip_\mu x^\mu} $$
+  And so we get Dyson's formula
+  $$ A_{i\to f} = \bra{f} Te^{\frac{i \lambda}{4!}} \int d^4x \phi{x} $$
+  but we see we still have no choice but expanding in powers of $\lambda$ here.
+  [End of lecture 12]
+\end{example}
+
+As such we define
+
+$$ A_{i \to f}^{(n)} = \frac{1}{l!} \left( \frac{1}{i4!} \right)^l = \int
+d^4x_1 \dots \int d^4x_l \bra{f} T(\phi^4(x_1) \dots \phi^4(x_l)) \ket{i} $$
+
+but how do we compute these. Computing these leads us eventually to certain
+diagrams expressing these calculations, which of course are Feynman diagrams. We
+start in the simplest case with $T_2 = T(\phi(x) \phi(y))$. Our goal to
+calculate these is to reduce them to normal form, where calculations simplify
+significantly. In other words, we have to convert $T_2$ from time ordered to
+normal form. Expanding $T_2$ into $\phi^\pm$ we find that in both the $x^0 \geq
+y^0$ and $x^0 < y^0$ case we have a single commutator
+
+$$ D(x - y) = [\phi^+(x), \phi^-(y)] = \int \frac{d^3p d^3q}{(2\pi)^6}
+\frac{1}{2\sqrt{E_p E_q}} e^{i(q \cdot y - p \cdot x)} [a_p, a_q^\dagger] = \int
+\frac{d^3p}{(2\pi)^3} \frac{1}{2E_p} e^{ip \cdot (x - y)} $$
+
+where
+
+$$ T(\phi(x)\phi(y)) = : \phi(x) \phi(y) : + D(x - y) $$
+
+for $x^0 > y^0$ and the order of $x, y$ in $D$ is swapped when $x^0 < y^0$. We
+generalise this to the \textbf{Feynman propogator} $\Delta_F$. We claim we can
+calculate it as
+
+\begin{claim}
+$$ \Delta_F(x - y) = \int_{C_F} \frac{d^4p}{(2\pi)^4} \frac{i}{p^2 - m^2}
+e^{-p_\mu (x - y)^\mu} $$
+where $C_F$ is the Feynman countour.
+\end{claim}
+
+This is just the Fourier transform of our expression before, but it turns out to
+be more useful. Notice the above can be written instead as
+
+$$ \Delta_F (x - y) = \int \frac{d^3p}{(2\pi)^3} ie^{ip \cdot (x - y)}
+\int_{C_F} dp^0 \mathcal{I}(p^0) $$
+
+where
+
+$$ \mathcal{I}(p^0) = \frac{e^{-p^0 (x^0 - y^0)}}{(p^0)^2 - E^2_p} $$
+
+for $E_p = \sqrt{|p|^2 + m^2}$. Using partial fractions we get poles $p^0 = \pm
+E_p$ with residues $\frac{\pm 1}{2E_p} e^{\mp i E_p (x^0 - y^0)}$.
+Diagramatically:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=7cm]{res/QFT/Feynman_contour}
+\caption{Feynman Contour}
+\label{feynman_contour}
+\end{figure}
+
+Now to prove our claim.
+
+\begin{proof}
+Notice that $|\mathcal{I}|$ depends only on $\text{Im}(p^0)$ meaning that if
+$x^0 > y^0$ then we can complete the contour with a semicircle in the lower half
+plane of the complex plane and apply Jordan's theorem since we are decaying
+exponentially fast. In this case we only include the rightmost residue. On the
+contrary if $x^0 < y^0$ we decay in the upper half plane and can complete with a
+semicircle contour there to get the same result but now with the leftmost residue.
+\end{proof}
+
+Alternatively, one can justify this instead calculating
+
+$$ \Delta_F(x - y) = \lim{\epsilon \to 0^+} \int \frac{d^4p}{(2\pi)^3} \frac{i
+  e^{-ip_\mu (x - y)^\mu}}{p^2 - m^2 + i\epsilon} $$
+
+\subsubsection{Wick's Theorem}
+
+Now, this is fine for $T_2$ but what about arbitrary $l$? Here Wick's Theorem
+comes into play. First let's define the \textbf{contraction} of $\phi_i, \phi_j$
+to be (for example in the case $i=1, j=3$) as $\phi_1 \phi_2 \phi_3 \phi_4
+\mapsto \Delta_F(x_1 - x_3) \phi_2 \phi_4$ where $\phi_i = \phi(x_i)$. Then we
+define the symbol $\mathcal{C}(\phi_1 \dots \phi_n)$ to denote the sum over all
+possible contractions (including all numbers of contractions - so no
+contractions at all is a possibility, and so is 5 different contractions), then
+
+\begin{theorem}
+  \textbf{Wick's Theorem} states that
+  $$ T(\phi_1 \dots \phi_n) = : \phi_1 \dots \phi_n : + \mathcal{C}(\phi_1 \dots
+  \phi_n) $$
+\end{theorem}
 
 \end{document}
