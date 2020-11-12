@@ -10,11 +10,13 @@
 \usepackage{longtable}
 \usepackage{adjustbox}
 \usepackage{physics}
+\usepackage{hyperref}
 \usepackage[makeroom]{cancel}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
 
 \title{Statistical Field Theory}
 \author{quinten tupker}
@@ -429,5 +431,495 @@ we're in two dimensions, but we also have the fact that $F_W$ may depend on $L$
 in this scenario, meaning that in effect, the probabilities above instead
 converge to 0 and 1, meaning that a phase transition does indeed occur. [End of
 lecture 4]
+
+\subsubsection{Path Integrals}
+
+So how do we evaluate the path integrals we deal with
+
+$$ Z = \int \mathcal{D}m(x) e^{-\beta F[m(x)]} $$
+
+For $B = $ we get the general form
+
+$$ F[m(x)] = \int d^dx (\frac{1}{2} \gamma (\nabla \phi)^2 + \frac{1}{2} \alpha_2
+\phi^2 + \alpha_4 \phi^4 + \dots) $$
+
+the path integral can be done when $F$ is at most quadratic in $\phi$. Small
+higher order terms are hard, but still feasible, and that's more or less it.
+Importantly, for $\alpha_2 = \mu^2$ when $\mu$ is small, this becomes hard to
+evaluate since higher order terms do matter. This case will be treated
+separately.
+
+Now, to perturb we write $\tilde{\phi} = \phi - \langle \phi \rangle$ and then
+
+$$ F(\tilde{\phi}) = F(m_0) + \frac{1}{2} \int d^dx \gamma (\nabla
+\tilde{\phi})^2 + \alpha_2 \tilde{\phi}^2$$
+
+where $\langle  \phi \rangle = \pm m_0$ for $T < T_C$. To start evaluating
+things, we use the Fourier space, so $\phi_k = \int d^d x e^{-i k \cdot x}
+\phi(x)$ for mommentum $k$. Since we're on a lattice, we take $\phi_k = 0$ for
+$k > \lambda = \pi / a$ the UV cut-off. Writing $\phi = \int
+\frac{d^dk}{(2\pi)^d} e^{ik \cdot x} \phi_k$, we see that
+
+\begin{align*}
+  F(\phi_k) &= \frac{1}{2} \int \frac{d^d k_1}{(2\pi)^d} \frac{d^d k_2}{(2\pi)^d} \int d^d x (-\gamma k_1 \cdot k_2 + \mu^2) \phi_{k_1} \phi_{k_2} e^{i(k_1 + k_2) \cdot x} \\
+            &= \frac{1}{2} \int \frac{d^d k}{(2\pi)^d} (-\gamma (-k) \cdot k + \mu^2) \phi_k \phi_{-k} \\
+            &= \frac{1}{2} \int \frac{d^d k}{(2\pi)^d} (\gamma k^2 + \mu^2) |\phi_k|^2 \\
+            &= \frac{1}{2V} \sum_k (\gamma k^2 + \mu^2) |\phi_k|^2
+\end{align*}
+
+Now, we can calculate that the measure in our path integral is
+
+$$ \int \mathcal{D}\phi(x) = \prod_k \left( N \int d\phi_k d\phi_k^* \right) $$
+
+where $N$ is some normalisation constant which we will ignore from hereon since
+it does not matter for the calculations we do. Consequently we can claulate
+
+\begin{align*}
+  Z &= \prod_k \int  d\phi_k d\phi_k^* e^{-\frac{\beta}{2V} \sum_k (\gamma k^2 + \mu^2) |\phi_k|^2} \\
+    &= \prod_k \int d\phi_k d\phi_k^* e^{-\frac{\beta}{2V} (\gamma k^2 + \mu^2) |\phi_k|^2}
+\end{align*}
+
+where the last result is just a Gaussian leaving us with
+
+$$ Z = \prod_k \sqrt{\frac{2\pi V T}{\gamma k^2 + \mu^2}} $$
+
+Relating this to $F_{therm}$ via $Z = e^{-\beta F_{therm}}$ we find that
+
+$$ F_therm / V = - \frac{T}{2V} \sum_k \ln \left( \frac{2\pi V T}{\gamma k^2 +
+    \mu^2} \right) = \frac{-T}{2} \int \frac{d^dk}{(2\pi)^d} \ln \left(
+  \frac{2\pi V T}{\gamma k^2 + \mu^2} \right) $$
+
+which might look like it diverges. This is the one place where the normalisation
+constant $N$ does matter, and does fix the issue. Regardless, we continue to
+ignore it.
+
+\begin{example}
+  Compute $c = C/V$.
+  \begin{align*}
+    C &= \frac{\beta^2}{V} \partial_\beta^2 \ln(Z) \\
+      &= \frac{1}{2} (T^2 \partial_T^2 + 2T \partial_T) \int \frac{d^d k}{(2\pi)^d} \ln \left( \frac{2 \pi V T}{\gamma k^2 + \mu^2} \right) \\
+      &= \frac{1}{2} \int \frac{d^d k}{(2\pi)^d} (1 - \frac{2T}{\gamma k^2 + \mu^2} + \frac{T^2}{(\gamma k^2 + \mu^2)^2 })
+  \end{align*}
+  Here we see that this depends on $d$ quite strongly and the convergence as
+  $\Lambda \to \infty$ and we also only care about $k^2$ not $\hat{k}$.
+  For the two non-constant terms we see that
+  $$
+  \int^\Lambda_0 dk \frac{k^{d - 1}}{\gamma k^2 + \mu^2} \sim
+  \begin{cases}
+    \Lambda^{d - 2} + \dots & d > 2 \\
+    \ln(\Lambda) + \dots & d = 2 \\
+    \mu^{-1} + \dots & d = 1
+  \end{cases}
+  $$
+  $$
+  \int^\Lambda_0 dk \frac{d^d k}{\gamma k^2 + \mu^2} \sim
+  \begin{cases}
+    \Lambda^{d - 4} + \dots & d > 4 \\
+    \ln(\Lambda) + \dots & d = 4 \\
+    \mu^{d - 4} + \dots & d < 4
+  \end{cases}
+  $$
+  Consequently, we see that for $d \geq 4$, $c$ is independent of $T$ whereas
+  for $d < 4$, $c \sim \mu^{d - 4} \sim |T - T_c|^{-\alpha} \implies \alpha = 2
+  - d / 2$. Do remember that we cannot use this calculation near the critical
+  point, since the $\phi^4$ term matters there. [End of lecture 2.1]
+\end{example}
+
+In general, this approach can help us refine our critical exponent calcuations.
+Firstly, note that
+
+$$ \langle \phi(x) \rangle =
+\begin{cases}
+  0 & T > T_c \\
+  \pm m & T < T_c
+\end{cases}
+$$
+
+Here we define the \textbf{correlation} to be
+
+$$ \langle \phi(x) \phi(y) \rangle> $$
+
+and the \textbf{connected correlation} to be
+
+$$ \langle \phi(x) \phi(y) \rangle_c = \langle \phi(x) \phi(y) \rangle - \langle
+\phi \rangle^2 $$
+
+We will see that we are often less interested in the correlation itself, but
+more in the length scales on which it is significant. Now to see how we might
+examine correlatoins, we consider free energy
+
+$$ F = \int d^d x \langle \frac{1}{2} \gamma (\nabla \phi)^2 + \frac{1}{2} \mu^2
+\phi^2 - B(x) \phi(x) \rangle $$
+
+with $Z(B(x)) = \int \mathcal{D}\phi e^{-\beta F}$ as usual. As usual, the
+partition function contains a lot of information
+
+\begin{example}
+  $$ \frac{1}{\beta} \frac{\delta \ln(Z)}{\delta B(x)} = \frac{1}{\beta^2}
+  \frac{\delta Z}{\delta B(x)} = - \langle \phi \rangle_B $$
+  which is minus the expected value of $\phi$ for $B = B(x)$.
+\end{example}
+
+\begin{example}
+  Similarly,
+  \begin{align*}
+    \frac{1}{\beta^2} \frac{\delta^2 \ln(Z)}{\delta B(x) \delta B(y)}
+    &= \frac{1}{\beta^2 Z} \frac{\delta^2 Z}{\delta B(x) \delta B(y)} - \frac{1}{\beta^2 Z^2} \frac{\delta Z}{\delta B(x)} \frac{\delta Z}{\delta B(y)} \\
+    &= \langle \phi(x) \phi(y) \rangle_B - \langle \phi(x) \rangle_B \langle \phi(y) \rangle_B
+  \end{align*}
+  leaving
+  $$ \langle \phi(x) \phi(y) \rangle_c = \frac{1}{\beta^2} \frac{\delta^2
+    \ln(Z)}{\delta B(x) \delta B(y)} |_{B=0} $$
+\end{example}
+
+All we need to do to make use of these nice properties is actually calculating
+$Z(B(x))$. We use the same approach as we used earlier for $B = 0$, which is to
+use the Fourier space, but now also with Fourier modes $B_k$ of $B$.
+
+$$ F(\phi_k) = \int \frac{d^d k}{(2\pi)^d} \left( \frac{1}{2}(\gamma k^2 +
+  \mu^2) \phi_k \phi_{-k} - B_{-k} \phi_k \right) $$
+
+using Gaussian integrals with $\hat{\phi}_k = \phi_k - \frac{Bk}{\gamma k^2 +
+  \mu^2}$ we get
+
+$$ F(\hat{phi}_k) = \int \frac{d^d k}{(2\pi)^d} \left( \frac{1}{2} (\gamma k^2 +
+  \mu^2) |\hat{\phi}_k |^2 - \frac{1}{2} \frac{|B_k|^2}{\gamma k^2 + \mu^2}
+\right) $$
+
+meaning that
+
+\begin{align*}
+  Z(B(x)) &= \prod_k \int d \hat{\phi}_k d \hat{\phi}_k^* e^{-\beta F(\phi)} \\
+          &= e^{-\beta F_{thermo}} e^{\frac{\beta}{2} \int \frac{d^d k}{(2\pi)^d} \frac{|B_k|^2}{\gamma k^2 + \mu^2}} \\
+          &= e^{-\beta F_{thermo}} e^{\frac{\beta}{2} \int d^d x d^d y B(x) G(x - y) B(y)}
+\end{align*}
+
+(we split off the parts depending on $B$) where
+
+$$ G(x) = \int \frac{d^d k}{(2 \pi)^d} \frac{e^{-ik \cdot (x - y)}}{\gamma k^2 +
+  \mu^2} $$
+
+We then see, from our earlier example, that
+
+$$ \langle \phi(x) \phi(y) \rangle_c = \frac{1}{\beta} G(x - y) $$
+
+We then define the \textbf{correlation length} to be $\xi^2 = \gamma / \mu^2$,
+which from our expression for the connected correlation we can see that this is
+strongly related the length scale the meaningful correlation occurs on. In
+particular, we see that
+
+$$ G(x) = G(|x|) = \frac{1}{\gamma} \int \frac{d^d x}{(2\pi)^d} \frac{e^{-i k
+    \cdot x}}{k^2 + 1 / \xi^2} $$
+
+A such (see example sheet 2) we see that
+
+$$ G(r) \sim
+\begin{cases}
+  \frac{1}{r^{d - 2}} & r << \xi \\
+  \frac{e^{-r / \xi}}{r^{(d - 1) / 2}} & r >> \xi
+\end{cases}
+$$
+
+A such, we see that meaningful fluctation sizes occur for lengths $ r < \xi$ as
+we'd hoped. In particular, we see that near the critical point ($\mu^2 \sim |T -
+T_c \implies \xi \to \infty$ as $T \to T_c$) meaningful fluctuations occur on
+all length scales. Let's try to understand what happens here. In particular,
+let's define two \textbf{new critical exponents} (yay!)
+
+$$ \xi \sim |T - T_c|^{-\nu}, \nu = 1/2 $$
+
+$$ \langle \phi(x) \phi(y) \rangle \sim \frac{1}{r^{d -2 + \eta}}, \eta = 0 $$
+
+These values turn out to be correct for $d \geq 4$, but wrong for $d < 4$,
+leaving another mystery. Nevertheless, the upper critical dimension seems to fit
+with our pattern. To think a bit more about the upper critical dimension notice
+that MFT is not obviously wrong if $\langle \phi^2 \rangle < \langle \phi
+\rangle^2$. As such we find it useful to define
+
+$$ R = \frac{\int^\xi_0 d^d x \langle \phi(x) \phi(0) \rangle}{\int^\xi_0 d^d x
+  m_0^2} $$
+
+where $\langle \phi \rangle = \pm m_0$ for $T < T_c$. Here $R$ is roughly
+indicative of the size of the fluctuations we see. In particular, we notice that
+
+$$ R \sim \frac{1}{m_0^2 \xi^d} \int^\xi_0 dr \frac{r^{d - 1}}{r^{d - 2}} \sim
+\frac{\xi^{2 - d}}{m_0^2} $$
+
+so from our critical exponents
+
+$$ R \sim |T - T_c|^{(d - 4) / 2} $$
+
+In particular, we see that $d < 4 \implies R \to \infty$ as $T \to T_c$ so MFT
+is certainly wrong.
+
+So we can see information about the upper critical dimension using this
+approach, but let's see if we can get a bit of a better picture on the
+fluctuations as well. [End of lecture 2.2]
+
+\section{Renormalisation}
+
+Here we use the more famous technique of renormalisation. First note that we
+treat renormalisation in general, meaning that now
+
+$$ F(\phi) = \int d^d x \left( \frac{1}{2} (\nabla \phi)^2 + \frac{1}{2} \mu^2
+  \phi^2 + g\phi^4 + \dots \right) $$
+
+where all we require is that
+
+\begin{itemize}
+\item $F$ is analytic about $\phi = 0$
+\item $F$ is even, so the same for $\phi \mapsto -\phi$
+\item We conventially set the coefficient in front of $(\nabla \phi)^2$ to be
+  $\frac{1}{2}$ which is really the same as a rescaling up to units so has no
+  effect.
+\end{itemize}
+
+We thus get an infinite list of constants $g_n$ to describe our theory, and in
+particular, when we renormalise we study how we ``move between theories''. We in
+a sense, establish a way to travel between theories and a way to check if two
+theories are close enough. This is particularly insightful, as it allows us to
+see why universality exists, which naturally arises from many theories being
+close to each other in some sense, and we can also clearly see when it breaks
+down. As such, we refer to the coefficients $g_n$ as corresponding to a point in
+\textbf{theory space}. 
+
+So how do we establish the ``closeness'' of theories? Probably you could build
+some kind of metric and that certainly would be interesting on its own. However,
+now instead of using a metric, we look at the convergence of theories. In
+particular, we notice that since we always approximate theories when we study
+them, we really only care about theories ``up to approximation'' or we only care
+about them up to the point that they approximate the same thing. In particular,
+rescaling shouldn't change the nature of the theory, but it may change the
+constants, and seeing which theories converge to the same type when we rescale
+is how we determine which theories are close to one another. That is what
+renormalisation is. The rescaling of theories, and analysis of their convergence
+under this rescaling.
+
+When we rescale, we need to remember that we are almost always using a UV cutoff
+$\Lambda \sim 1/a$ for spacing $a$ allowing us to ignore $\phi_k$ for $k >> 1 /
+L$ when we are working on length scale $L$. As such, when we rescale by $\zeta >
+1$ we also need to rescale the cutoff to $\Lambda' = \Lambda / \zeta$. We then
+also split
+
+$$ \phi_k = \phi_k^- + \phi_k^+ $$
+
+where
+
+$$ \phi_k^- =
+\begin{cases}
+  \phi_k & |k| < \Lambda' \\
+  0 & |k| > \Lambda'
+\end{cases}
+$$
+
+and similar for $\phi_k^+$ (so we want to ignore $\phi_k^+$). We then write
+
+$$ F(\phi_k) = F_0(\phi_k^-) + F_0(\phi_k^+) + F_I(\phi_k^-, \phi_k^+) $$
+
+where $F_I$ is the interaction term. We then write
+
+\begin{align*}
+  Z &= \int \prod_{k < \Lambda} d\phi_k e^{-F(\phi_k)} \\
+    &= \int \prod_{k < \Lambda'} d\phi_k^- e^{-F_0(\phi_k^-)} \int \prod_{\Lambda' < k < \Lambda} d \phi_k^+ e^{-F_0(\phi_k^+)} e^{-F_I(\phi_k^-, \phi_k^+)} \\
+    &= \int \prod_{k < \Lambda'} d\phi_k^- e^{-F'(\phi_k^-)}
+\end{align*}
+
+for \textbf{Wilsonian effective free energy} $F'$ (we need to reformat the
+theory into one with a UV cutoff after all). The Wilsonian effective free energy
+takes the form, again,
+
+$$ F'(\phi) = \int d^dx \left( \frac{1}{2} \gamma' (\nabla \phi)^2 + \frac{1}{2}
+\mu'^2 \phi^2 + g'\phi^4 + \dots \right) $$
+
+[so I guess renormalisation is more of a rescaling of the cutoff, and examining
+how the theory varies under different cutoffs - makes sense]. Continuing to
+reformat things, we set $k' = \zeta k, x' = x / \zeta$ (want to preserve $k
+\cdot x$) and rescale the field as $\phi'_k = \sqrt{\gamma'} \phi_j^-$ to get
+
+$$ F'(\phi') = \int d^d x' \left( \frac{1}{2} (\nabla' \phi')^2 + \frac{1}{2}
+  \mu^2(\zeta) \phi^2 + g(\zeta) \phi^4 \right) $$
+
+In short then, renormalisation corresponds today
+
+\begin{enumerate}
+\item Integrate out modes $\Lambda / \zeta < k < \Lambda$ for $\zeta > 1$
+\item rescale $k' = \zeta k$
+\item rescale fields to get $1/2$ gradient coefficient [End of lecture 3.0]
+\end{enumerate}
+
+So what kind of behaviour can we see when we renormalise a theory? Basically, we
+can diverge to $\infty$, approach a fixed point, we can end up in a fixed cycle
+or we can wander around aimlessly. Of these, the last two are ``uncommon,'' so
+we will focus on the first two. In particular, fixed points of $\xi$ are of
+note, since if $\xi' = \xi / \zeta$ then either $\xi = 0$ or $\xi = \infty$. In
+the first case, then for $T$ small we get an ordered phase, and $T$ big we get a
+disordered phase. This is not so interesting. The interesting case here is $\xi
+= \infty$ so we get global behaviour, which is interesting (see examples at
+\href{http://physics.weber.edu/thermal/computer.html}{here}).
+
+For flows near a fixed point we use the following terms:
+
+\begin{itemize}
+\item a flow is \textbf{irrelevant} if it flows back to the fixed point.
+\item a flow is \textbf{relevant} if it flows away from the fixed point.
+\item a flow is \textbf{marginal} if it moves somewhere else within an overall
+  ``fixed hyperplane''
+\end{itemize}
+
+Usually you get an infinite number of irrelevant directions and a finite number
+of relevant directions around a fixed point. This is what leads to the
+universality that we generally observe. This universality makes the low energy
+regime easier to understand, but makes it harder to extrapolate to high energy
+physics, since many high energy theories lead to the same low energy physics.
+[End of lecture 3.1]
+
+\subsection{Understanding Critical Exponents}
+
+We can use renormalisation to improve our understanding of critical exponents.
+To start with we see that at a fixed point there is no sense of scale (?) so we
+can write
+
+$$ \langle \phi(x) \phi(0) \rangle = \frac{1}{r^{d - 2 + \eta}} $$
+
+(any other functional would need a sense of scale on dimensional grounds).
+Dimensional analysis tells us that $[x] = 1 \implies [\partial_x] = 1$ so in
+particular, $[F] = 0, [d^dx] = -d, [\nabla] = 1,$ so $[\phi] = \frac{d - 2}{2}$,
+so $\eta = 0$ as before. This disagrees with experiment despite our analysis
+being as simple as dimensional analysis. This is because there is a ``hidden
+scale'' that comes from the energy cut-off $a$ and so instead we get
+
+$$ \langle \phi(x) \phi(y) \rangle \sim \frac{a^\eta}{r^{d - 2 + \eta}} $$
+
+which gives us a slightly modified dimensional analysis. In particular, if we
+rescale $x \mapsto x / \zeta$, so $\phi(x) \mapsto \phi'(x') =
+\zeta^{\Delta_\phi} \phi(x)$ with scaling dimension $\Delta_\phi$ leaving
+
+$$ \langle \phi(x) \phi(y) \rangle \sim \frac{1}{r^{d - 2 + \eta}} $$
+
+giving
+
+$$ \Delta_\phi = \frac{d - 2 + \eta}{2}$$ with so-called \textbf{anomolous
+  dimension} $\eta / 2$. Consequently, if $t = |T - T_c| / T_c$ then
+
+$$ \xi \sim t^{-\nu} $$
+
+has $\xi \sim 1/\mu \sim 1 / t^{1/2}$ which does not agree with experiment, but
+if $[\xi] = -1$ then $t \mapsto \zeta t^{\Delta_t} t$ where $\Delta_t = 1 /
+\nu$.
+
+Now, if $\xi$ is the only length scale in our theory, then all other critical
+exponents follow from $\eta, \nu$. We work this out now.
+
+\begin{enumerate}
+  \item Note that $F_{thermo} = \int d^d x f(t) \implies f \sim t^{d\nu}$. Also,
+    $c = \partial_t^2 f \sim t^{d\nu - 2} \sim t^{-\alpha} \implies \alpha = 2 -
+    d\nu$. This is known as the \textbf{hyperscaling relation}.
+  \item $m \sim \phi \sim t^\beta$ and $\Delta_\phi = \beta \Delta_t \implies
+    \beta = \nu \Delta_\phi = \nu (d - 2 + \eta) / 2$
+  \item $F \sim \int d^d x B\phi \implies \Delta_\phi + \Delta_B = d \implies
+    \Delta_B = (d + 2 - \eta) / 2 \implies \gamma = \nu(2 + \eta)$. This is
+    known as \textbf{Fisher's identity}.
+  \item We also see that $\delta = \Delta_B / \Delta_\phi = (d + 2 - \eta) / (d
+    - 2 + \eta)$.
+\end{enumerate}
+
+This works well for the $d=2, 3$ Ising model and for MFT with $d = 4$. However,
+it fails for MFT $d > 4$ for $\beta, \delta$ because the $g \phi^4$ term means
+we get $m \sim \sqrt{t / g}$. 
+
+Finally, we note that we can characterise interactions by how they scale with
+$F(\phi) \sim \int d^d x g_O O(x)$ for some interaction order $O(x)$ where $O(x)
+\mapsto \zeta^{\Delta_O} O(x)$ and $\Delta_{g_O} = d - \Delta_O \implies g_O
+\mapsto \zeta^{d - \Delta_O} g_O$. Note however that not all interactions take
+this form. Just as with renormalisation flows, we can classify these
+interactions as \textbf{relevant} for $\Delta_O < d$, \textbf{irrelevant} for
+$\Delta_O > d$ and marginal for $\Delta_O = d$. [End of lecture 3.2]
+
+\subsection{Gaussian Case}
+
+There is one case where it is relatively easy to work out renormalisation
+explicitly, which is the so-called \textbf{Gaussian case} when
+
+$$ F_0(\phi) = \int d^d x \left( \frac{1}{2}(\nabla \phi)^2 + \frac{1}{2}
+  \mu_0^2 \phi^2 \right) = \int^\Delta \frac{d^d x}{(2\pi)^d} \frac{1}{2}(k^2 +
+\mu_0^2) \phi_k \phi_{-k} $$
+
+This case is special because here there is no interaction term:
+
+$$ F_0(\phi)= = F_0(\phi^-) + F_0(\phi^+) $$
+
+so
+
+$$ e^{-F'_0(\phi')} = \left( \int \mathcal{D}\phi^+ e^{-F_0(\phi^+)} \right)
+e^{-F_0(\phi^-)} = Ne^{-F_0(\phi^-)} $$
+
+So setting $k' = \zeta k, \phi_k = \zeta^{-w} \phi_k$ where $w$ is undetermined
+leaves us with
+
+$$ F_0(\phi^-) = \int^{\Delta / \zeta} \frac{d^d k}{(2\pi)^k} \frac{1}{2} (k^2 +
+\mu_0^2) \phi_k^- \phi_{-k}^- = \int^\Delta \frac{d^d k'}{(2\pi)^d} \frac{1}{2
+  \zeta^d} \left( \frac{k'^2}{\zeta^2} + \mu_0^2 \right) \zeta^{2w} \phi'_{k'}
+\phi'_{-k'} $$
+
+so picking $w = (d + 2) / 2$ gives us the right $1/2$ coefficient. Relabelling
+$k'$ as $k$ we get our desired result:
+
+$$ F'_0(\phi') = \int^\Delta \frac{d^d k}{(2\pi)^d} \frac{1}{2} (k^2 +
+\mu^2(\zeta)) \phi'_k \phi'_{-k} $$
+
+where $\mu^2(\zeta) = \zeta^2 \mu_0^2$ so as mentioned before, for $\xi = 1 /
+\mu$,  $\partial_\xi \mu^2 = 0 \implies \mu^2 = \infty$ at $T = \infty$ (so
+ignore this case) or $\mu^2 = 0$ (which is the Gaussian fixed point).
+
+As $\mu^2 \phi^2$ gets bigger this becomes the relevant operator. On other hand,
+$\alpha_2 (\nabla^2 \phi)^2$ scales as $\alpha_2(\zeta) = \zeta^{-2}\alpha_0$ so
+this term is irrelevant. In the more general terms
+
+$$ F(\phi) = \int d^dx \left( \frac{1}{2} (\nabla \phi)^2 + \frac{1}{2} \mu_0^2
+  \phi^2 + \sum_4^\infty g_{0n} \phi^n \right) $$
+
+where the $n$s are all even, we get non-trivial interactions terms leading today
+
+$$ g_{0n} \mapsto g_n' + g_{0n} + \delta g_n $$
+
+where $\delta g_n$ arises from the interactions. $\phi'(x') =
+\zeta^{\Delta_\phi} \phi(x)$ then means that
+
+$$ F(\phi') = \int d^d x' \zeta^d \left( \frac{1}{2} \zeta^{-2 - 2 \Delta_\phi}
+  (\nabla' \phi')^2 + \frac{1}{2} \mu_0^2 \zeta^{-2\Delta_\phi} \phi'^2 +
+  \sum_4^\infty g_{0n} \zeta^{-n\Delta_\phi} \phi'^n \right) $$
+
+wher $\Delta_\phi = (d - 2) / 2$ again. The same approach with dimensional
+results allows us to return to the original form of the free energy with new
+coefficients
+
+$$ g_n(\zeta) = \zeta^{d -n\Delta_\phi} g_{0n} = \zeta^{n + d(1 - n/2)}
+g_{0n} $$
+
+\begin{example}
+  For the quartic term we find $g_4(\zeta) = \zeta^{4 - d}g_{0n}$ which becomes
+  irrelevant for $d > 4$, but relevant for $d < 4$ and marginal for $d = 4$.
+  This agrees nicely with what we've found before. For $d > 4$, the quartic term
+  ``auto-tunes'' whereas for lower dimension, an experimentalist would have to
+  forcibly control it, to prevent it from ``veering off'' whereas for lower
+  dimension, an experimentalist would have to forcibly control it, to prevent it
+  from ``veering off.'' The problem we find is that for $n > 4$ and $n$ even,
+  all $g_n$ are always relevant (except perhaps $d = 1$ for $g_6$?).
+\end{example}
+
+Now, as a matter of language, we now will usually use the term MFT or
+\textbf{mean field theory} to refer to the Gaussian case specifically, even
+though things have changed quite a bit.
+
+Just as a final warning, we'd like to point out the concept of \textit{dangerous
+irrelevant terms}. A specific example is the quartic term in the critical
+exponents for MFT with $d > 4$. In this case, for $\beta, \delta$ our more basic
+analysis fails, but once we include $g_4$ we find that $m_0 \sim (t /
+g_4)^\beta$ for $\beta = 1/2$, Here, $\Delta_{g_4} = 4 - d$ gives us
+$\Delta_\phi = \beta(\Delta_t - \Delta_{g_4}) = \beta (d - 2)$ and now $\beta =
+1/2$ is fully compatible with scaling (so MFT and the scaling approach agree).
+
+All this is just to point out that sometimes, irrelevant terms can change
+critical exponeents even though they are ``irrelevant'' in another sense.
 
 \end{document}

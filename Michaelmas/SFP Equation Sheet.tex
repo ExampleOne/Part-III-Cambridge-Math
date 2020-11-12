@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+
+\title{Symmetries Fields and Particles Equation Sheet}
+\author{quinten tupker}
+\date{November 10 2020 - \today}
+
+\begin{document}
+
+\maketitle
+
+Here are some useful equations
+
+\begin{table}[H]
+  \caption{Equation Sheet}
+  \begin{adjustbox}{center}
+    \begin{tabular}{|p{5cm}|p{10cm}|p{5cm}|}
+      \hline
+      \label{equations_1}
+      Name/Description & Equation & Remarks \\ \hline
+      Pauli Matrices & $\sigma_1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \sigma_2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \sigma_3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$ & Together with the identity these form a basis for the space of traceless 2 by 2 matrices as a real vector space. Also, these are orthogonal under the trace matrix inner product $\tr(AB)$. \\ \hline
+    \end{tabular}
+  \end{adjustbox}
+\end{table}
+
+\end{document}

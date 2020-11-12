@@ -1,8 +1,8 @@
 (TeX-add-style-hook
- "Statistical Field Theory"
+ "SFP Equation Sheet"
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("inputenc" "utf8") ("cancel" "makeroom")))
+                     '(("inputenc" "utf8")))
    (TeX-run-style-hooks
     "latex2e"
     "article"
@@ -17,18 +17,12 @@
     "amsthm"
     "longtable"
     "adjustbox"
-    "physics"
-    "hyperref"
-    "cancel")
+    "physics")
    (LaTeX-add-labels
-    "figure: f_vs_m_high_T_B0"
-    "figure: f_vs_m_low_T_B0"
-    "figure: m_vs_T_B0"
-    "figure: m_min_vs_B"
-    "figure: f_vs_m_2d")
+    "equations_1")
    (LaTeX-add-environments
     "definition"
-    "proposition"
-    "example"))
+    "example"
+    "theorem"))
  :latex)
 
