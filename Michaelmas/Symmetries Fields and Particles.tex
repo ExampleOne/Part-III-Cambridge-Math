@@ -659,4 +659,558 @@ traceless.
 Finally, we remark that summing over all indices forms an invariant inner
 product on the space. [End of lecture 8] 
 
+What is the dimension of a totally symmetric traceless tensor? In thrs, any
+symmetric tensor can be written in the form
+
+$$ S_{\underbrace{1 \dots 1}_{r \text{ times}} \underbrace{2 \dots 2}_{s \text{
+      times}} \underbrace{3 \dots 3}_{t \text{ times}}} $$
+
+by roerdering, meaning that
+
+$$ \text{dim}(\text{Sym}(\mathcal{V}^n)) = \frac{(n + 1)(n + 2)}{2} $$
+
+If we also impose that we have to traceless, we get dimension $2n + 1$ as we
+would expect for a representation of angular momentum eigenstates. 
+
+\subsection{Spinors}
+
+It turns out that the spinor representation can just be expressed as the
+fundamental representation of $SU(r)$ with tensors transforming via $\eta_\alpha
+\mapsto \eta'_\alpha = A_\alpha^\beta \eta_\beta$ for $A \in SU(r)$. $A \in
+SU(r) \implies (A_\alpha^\beta)^* = (A^{-1})_\alpha^\beta$ (notice the
+transpose) which corresponds to the conjugate representation $\bar{\eta}^\alpha
+= (\eta_\alpha)^*$.
+
+For $SU(2)$, which we will focus on, $\epsilon^{\alpha \beta} = -\epsilon^{\beta
+\alpha}$ is the only isotropic tensor. By convention we choose $\epsilon^{12} =
+1, \epsilon_{12} = -1$. To check it is truly isotropic notice that
+
+$$ \epsilon'_{\alpha \beta} = A_\alpha^\gamma A_\beta^\delta \epsilon_{\gamma
+  \delta} = \text{det}(A) \epsilon_{\alpha \beta} = \epsilon_{\alpha \beta} $$
+
+Now, again, we wish to find the irreducible representations for this group. In
+this case, we see that anything contracted with $\epsilon^{\alpha \beta}$ must
+be zero (or else it could be used to form a proper-subrepresentation). As such,
+we find that any irreducible $S_{\alpha_1 \dots \alpha_n}$ must be totally
+symmetric, as before. Using a similar counting method as before, we find that
+the dimension of such spaces is $n + 1$ for $j = n/2$ as one might hope. 
+
+Now, so far we have to consider both $\eta_\alpha$ and $\bar{eta}^\alpha$ but we
+notice that we can use $\epsilon^{\alpha \beta}$ to raise and lower indices. As
+such, it is sufficient to only consider $\eta_\alpha$. Also, notice that that
+
+$$ \epsilon_{\alpha \beta} \epsilon^{\gamma \delta} = -\delta_\alpha^\gamma
+\delta_\beta^\delta + \delta_\alpha^\delta \delta_\beta^\gamma $$
+
+Now, writing 
+
+$$ \delta_{\eta_\alpha} = - i \delta \theta \frac{1}{2} (n \cdot
+\theta)_\alpha^\beta \eta_\beta $$
+
+so that for an arbitrary tensors
+$$ \delta T_{\alpha_1 \dots \alpha_m} = -i \delta \theta \sum_r \frac{1}{2} (n
+\cdot \sigma)_\alpha^\beta (T_{\alpha_1 \dots \alpha_{r - 1} \beta \alpha_{r +
+    1} \dots \alpha_m}) $$
+
+meaning that $\epsilon^{\alpha \gamma} \epsilon_{\beta \delta}
+\sigma_\gamma^\delta = \sigma_\beta^\alpha$ so that $\tr(\sigma) = 0$ and
+$\epsilon^{\alpha \beta} \sigma_\gamma^\beta = \epsilon^{\beta \gamma}
+\sigma_\gamma^\alpha$. We then can write the completeness of Pauli matrices
+as
+
+$$ (\sigma \epsilon)_{\alpha \beta} \cdot (\sigma \epsilon)^{\gamma \delta} =
+\delta_\alpha^\gamma \delta_\beta^\delta + \delta_\alpha^\delta
+\delta_\beta^\gamma $$
+
+$$ (\epsilon \sigma)^{\alpha \beta} \cdot (\epsilon \sigma)^{\gamma \delta} =
+-\epsilon^{\alpha \gamma} \epsilon^{\beta \delta} - \epsilon^{\alpha \gamma}
+\epsilon^{\beta \gamma} $$
+
+The Pauli matrices are crucial since they link $SU(2)$ back to $SO(3)$ which we
+are relying on. In particular we see that for $n$ even wecan write
+
+$$ T_{i_1 \dots i_n} = (\epsilon \sigma_{i_1})^{\alpha_1 \beta_1} \dots
+(\epsilon \sigma_{i_n})^{\alpha_n \beta_n} S_{\alpha_1 \dots \alpha_n \beta_1
+  \dots \beta_n} $$
+
+[do we mean $n/2$ in the last term here?] and for $n$ odd we see that
+
+$$ T_{i_1 \dots i_n} = \epsilon^{\beta_1 \gamma_1} \dots \epsilon^{\beta_r
+  \gamma_r} S_{1, (\alpha_1 \dots \alpha_{n - r} \beta_1 \dots \beta_r} S_{2,
+  \alpha_{n - r + 1} \dots \alpha_{n + m - 2r})\gamma_1 \dots \gamma_r} $$
+
+for $S_{1, \alpha_1 \dots \alpha_r}$, $S_{2, \beta_1 \dots \beta_m}$ and $n \geq
+m, r$. In particular for $n=m=1, r=0, 1$ for $u_\alpha, v_\alpha$ we find that
+
+$$ u_\alpha v_\beta = u_{(\alpha} v_{\beta)} + \frac{1}{2} \epsilon_{\alpha
+  \beta} u_\beta^\gamma v_\gamma $$
+
+where we see that $u_{(\alpha} v_{\beta)}$ is a vector in $SO(3)$. This means
+that
+
+$$ t_i = (\epsilon \sigma_i)^{\alpha \beta} u_{(\alpha} v_{\beta)} $$
+
+is a tensor and we can reverse this via
+
+$$ u_\alpha v_\beta = \frac{1}{2} t_i (\epsilon \sigma_i)_{\alpha \beta} +
+\frac{1}{2} \epsilon_{\alpha \beta} u^\gamma v_\gamma $$
+
+where we in effect see $j = 1 / 2 \otimes j = 1/2 \equiv j = 1 \oplus j = 0$.
+
+\section{Relativistic Symmetries}
+
+All that we've dealt so far are classical symmetries with the standard rotation
+group. But really, we'd like to redo this work relativistically. As such, and
+sticking to special relativity, we upgrade to the Lorentz group (and sometimes
+Poincar\'{e} group). 
+
+\subsection{The Lorentz Group}
+
+We wish to define a group that preserves an inner product given by $x^\mu, x^\nu
+\mapsto g_{\mu \nu} x^\mu x^\nu$ where $g_{00} = 1, g_{0i} = g_{i0} = 0, g_{ii}
+= -1$. By linear algebra we know that any such inner product is equivalent to
+the inner product with 
+
+$$ g = 
+\begin{pmatrix}
+1 & & & \\
+& -1 & & \\
+& & -1 & \\
+& & & -1
+\end{pmatrix} $$
+
+Once we deice to preserve this metric, we will now show that this indeed turns
+out to be the Lorentz group. Firstly, we argue that isometries must be linear
+(or affine really - which corresponds to Poincar\'{e}). If $x'^2 = x^2$ and
+$x'^\mu = x^\mu + f^\mu(x)$ for some $f$ under some transformation then we see
+that we get  $dx'^\mu = dx^\mu + \partial_\sigma f^\mu(x) dx^\sigma$ meaning
+that $\partial_\mu f_\nu + \partial_\nu f_\mu = 0$ which is \textbf{Killing
+  equation}. Working a little more we see that
+
+$$ 2\partial_\omega \partial_\mu f_\nu = \partial_\omega(\partial_\nu\\mu f_\nu
++ \partial_\nu f_\mu) + \partial_\mu (\partial_\nu f_\omega + \partial_\omega
+f_\nu) - \partial_\nu(\partial_\omega f_\mu + \partial_\mu f_\omega) = 0 $$
+
+meaning that all second derivatives of $f$ are 0 so f is indeed affine
+
+$$ f_\mu = a_\mu + \omega_{\mu \nu} x^\nu $$
+
+where the killing identity forces $\omega_{\mu \nu}$ to be asymmetric. If we
+then focus on the linear part, we see that we do indeed get Lorentz
+transformations. However, we notice that topologically, the space of Lorentz
+transformations splits into 4 connected components given by $\Lambda^0_{\,0}
+\geq 1$ or $\Lambda^0_{\,0} \leq -1$ and $\det(\Lambda) = \pm 1$. Notice also
+that $(\Lambda^0_{\,0})^2 = 1 + \sum_{i = 1}^3 (\Lambda^0_i)^2$ (why?). Anyways,
+once we require preservation of parity and casaulity we find ourselves
+restricted to $\Lambda^0_0 \geq 1, \det(\Lambda) = 1$. We call this restricted
+group $SO(1, 3)$ the \textbf{proper orthochronous Lorentz group}. Rotations of
+this group forma  subgroup as 
+
+$$ \Lambda_R =
+\begin{pmatrix}
+1 & \\
+& R 
+\end{pmatrix} $$
+
+We can also write all Lorentz boosts in the form
+
+$$ \Lambda_B = 
+\begin{pmatrix}
+\cosh(\theta) & \sinh(\theta) n \\
+\sinh(\theta) n & B 
+\end{pmatrix} $$
+
+for symmetric $B$ and unit vector $n$. Writing the preservation of metric $g$ we
+find that $Bn = \cosh(\theta)n, B^2 = -\sinh^2(\theta) n n^T = I$ meaning that
+
+$$ B = I + (\cosh(\theta) - 1) n n^T $$
+
+a Lorentz boost with velocity $v = \tanh(\theta)$ in direction $n$. These don't
+form a subgroup (although all Lorentz boosts restricted to the same direction
+$n$ do form a subgroup). Now, importantly we notice that we can write any
+Lorentz transformation as a rotation followed by Lorentz boost. We do this by
+noticing that all rotations are all orthogonal in the Lorentz group and all
+Lorentz boosts are symmetric. As a result for any $\Lambda \in SO(1, 3)$ we can
+define $\Lambda_B = \sqrt{\Lambda^T \Lambda}$ and the we see that
+
+$$ (\Lambda(\Lambda_B)^{-1})^T (\Lambda (\Lambda_B)^{-1}) = I $$
+
+Now that we've established the basic structure of the Lorentz group, and its
+origins, let's see what kind of quantum theory we can build off of this. In
+particular, let's start with the commutation relations where we see that for
+
+\begin{align*}
+\Lambda^\mu_{1\nu} &= \delta^\mu_\nu + \omega^\mu_{1\nu} \\
+\Lambda^\mu_{2\nu} &= \delta^\mu_\nu + \omega^\mu_{2\nu} 
+\end{align*}
+
+Then we get that
+
+$$ \Lambda^\mu_\nu = (\lambda_2^{-1} \Lambda_1^{-1} \Lambda_2 \Lambda_1)^\mu_\nu
+= \delta^\mu_\nu + [\omega_2, \omega_1]^\mu_\nu $$
+
+For a representation $U$ of our theory we get that
+
+$$ U(\Lambda) = 1 - \frac{i}{2} \omega^{\mu \nu} M_{\mu \nu} $$
+
+for antisymmetri $M_{\mu \nu}$. We then see that
+
+$$ U(\Lambda) = 1 - i[\omega_2, \omega_1]^{\mu \nu} M_{\mu \nu} = 1 -
+\frac{1}{2} [\omega^\mu_{2 \rho \sigma}, \omega^\mu_{1\sigma \rho}] $$
+
+so in particular
+
+$$ [\omega_2, \omega_1]^{\mu \nu} = g_{\sigma \rho}(\omega_2^{\mu \sigma}
+\omega_1^{\sigma \nu} - \omega_1^{\mu \sigma} \omega_2^{\rho \nu}) $$
+
+Consequently we find
+
+$$ [M_{\mu \nu}, M_{\sigma \rho}] = i [g_{\nu \sigma} M_{\mu \rho} - g_{\mu
+  \sigma} M_{\nu \rho} - g_{\nu \rho} M_{\mu \sigma} + g_{\nu \rho} M_{\nu
+  \sigma}] $$
+
+We now can also define tensors to be \textbf{contravariant} if they transform
+as
+
+$$ U(\Lambda) V^\mu U(\Lambda)^{-1} = (\Lambda^{-1})^\mu_\nu V^\nu $$
+
+and \textbf{covariant} if they transform according to
+
+$$ U(\Lambda) U_\mu U(\Lambda)^{-1} = U_\nu \Lambda^\nu_\mu $$
+
+Infinitesimally we get
+
+$$ [M_{\mu \nu}, V^\sigma] = -i (\delta^\sigma_\mu V_\nu - \delta^\sigma_\nu
+V_\mu) $$
+
+$$ [M_{\mu \nu}, U_\sigma] = -i (g_{\mu \sigma} U_\nu - g_{\nu \sigma} U_\mu) $$
+
+Restricting to $ijkl$ as indices (spatial only) we see that if we define $J_m =
+\frac{1}{2} \epsilon_{mij} M_{ij}$ then $M_{ij} = \epsilon_{ijm} J_m$ leaving
+
+$$ [J_m, J_n] = i \epsilon_{mnl} J_l $$
+
+(representing angular moment) leaving
+
+$$ [M_{0i}, M_{0j}] = -i (\delta_{jk} M_{0i} - \delta_{ik} M_{0j}) $$
+
+and
+
+$$ [M_{0i}, M_{0j}] = -i M_{ij} $$
+
+meaning that if $K_i = M_{0i}$ so $K_i^\dagger = K_i$ (?)
+
+$$ [J_i, K_j] = i \epsilon_{ijk} K_k, [K_i, K_j] = -i \epsilon_{ijk} J_k $$
+
+meaning $K_i$ is a well-defined vector operation under the $SO(1, 3)$ structure
+(what does this mean? - I need to look at Hugh Osborne's notes). As expected,
+infinitesimally we get $\delta x^\mu = \omega^\mu_\nu x^\nu, \omega_{ij} =
+\epsilon_{ijk} \theta_k$ and so if $\omega^0_i - \omega^i_0 = v_i$ then $\delta
+t = v \cdot x, \delta x = v t + \theta \times x$. As such we can write for a
+general Lorentz transformation that
+
+$$ U(\Lambda) = 1 - i \theta \cdot J + i v \cdot k $$
+
+where $J$ is the rotation and $k$ is the boost. Now writing
+
+$$ J^\pm = \frac{1}{2} (J \pm iK) $$
+
+then we get
+
+$$ [J_i^\pm, J_j^\pm] = i \epsilon_{ijk} J_k^\pm $$
+
+an $SU(2) \times SU(2)$ structure. 
+
+Now, just as we could get spinors for $SO(3)$ we can also get spinors for $SO(1,
+3)$. Now instead of using just the Pauli-matrices, we need to use the
+Pauli-matrices plus identity, as used earlier. In particular, we write
+
+$$ \sigma_\mu = (I, \sigma_1, \sigma_2, \sigma_3) = \sigma_\mu^\dagger $$
+
+$$ \bar{\sigma}_\mu = (I, -\sigma_1, -\sigma_2, -\sigma_3) =
+\bar{\sigma}_\mu^\dagger $$
+
+We still get identities like
+
+$$ \sigma_i \sigma_j = \delta_{ij} I + i \epsilon_{ijk} \sigma_k $$
+
+$$ \sigma_\mu \bar{\sigma}_\nu + \sigma_\nu \bar{\sigma}_\mu = 2 g_{\mu \nu} I =
+\bar{\sigma}_\mu \sigma_\nu + \bar{\sigma}_\nu \sigma_\mu $$
+
+$$ \tr(\sigma_\mu \bar{\sigma}_\nu) = 2g_{\mu \nu} $$
+
+$$ A = \frac{1}{2} \tr(\bar{\sigma}^\mu A) \sigma_\mu $$
+
+Now, just as before we have an isomorphism between $SO(1, 3) \equiv SL(2,
+\mathbb{C}) / \mathbb{Z}_2$ by extending the previous isomorphism. In
+particular, we see that we can map 4-vectors to $2 \times 2$-matrices by
+
+$$ x^\mu \mapsto \sigma_\mu x^\mu = x $$
+
+which is reverse by
+
+$$ x^\mu = \frac{1}{2} \tr(\bar{\sigma}^\mu x) $$
+
+Explicitly one can find that
+
+$$ x = 
+\begin{pmatrix}
+x^0 + x^3 & x^1 - ix^2 \\
+x^1 + ix^2 & x^0 - x^3 
+\end{pmatrix} $$
+
+Now, as before we also have $\det(x) = x^2 = g_{\mu \nu} x^\mu x^\nu$ and
+furthermore, for $\bar{x} = \bar{\sigma}_\mu x^\mu$ we have $x\bar{x} = \bar{x}x
+= x^2 I$. Now, for any $A \in SL(2, \mathbb{C})$ we can define $x \mapsto x' =
+AxA^\dagger = x'^\dagger$. $\det(A) = 1 \implies x^2 = x'^2$ and so there exists
+a Lorentz transform such that
+
+$$ x'^\mu = \Lambda^\mu_\nu x^\nu, \sigma_\mu\Lambda^\mu_\nu = A \sigma_\nu
+A^\dagger $$
+
+so
+
+$$ \Lambda^\mu_\nu = \frac{1}{2} \tr(\bar{\sigma^\mu A \sigma_\nu A^\dagger}) $$
+
+[End of lecture 10]. To reverse this map, we notice that
+
+$$ \sigma_\nu A^\dagger \bar{\sigma}^\nu = 2\tr(A^\dagger) I \implies A^\mu_\mu
+= |\tr(A)|^2 \implies \sigma_\mu A^\sigma_{\ v}\bar{\sigma}^\nu $$
+
+As such, we find that
+
+$$ A = \frac{e^{i\alpha} \sigma_\mu \Lambda^\mu_{\ \nu} \bar{\sigma}^\nu}{2
+  \sqrt{\Lambda^\mu_\mu}} $$
+
+where $\tr(A) = e^{i\alpha} |\tr(A)|$ and $\alpha$ can be determined from
+$\det(A) = 1$ up to a factor of $\pm1$ (giving us the necessary homomorphism and
+kernel). 
+
+That completes our correspondance. Now for some final remarks, note that for
+$A^\dagger = A^{-1}$ (so $A \in SU(2)$ (and not just $SL(2)$)), $x'^0 = x^0$ so
+we get a rotation of $x$. Similarly, we see that if $A^\dagger = A$ then
+$\Lambda$ is symmetric, meaning we get a Lorentz boost. In particular, we
+observe that
+
+$$ A_B = \cosh(\theta / 2) I + \sinh(\theta / 2) n \cdot \sigma $$ 
+
+corresponds to $\Lambda_B$. 
+
+\subsection{2-Spinors and dotted indices}
+
+As usual for spinors we require
+
+\begin{align*}
+\psi_\alpha &\mapsto \Lambda_\alpha^{\ \beta} \psi_\beta \\
+\chi^\alpha &\mapsto \chi^\beta (\Lambda^{-1})_\beta^{\ \alpha}
+\end{align*}
+
+for $A \in SL(2, \mathbb{C})$. Note that these are used in the super-symmetry
+and standard model courses. As usual we use the totally antisymmetric
+$\epsilon^{\alpha \beta}$ tensor to raise/lower indeices. However, there is one
+difference with what we had before. Now, we notice that
+
+$$ \epsilon^{\alpha \gamma} A_\gamma^{\ \delta} \epsilon_{\delta \beta} =
+\delta_\beta^\alpha \tr(\Lambda) - \Lambda_\beta^{\ \alpha} $$
+
+and since $\det(A) = 1$ we notice that writing the characteristic equation we
+have 
+
+$$ A^2 - A \tr(A) + \det(A) I = 0 \implies A(\tr(A) I - A) = I \implies A^{-1} =
+\tr(A) I - A $$
+
+meaning that
+
+$$ \epsilon^{\alpha \gamma} A_\gamma^{\ \delta} \epsilon_{\delta \beta} =
+(A^{-1})_\beta^{\ \alpha} $$
+
+unlike in $SO(3)$. Because of this we get two inequivalent representations under
+conjugation, and so get two fundamentally different types of spinors. To
+distinguish these, we add dots to our indices so that now, when we are in the
+conjugate space we write
+
+$$ \bar{\psi}_{\dot{\alpha}} = (\psi_\alpha)^*, \bar{\chi}^{\dot{\alpha}} =
+(\chi^\alpha)^* $$
+
+which transform via
+
+\begin{align*}
+\bar{\psi}_{\dot{\alpha}} &\mapsto \bar{\psi}_{\dot{\beta}} (\bar{A}^{-1})^{\dot{\beta}}_{\ \dot{\alpha}} \\
+\bar{\chi}^{\dot{\alpha}} &\mapsto \bar{A}^{\dot{\alpha}}_{\ \dot{\beta}} \bar{\chi}^{\dot{\beta}} 
+\end{align*}
+
+where 
+
+$$ (\bar{A}^{-1})^{\dot{\alpha}}_{\ \dot{\beta}} = (A_\beta^{\ \alpha})^* $$
+
+or $\bar{A}^{-1} = A^\dagger$ [?]. Here we note that for $A_1, A_2 \in SL(2,
+\mathbb{C})$ we have $\overline{A_1 A_2} = \bar{A}_1 \bar{A}_2$ and that just as
+before we can use $\epsilon^{\dot{\alpha}\dot{\beta}}$ and
+$\epsilon_{\dot{\alpha \dot{\beta}}}$ to raise and lower indices. 
+
+One weird effect we do get is that now the Pauli matrices have mixed type
+indices in the sense that
+
+\begin{align*}
+\sigma_\mu &= (\sigma_\mu)_{\alpha \dot{\alpha}} \\
+\bar{\sigma}_\mu &= (\bar{\sigma}_\mu)^{\dot{\alpha} \alpha} = \epsilon^{\dot{\alpha} \dot{\beta}} \epsilon^{\alpha \beta} (\sigma_\mu)_{\beta \dot{\beta}} 
+\end{align*}
+
+Note that here $\alpha, \dot{\alpha}$ are different indices, so we do not sum
+over them, even if they are placed next to each other. We consequently find that
+
+$$ A \sigma_\nu \bar{A}^{-1} = \sigma_\mu \lambda^\mu_{\ \nu} \implies \bar{A}
+\bar{\sigma}_\nu A^{-1} = \bar{\sigma}_\mu \Lambda^\mu_{\ \nu} $$
+
+Furtheremore, we can combine these spinors into 4-component \textbf{Dirac
+  spinors} as 
+
+$$ \Phi = 
+\begin{pmatrix}
+\psi_\alpha \\
+\bar{\chi}^{\dot{\alpha}}
+\end{pmatrix} $$
+
+and 
+
+$$ \bar{\Phi} = 
+\begin{pmatrix} \chi^\alpha & \bar{\psi}_\alpha \end{pmatrix}
+= \bar{\Phi}^\dagger 
+\begin{pmatrix}
+& 1 \\
+1 & 
+\end{pmatrix} $$
+
+The $4 \times 4$ Dirac matrices then are (generalise the Pauli matrices)
+
+$$ \gamma_\mu = 
+\begin{pmatrix}
+& \sigma_\mu \\
+\bar{\sigma}_\mu & 
+\end{pmatrix} $$
+
+and $\{\gamma_\mu, \gamma_\nu\} = 2g_{\mu \nu} I$ (making something called a
+\textbf{Clifford algebra}?). The tensorial representations associated with these
+are
+
+\begin{align*}
+T^{\mu_1 \dots \mu_\nu} & \mapsto \Lambda^{\mu_1}_{\ \nu_1} \dots \Lambda^{\mu_n}_{\ \nu_n} T^{\nu_1 \dots \nu_n} \\
+\gamma_{\alpha_1 \dots \alpha_{2j}, \dot{\alpha}_1 \dots \dot{\alpha}_{2 \bar{j}}} & \mapsto A_{\alpha_1}^{\ \beta_1} \dots A_{\alpha_{2j}}^{\ \beta_{2j}} \gamma_{\beta_1 \dots \beta_{2j}, \dots{\beta}_1 \dots \dots{\beta}_{2j}} (\bar{A}^{-1})^{\dots{\beta}_1}_{\ \dots{\alpha}_1} \dots (\bar{A}^{-1})^{\dot{\beta}_{2\bar{j}}}_{\ \dot{\alpha}_{2 \bar{j}}}
+\end{align*}
+
+To find the irreducible tensors, since we're now in 4 dimensions we need to
+consider the following isotropic tensors:
+
+$$ g^{\mu \nu}, \epsilon_{\alpha \beta}, \epsilon_{\dot{\alpha} \dot{\beta}},
+\epsilon^{\mu \nu \rho \sigma} $$
+
+where the last symbol is totally asymmetric in all four indices. As such the
+irreducible representations are just the irreducible tensors that are totally
+symmetric in both types of indices (allowing all swaps within the sets of
+undotted and undotted indices, but not between them) leaving us with
+
+$$ \gamma_{\alpha_1 \dots \alpha_{2j}, \dot{\alpha}_1 \dots \dot{\alpha}_{2
+    \bar{j}}} = \gamma_{(\alpha_1 \dots \alpha_{2j}, (\dot{\alpha}_1 \dots
+\dot{\alpha}_{2\bar{j}}))} $$
+
+Consequently we can label all irreducible spinorial representations of $SO(1,
+3)$ by $(j, \bar{j})$ (which corresponds to $(\bar{j}, j)$ under complex
+conjugation). The dimension of such a representation is $(2j + 1)(2\bar{j} + 1)$
+as one might expect. Here, the ``fundamental'' spinors are (0, 1/2) and (1/2, 0)
+although the Dirac spinor is $(0, 1/2) \oplus (1/2, 0)$. This is used more in
+the Standard Model course.
+
+Just as with $SO(3)$ we can decompose a tensor product of irreducible
+representations into a sum of irreducible representations
+
+$$ (j_1, \bar{j}_1) \otimes (j_2, \bar{j}_2) \equiv \bigoplus_{|j_1 - j_2| \leq
+  j \leq |j_1 + j_2|, |\bar{j}_1 - \bar{j}_2| \leq \bar{j} \leq |\bar{j}_1 +
+  \bar{j}_2 |} (j, \bar{j}) $$
+
+For $2j = n = 2\bar{j}$ we can relate this simply back to rank $n$ vectorial
+tensors via
+
+$$ T_{\mu_1 \dots \mu_n} = \gamma_{\alpha_1 \dots \alpha_n, \dot{\alpha}_1 \dots
+\dot{\alpha}_n} (\bar{\sigma}_{\mu_1})^{\dot{\alpha}_1 \alpha_1} \dots
+(\bar{\sigma}_{\mu_n})^{\dot{\alpha}_n \alpha_n} $$
+
+If $\gamma$ is irreducible the $T$ here is symmetric and traceless.
+
+\subsection{The Poincar\'{e} group}
+
+The Poincar\'{e} group which is the Lorentz group with translations added is
+often written as $ISO(1, 3)$ with the extra requirement that parity is
+preserved, so $\det(\Lambda) = 1$. Elements of this group are denoted by
+$(\Lambda, a)$ where the action
+
+$$ (\Lambda, a) x^\mu = \Lambda^\mu_{\ \nu} x^\mu + a^\nu $$
+
+The composition rule used can be written in this notation as
+
+$$ (\Lambda_1, a_1) (\Lambda_2, a_2) = (\Lambda_2 \Lambda_1, \Lambda_2 a_1 +
+a_2) $$
+
+We also notice that the identity element is just $(I, 0)$ and inverses are
+$(\Lambda, a)^{-1} = (\Lambda^{-1}, -\Lambda^{-1} a)$. Obviously, a general
+element in the Poincar\'{e} group can be written as the product of a Lorentz
+transform and a translation as $(\Lambda, a) = (I, a) (\Lambda, 0)$.
+Furthermore, commutators are of the form that if 
+
+$$ (\Lambda, a) = (\Lambda_2, a_2)^{-1} (\Lambda_1, a_1)^{-1} (\Lambda_2, a_2)
+(\Lambda_1, a_1) $$
+
+then
+
+\begin{align*}
+\Lambda &= \Lambda_2^{-1} \Lambda_1^{-1} \Lambda_2 \Lambda_1 \\
+a &= \Lambda_2^{-1} \Lambda_1^{-1} (\Lambda_2 a_1 - \Lambda_1 a_2 - a_1 + a_2) 
+\end{align*}
+
+Infinitesimally, we find that
+
+$$ \Lambda^\mu_{i\ \nu} = \delta^\mu_\nu + \omega^\mu_{i\ \nu} \implies
+\Lambda^\mu_{\ \nu} = \delta^\mu_\nu + [\omega_2, \omega_1]^\mu_{\ \nu}, a^\mu
+= \omega^\mu_{2\ \nu} a^\nu_1 - \omega^\mu_{1\ \nu} a^\nu_2 $$
+
+In our quantum theory we then get
+
+$$ U(\Lambda, a) = 1 - \frac{i}{2} \omega^{\mu \nu} M_{\mu \nu} + i a^\mu
+P_\mu $$
+
+for generators of translation $P_\mu$. We then consider
+
+\begin{align*}
+  U(\Lambda, a) &= 1 - i[\omega_2, \omega_1]^{\mu \nu} M_{\mu \nu} + i (\omega_2 a_1 - \omega_1 a_2)^\mu P_\mu \\
+                &= U(\Lambda_2, a_2)^{-1} UU(\Lambda_1, a_1)^{-1} U(\Lambda_2, a_2) U(\Lambda_1, a_1) \\
+                &= \dots \\
+                &= 1 - [\frac{1}{2} \omega_2^{\mu \nu} M_{\mu \nu} - a_2^\mu P_\mu, \frac{1}{2} \omega_1^{\omega \rho} M_{\omega \rho} - a_1^\sigma P_\sigma]
+\end{align*}
+
+From here we can deduce commutation relations
+
+$$ [\frac{1}{2} \omega_1^{\sigma \rho} M_{\sigma \rho}, a_2^\mu P_\mu] = i
+(\omega_1 a_2)^{\mu} P_\mu $$
+
+$$ [a_2^\mu P_\mu a_1^\nu P_\nu] = 0 $$
+
+and since the $\omega_i, a_i$ are arbitrary we find
+
+$$ [M_{\mu \nu}, P_\sigma] = i (g_{\nu \sigma} P_\mu - g_{\mu \sigma} P_\nu),
+[P_\mu, P_\nu] = 0 $$
+
+which confirms that we have proper 4-vector operators [how?]. Consequently
+writing
+
+$$ (\Lambda, 0) (I, a) (\Lambda, 0)^{-1} = (I, \Lambda a) \implies U(\Lambda, 0)
+P_\mu U(\Lambda, 0)^{-1} = P_\nu \Lambda^\nu_{\ \mu} $$
+
+and then decomposing $P^\mu = (H, \vec{P}), P_\mu = (H, -\vec{P})$ leaves us
+with
+
+$$ [J_i, H] = 0, [J_i, P_j] = i \epsilon_{ijk} P_k, [K_i, H] = iP_i, [K_i, P_j]
+= i \delta_{ij} H $$
+
+as before [End of lecture 11]. 
+                  
+
 \end{document}
