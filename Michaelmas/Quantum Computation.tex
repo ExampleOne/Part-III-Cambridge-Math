@@ -15,6 +15,8 @@
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
 
 \title{Quantum Computation}
 \author{quinten tupker}
@@ -466,6 +468,259 @@ projection onto the linear space $A$ which if spanned by orthogonal basis
 $\alpha_i$ can be calculated as $P_A = \sum_i \ket{\alpha_i}\bra{\alpha_i}$. We
 can then write a reflection as $I_A = I - P_A$. Finally, we note for convenience
 that for any unitary $U,$ $UI_AU^\dagger = U_{UA}$ [End of lecture 7].
+
+\subsection{Grover's Algorithm}
+
+We begin by reviewing Grover's algorithm (which can be found in more detail in
+the part II notes of the course). Here we are given a function
+
+$$ f(x) =
+\begin{cases}
+  1 & x = x_0 \\
+  0 & \text{else}
+\end{cases} $$
+
+and are trying to find $x_0$. This is an unstructured search really, and closely
+relate to $NP$ complexity in classical complexity theory via the Boolean
+satisfiability problem. Now, to run this algorithm we define the \textbf{Grover
+  rotation} $Q = -H_n I_{\ket{0}} H_n I_{\ket{x_i}} = -I_{\ket{\psi_0}}
+I_{\ket{x_0}}$. The result we rely on, but we do not prove here in particular is
+that
+
+\begin{theorem}
+  $Q$ is a rotation on the space spanned by $\ket{\psi_0}, \ket{x_0}$ by angle
+  $2 \alpha$ where $\sin(\alpha) = \frac{1}{\sqrt{N}}$
+\end{theorem}
+
+We then proceed to run the algorithm via
+
+\begin{enumerate}
+\item Form the uniform state $\ket{\psi_0}$ (using Hadamard gates)
+\item Apply $Q$ $m$ times where
+$$ m = \frac{\arccos(1 / N)}{2 \arcsin(1 / N)} = \frac{\beta}{2 \alpha} \approx
+\frac{\pi}{4} \sqrt{N} $$
+where $\beta$ is the angle between $\ket{\psi_0}$ and $\ket{x_0}$ and the
+approximation applies when $N$ is big.
+\item Measure the state to get $\ket{x_0}$ with high probability $\cos^2(\alpha)
+  \approx 1 - \frac{1}{N}$.
+\end{enumerate}
+
+As we can see, this runs in $O(\sqrt{N})$ queries to the oracle. It also does
+something that a classical computer is not capable of, since in particular for
+$N = 4$ this is deterministic and requires exactly one query, which cannot be
+matched classically.
+
+\subsection{Returning to Amplitude Amplification}
+
+Amplitude amplification is a generalisation of Grover's algorithm. In
+particular, if we use $G$ to denote the ``good'' subspace of $\mathcal{H}$ then
+see that $\forall \ket{\psi} \in \mathcal{H}, \exists \theta \in \mathbb{R},
+\ket{g} \in G, \ket{b} \in G^\perp, \ket{\psi} = \sin(\theta) \ket{a} +
+\cos(\theta) \ket{b}$. If we then apply $Q = -I_{\ket{\psi}} I_G$ where we
+assume that $I_G$ can efficiently implemented then
+
+\begin{theorem}
+  The \textbf{Amplitude Amplification Theorem} states that $Q$ is the rotation
+  $$
+  \begin{pmatrix}
+    \cos(2\theta) & -\sin(2\theta) \\
+    \sin(2\theta) & \cos(2\theta)
+  \end{pmatrix}
+  $$
+  in the $\ket{g}, \ket{b}$ basis.
+\end{theorem}
+
+\begin{proof}
+  algebra...
+\end{proof}
+
+Using this we can greatly improve the probability of seeing $\ket{g}$. In
+particular we need $n \approx \frac{\pi}{4 \theta}$ rotations to get $\ket{g}$
+with a probability $\mathbb{P}(\ket{g}) \geq \cos^2(\theta) \geq 1 -
+O(\theta^2)$. We also note that in order to implement $G$ it is sufficient to
+span $G$ by the computational basis and to have an efficiently computable
+indicator function of the basis for $G$. We can also implement $I_{\ket{\psi}}$
+in $O(n)$ time.
+
+Some remarks on amplitude amplification are that it is useful to prepare a state
+one ones (start with the uniform state and an indicator function of the desired
+state, and proceed). Also, if $\sin(\theta)$ is known exactly, then the
+algorithm can be modified, at little cost, to become deterministic, which is
+somewhat interesting [End of lecture 8].
+
+\subsection{Applications of Amplitude Amplification}
+
+We can use Amplitude Amplification to generalise Grover's algorithm to a search
+with multiple possible solutions, instead of justa  unique solution. If there
+are $k$ possible solutions then using $G$ as the space spanned by this solution
+we get $\sin(\theta) \sqrt{\frac{k}{N}}$ and then we can proceed as usual.
+
+A far more peculiar application, is that as long as the solution can be checked
+efficiently, we can use Amplitude Amplification to get a speedup on any general
+algorithm. If we assume our algorithm is implemented efficiently (poly time) as
+the quantum gate $A$ and
+
+$$ A\ket{0} = \alpha \ket{a} + \beta \ket{b} $$
+
+for $\alpha = \sin(\theta)$ then applying the usual approach to reduce the error
+rate we find that amplitude amplification is quadratically more efficient than
+just repeating $A$ and measuring. In particular, we set $\ket{\psi} = A
+\ket{0}$. Furthermore, if the error probability is known, then we can - as
+before - modify the algorithm to be deterministic. This is peculiar fact, since
+it is as of yet unknown in classical complexity theory whether or not $P =
+BPP$...
+
+A final application is \textbf{quantum counting} which is to count the size
+(dimension) of $G$. This combines Amplitude Amplification and Phase Estimation.
+Here we compute our usual $Q = -I_{\ket{\psi}} I_G$ where $\ket{\psi}$ is just
+the uniform state, and then we notice that the eigenvectors of $Q$ are
+
+$$ \ket{e_\pm} = \frac{1}{\sqrt{2}} (\ket{b} \pm i \ket{g}) $$
+
+for eigenvalues $\lambda_\pm = e^{\pm 2i \theta}$. We then observe that
+
+$$ \ket{\psi} = \sin(\theta) \ket{g} + \cos(\theta \ket{b}) = \frac{1}{\sqrt{2}}
+(e^{i\theta} \ket{e_+} + e^{-i \theta} \ket{e_-}) $$
+
+which is an equally weighted $\ket{e_\pm}$ superposition. We can then use phase
+estimation to estimate $\phi_+ = \theta / \pi, \phi_1 = 1 - \theta / \pi$ but we
+know that $\theta / \pi = \frac{1}{\pi} \sqrt{|G| / N}$ which is generally small
+(certainly less than $1/2$), and so we can determine $\theta$ so $|G|$ with
+certainty. Well, not quite, if we use $m$ qubit lines we can get an $m-bit$
+approximation to $\sqrt{\frac{k}{m}}$ with $2^m$ $C-Q$ gates so $2^m$ queries to
+$f$. If we then get an additive error of $2^{-m} = \delta / \sqrt{N}$ in
+$\sqrt{k}$ leaving us with $k$ to error $O(\delta \sqrt{k})$ in $O(\sqrt{N} /
+\delta)$ queries. Classically, on the other hand, $O(N / \delta^2)$ queries are
+necessary (sample randomly and use bounds on the law of large numbers to get
+this estimate) [End of lecture 9].
+
+\section{Hamiltonian Simulation}
+
+Now to move to a completely different topic, we're going to discuss Hamiltonian
+simulation, or how to simulate quantum Hamiltonians on a quantum computer, which
+is probably where many of the earliest applciations of quantum computing will
+be. On a classical computer, fundamtentally we need $O(2^n)$ operations to
+simulate $n$ qubits. On a computer, we hope to do this in polynomial time.
+
+In particular, we are seeking to emulate the Schr\"{o}dinger equation, which
+means that given $H$  we'd like to compute $U = e^{i Ht}$ since
+
+$$ \partial_t \ket{\psi} = -i H\ket{\psi} \implies \ket{\psi} = e^{-iHt}
+\ket{\psi} $$
+
+Note that this problem is fundamentally different than the problem of
+identifying the quantum ground state of a system, which is known to be a QMA
+complete problem. Now, inevitably some error will be involved in these
+calculations, so we will use the matrix operator norm to analyse this error. In
+particular we seek $U$ such that $|e^{-iHt} - U| < \epsilon$ for some
+$\epsilon$.
+
+This cannot be solved for an arbitrary Hamiltonian, which would imply a very
+large class of problems that can be formulated in this way could be solved this
+way as well. In particular, we see that a class of particularly common can be
+well approximated.
+
+\begin{definition}
+  Hamiltonian $H$ is $k$\textbf{-local} if it can be written as
+
+  $$ H = \sum_{j = 1}^m H_j $$
+
+  where each $H_j$ acts on at most $q$ qubits. Note here that $m \leq
+  \binom{n}{k} = O(n^k)$ is polynomial in $n$.
+\end{definition}
+
+Examples of such Hamiltonians include the Ising model, and the more general
+Heisenberg model (uses a general inner product instead of the relatively limited
+Ising interaction). In Chemistry, also, covalent bonds are all like local
+Hamiltonians.
+
+Now, the fundamental challenge to this problem is that
+
+$$ e^{A + B} \neq e^A e^B $$
+
+Nevertheless, we can derive suitable approximations. Let's start with
+
+\begin{theorem}
+  The \textbf{Solovay-Kitaev} theorem states that if $U$ is a unitary operation
+  on $q$ qubits then given a universal set of quantum gates, $U$ can be
+  approximated to $\epsilon$ using $O(\log^c(1 / \epsilon))$ gates where $c
+  < 4$.
+\end{theorem}
+
+\begin{proof}
+  The proof is omitted here, but the Nielsen and Chuang book covers it. It
+  really is a result on Lie algebras...
+\end{proof}
+
+\begin{lemma}
+  Given unitary operators $U_i, V_i$ such that $\forall i, |U_i - V_i| <
+  \epsilon$ then
+
+  $$ |U_m \dots U_1 - V_m \dots V_1| < m \epsilon $$
+\end{lemma}
+
+This is mathematically easy (ES 2), but it is quite a profound result, since
+classically error accumulates exponentially, but in the quantum case it only
+accumulates linearly... [End of lecture 10]
+
+\begin{proposition}
+  The sum of commuting $k$-local Hamiltonians $H_j$ can be approximated by a
+  circuit of length $O(m \ poly(\log(m / \epsilon)))$ for any universal set of
+  quantum gates.
+\end{proposition}
+
+\begin{proof}
+  Approximate each $e^{-iHj t}$ and multiply them, then by Solovay-Kitaev and
+  error accumulation applied to an error $\epsilon / m$ for each individual gate
+  we get the desired result.
+\end{proof}
+
+In the non-commuting case, we need one additional result.
+
+\begin{lemma}
+  The \textbf{Lie-Trotter} product formula is that for $|A|, |B| < K$ and $K <
+  1$
+  $$ e^{-iA} e^{-iB} = e^{-i(A + B)} + O(K^2) $$
+\end{lemma}
+
+which can be proven by considering the Taylor series of the exponential
+function. This also generalises to the Suzuki-Trotter formulas which get more
+accurate.
+
+Now, to do our non-commuting case assume that $K < 1 / m$ then we see that
+
+\begin{align*}
+e^{-iH_1} \dots e^{-iH_m} &= (e^{-i(H_1 + H_2)} + O(K^2)) e^{-iH_3} \dots e^{-iH_m} \\
+                          &= (e^{-i(H_1 + H_2 + H_3} + O(2^2 K^2)) e^{-iH_4} \dots e^{-iH_m} \\
+  &= e^{-\sum_j H_j} + Cm^3 K^2
+\end{align*}
+
+Now this quickly gets out of hand, accuracy-wise, so in order to improve our
+accuracy a bit as wel, we consider doing $N$ steps of equal size $t/N$ instead
+of a one out calculation. So we use $H_j t / N$ instead and repeat. If this
+introduces error $\tilde{K} = \frac{Kt}{N}$ instead then we see that
+
+$$ Cm^3 \tilde{K}^2 < \epsilon / N \implies N > \frac{C m^3 k^2
+  t^2}{\epsilon} $$
+
+as the minimum number of steps. Implementing the circuit such that
+
+$$ \left| \left( e^{-iH_1 t / N} \dots e^{-iH_m t / N} \right)^N - e^{-\sum H_j
+    t} \right| < \epsilon $$
+
+gives us a circuit size $O(m^4 (Kt)^2 / \epsilon)$. Also, $m = O(n^k)$ means
+that we really have a circuit size $O(n^{4k} (Kt)^2 / \epsilon)$. Using a
+standard universal set of gates we then find that by Solovay-Kitaev we get an
+additional logarithmic multiplicative factor $O(\log^c(|\mathcal{C}| /
+\epsilon))$ where $|\mathcal{C}|$ is the circuit size form before and $c < 4$.
+This is a modest increase in circuit size.
+
+Finally, one might be surprised that it takes $t^2$ operations to simulate $t$
+amount of time on a quantum computer, but in factor, by refining the Lie-Trotter
+formula, we can make this $t^{1 + \delta}$ for $\delta$ arbitrarily small. We
+probably cannot make it sublinear in $t$. That would be quite remarkable [End of
+lecture 11]. 
+
 
 
 \end{document}

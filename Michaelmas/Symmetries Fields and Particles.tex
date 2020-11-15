@@ -1211,6 +1211,135 @@ $$ [J_i, H] = 0, [J_i, P_j] = i \epsilon_{ijk} P_k, [K_i, H] = iP_i, [K_i, P_j]
 = i \delta_{ij} H $$
 
 as before [End of lecture 11]. 
-                  
+
+\subsubsection{Induced Representations}
+
+We'd like to find the irreducible representations for the Poincar\'{e} group,
+but this requires us to introduce induced representations. We already know that
+restricting a representation to a subgroup forms a representation of that
+subgroup. Now, we'd like to do the opposite, so induce a representation from a
+subgroup onto the whole group. For $H \leq G$ we label the subgroups as $g_i H$.
+Then for representation $D, \mathcal{V}$, we want to preserve how $D$ acts
+inside of every coset, and preserve every coset (have these linear sectinons not
+interact with one another). The induced representation then is a representation
+on $\mathcal{V}^{\otimes n}, n = |G|/|H|$ with (as a matrix)
+
+$$ D_{ji} (g) =
+\begin{cases}
+  D(h) & g_j^{-1} g g_i = h \in H \\
+  0 & g_j^{-1} g g_i \not \in H
+\end{cases} $$
+
+where $i, j = 1 \dots n$ denotes the coset we are acting on. The lecturer does
+an example on $D_{2n}$ using $\mathcal{Z}_n$. 
+
+\subsubsection{Irrreducible Representations of the Poincar\'{e} Group}
+
+Any element in the Poincar\'{e} group can be written as $U(\Lambda, a) = T(a)
+U(\Lambda) = U(\Lambda) T(\Lambda^{-1} a)$ splitting into a translation and a
+Lorentz transformation. Let us use $T_4$ to denote the group of translations in
+4-dimensions where we may define elements such that for vector $\ket{p}$
+
+$$ P_\mu \ket{p} = p_\mu \ket{p} \implies T(a) \ket{p} = e^{ia \cdot p}
+\ket{p} $$
+
+This means that
+
+$$ P_\mu U(\Lambda) \ket{p} = (p\Lambda^{-1})_\mu U(\Lambda) \ket{p} $$
+
+Now, define vector space $\mathcal{V}$ such that $\ket{p}, \ket{p'} \in
+\mathcal{V}$ iff $\exists \Lambda: p'_\mu = (p \Lambda^{-1})_\mu$. From our
+definition of Lorentz transformations this is equivalent to $p'^2 = p^2$. Also,
+we will write $\Lambda \in SO(1, 3)^\uparrow$ for the proper orthochronous
+Lorentz group. Then we see that $G = SO(1, 3)^\uparrow \ltimes T_4$ and we will
+write $G_{\dot{p}} = \{\Lambda : \Lambda \dot{p} = \dot{p} \}$. To induce
+representations we will then use subgroups $H = G_{\dot{p}} \times T_4$ which
+form subgroups and we label cosets as $L(p)H$ for $L(p) \in SO(1, 3)^\uparrow$
+where $p_\mu = (\dot{p} L(p)^{-1})_\mu \iff p^\mu = L(p)^\mu_{\ \nu}
+\dot{p}^\nu$.
+
+We then see that for a representation $A$ of $G$ defined on a basis
+
+$$ \ket{p} = U(L(p)) \ket{\dot{p}} \in \mathcal{p}, \forall \ket{\dot{p}} \in
+\mathcal{V}_{\dot{p}}$$
+
+induces to a Poincar\'{e} group representation. In particular, we get that for
+$U(\Lambda) \ket{p}$ where $\ket{p}$ is a linear combination of $\{\ket{p'}\}$
+where
+
+$$ p'^\mu = \Lambda^\mu_{\ \nu} p^\nu $$
+
+[clean this part up] since
+
+$$ p'^\mu = L(p')^\mu_{\ \nu} \dot{p}^\nu, (L(p') \Lambda L(p))^\mu_{\ \nu}
+\dot{p}^\nu \dot{p}^\mu \implies L(\Lambda p)^{-1} \Lambda L(p) =
+\dot{\Lambda}_p \in G_{\dot{p}} $$
+
+so
+
+$$ U(\Lambda) \ket{p} = U(L(\Lambda_p)) U(\dot(\Lambda_p)) \ket{\dot{p}} $$
+
+There are two cases of interest: the massive case when $p^2 = m^2 > 0$ and the
+massless case when $p^2 = 0$.
+
+\subsubsection{Massive Representations of the Poincar\'{e} Group}
+
+Picking $\dot{p} = (m, 0)$ then for  $G_{\dot{p}} \equiv SO(3)$ where
+$\Lambda_{\dot{p}} = \dot{p}$ restricts to
+
+$$
+\begin{pmatrix}
+  1 & \\
+  & R
+\end{pmatrix}
+, R^T R = I, \det(R) = 1 $$
+
+and $L(p)$ for $p_0 > 0$ is a Lorentz transform so
+
+$$ p^\mu = L(p)^\mu_{\ \nu} \dot{p}^\nu \implies L(\Lambda p)^{-1} \Lambda L(p)
+= \Lambda_R(p, \Lambda) \in SO(3) $$
+
+where we call the $\Lambda_R(p, \Lambda)$ a \textbf{Wigner rotation}. Thus
+
+$$ U(L(\Lambda p))^{-1} U(\Lambda) \ket{p} = U(U_R(p, \Lambda)) \ket{\dot{p}} $$
+
+where for all $R, U(\Lambda_R) \ket{\dot{p}}$ is an eigenvector of $P^\nu$ with
+eigenvalue $\dot{p}^\mu$ and so is a linear combination of states in
+$\{\ket{\dot{p}}\}$. So $\mathcal{V}_{\dot{p}}$ must form a representatino space
+for $SO(3)$. For irreducible representations $\mathcal{V}_{\dot{p}}$ has a basis
+labelled by $s=0, 1/2, 1, \dots$ and $s_3 = -s, -s + 1, \dots, s$. assuming
+that $\ket{p, s, s_3}$ forms a basis to an irreudcible space, then
+
+$$ U(\Lambda_R) \ket{\dot{p}, s, s_3} = \sum_{s'_3} \ket{\dot{p}, s, s'_3}
+D^{(s)}_{s'_3 s_3} (R) $$
+
+where the $D^s(R)$ are $SO(3)$ rotation matrices. Certainly, $\ket{p, s, s_3} =
+U(L(p)) \ket{\dot{p}, s, s_3}$ extends the previous definition to all of $G$ so
+that we get
+
+$$ U(\Lambda) \ket{p, s, s_3} = \sum_{s'_3} \ket{\Lambda p, s, s'_3}
+D^{(s)}_{s'_3 s_3} \ket{R(p, \Lambda)} $$
+
+The states $\{\ket{p, s, s_3} : p^2 = m^2, p^0 > 0\}$ then form a bsis for an
+irreducible reprsentation of $SO(1, 3)^\uparrow$ which extends easily to the
+full Poincar\'{e} group via
+
+$$ T(a) \ket{p, s, s_3} = e^{i a \cdot p} \ket{p, s, s_3} $$
+
+What are these representations? THese represent a particle with mass $m$, spin
+$s$. Finally, we'll note without proof that there exists a group invariant
+scalar product
+
+$$ \bra{p', s, s'_3} \ket{p, s, s_3} = (2\pi)^3 2p^0 \delta(p - p') \delta_{s_3
+  s'_3} $$
+
+where the exact definition depends on the choice of $L(p)$ such that
+
+$$ p_\mu = (\dot{p} L(p)^{-1})_\mu $$
+
+since if $L(p)$ is a solution, so is $L(p) \Lambda$ for any $\Lambda \in
+G_{\dot{p}}$. One example of a choice of $L(p)$ is $L(p) = B(\alpha, n)$ for
+$p^\mu = m(\cosh(\alpha), \sinh(\alpha) n)$ where $B(\alpha, n)$ is a Lorentz
+boost. 
 
 \end{document}
