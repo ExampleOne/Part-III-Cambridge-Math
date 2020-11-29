@@ -1269,4 +1269,465 @@ contractions at all is a possibility, and so is 5 different contractions), then
   \phi_n) $$
 \end{theorem}
 
+[End of lecture 13]
+
+\begin{proof}
+  We proceed by induction. If $n = 2$ then $T[\phi_1 \phi_2] = : \phi_1 \phi_2 :
+  + \Delta_F(x_1 - x_2) = :\phi_1 \phi_2: + :(\phi_1 \phi_2): =
+  :\mathcal{C}(\phi_1 \phi_2):$ (we use parentheses here in LateX to denote
+  contraction). For the inductive step we write that if wlog $\forall i,  x_1
+  \geq x_i$, then
+\begin{align*}
+T(\phi_1 \dots \phi_n) &= \phi_1 T(\phi_2 \dots \phi_n) \\
+&= (\phi^+_1 + \phi^-_1) : \mathcal{C}(\phi_2 \dots \phi_n) \\
+&= :\phi_1^- \mathcal{C}(\phi_2 \dots \phi_n): + :\phi_1^+ \mathcal{C}(\phi_2 \dots \phi_n): + : \sum_{i=2}^n [\phi_1^+, \phi_i] \mathcal{\phi_2 \dots \phi_{i - 1} \phi_{i + 1} \dots \phi_n} \\
+&= :\phi_1 \mathcal{C}(\phi_2 \dots \phi_n): + \sum_{i = 2}^n :\mathcal{C}((\phi_1) \phi_i) \phi_2 \dots \phi_{i - 1} \phi_{i + 1} \dots \phi_n: \\
+&= :\mathcal{C}(\phi_1 \dots \phi_n) 
+\end{align*}
+as required. Note here the we split the terms into a term where $\phi_1$ is
+never contracted and a term where $\phi_1$ is always contracted (with every
+$\phi_i$).
+\end{proof}
+
+Bizarrily, it turns out that the following quantity, the transition rate from
+the vacuum to the vacuum, is nonzero, and this can be interpreted physically.
+Anyways, here we find that
+
+\begin{align*}
+\bra{0} S \ket{0} &= \bra{0} Te^{\frac{1}{i} \frac{\lambda}{4!} \int d^4x \phi(x)} \ket{0} \\
+&= \sum \frac{1}{l!} \left( \frac{1}{i} \frac{\lambda}{4!} \right)^l \int dx_1^4 \dots \int dx_l^4 M(x_1, \dots, x_l) \\
+\end{align*}
+
+For
+
+$$ M(x_1, \dots, x_l) = \bra{0} T(\phi_1^4 \dots \phi_l^4) \ket{0} = \bra{0} :
+\mathcal{C} (\phi_1^4 \dots \phi_l^4) \ket{0} $$
+
+The only surviving terms are the terms where everything is contracted (or else
+one of the vacuum states will be annihilated). The terms we then get can be
+represented diagramatically (Feynman diagrams), such as 
+
+$$ \bra{0} (\phi_1 \phi_1) (\phi_1 (\phi_1 \phi_2) (\phi_2 \phi_2) \phi_2)
+\ket{0} $$
+
+We can represent this by the following diagram:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{res/QFT/basic_feynman}
+\caption{Simple Feynman Diagram}
+\end{figure}
+
+Here the number of vertices is $l$, and the number of connecting points at each
+vertex is the number of times $\phi_i$ occurs. The contractions are then given
+by the lines connecting the vertices.
+
+\subsubsection{Scattering in Scalar-Yukawa}
+
+We will work out one extended example of scattering in Scalar-Yukawa. Here we
+have Lagrangian
+
+$$ \mathcal{L} = \partial_\mu \psi^* \partial^\mu - M^2 \psi^* \psi +
+\frac{1}{2} \partial_\mu \phi \partial^\mu \phi - \frac{M^2}{2} \phi^2 - g \phi
+\psi^* \psi $$
+
+We get ladder operators
+
+\begin{align*}
+  \phi(x) &= \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2 E_p}} (a_p e^{-ip \cdot x} + a^\dagger_p e^{ip \cdot x}) \\
+  \psi(x) &= \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2 E_p}} (b_p e^{-ip \cdot x} + c^\dagger_p e^{ip \cdot x}) \\
+  \psi^\dagger(x) &= \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2E_p}} (b^\dagger e^{ip \cdot x} + c_p e^{-i p \cdot x})
+\end{align*}
+
+We want to calculate the scattering amplitude between states
+
+\begin{align*}
+  \ket{i} &= \sqrt{2E_{p_1}} \sqrt{2E_{p_2}} b_{p_1}^+ b_{p_2}^+ \ket{0} \\
+  \ket{f} &= \sqrt{2E_{p_1'}} \sqrt{2E_{p_2'}} b_{p_1'}^+ b_{p_2'}^+ \ket{0}
+\end{align*}
+
+Now to get a non-zero transition we need at least the terms $b^2, b^{\dagger
+  2}$, which means we need to consider at least the second order term of the
+Dyson equation, or in order words we use
+
+$$ A_{i \to f} = \bra{f} S \ket{i} = T e^{\frac{g}{i} \int d^4 x \phi
+  \psi^\dagger \psi} \approx A_{i \to f}^{(2)} = \frac{1}{2} \frac{g^2}{i^2}
+\int d^4 x_1 \int d^4 x_2 M(x_1, x_2) $$
+
+where
+
+\begin{align*}
+  M(x_1, x_2) &= \bra{f} T(\phi_1 \psi_1^\dagger \psi_1 \phi_2 \psi_2^\dagger \psi_2) \ket{i} \\
+              &= \Delta_F^{(\phi)}(x_1 - x_2) \bra{f} : \psi_1^\dagger \psi_1 \psi_2^\dagger \psi_2 \ket{i} \\
+              &= \Delta_F^{(\phi)} \bra{f} \psi_1^\dagger \psi_2^\dagger \psi_1 \psi_2 \ket{i} \\
+              &= \Delta_F^{(\phi)} N
+\end{align*}
+
+since we care only for $b$ terms, so we can ignore $c$, and we've contracted
+$\phi$ since nothing happens to those terms. [End of lecture 14] [The lecturer
+mentions that his notes extend Wick's theorem to $\mathbb{C}$].
+
+Writing
+
+$$ N = \bra{f} \psi_1^\dagger \psi_2^\dagger \mathds{1} \psi_1 \psi_2 \ket{i} $$
+
+where $\mathds{1} = \sum \ket{\psi} \bra{\psi}$  means we can write
+
+$$ N = N_i N_f $$
+
+where $N_i = \bra{0} \psi_1 \psi_2 \ket{f}$, and similar for $N_f$. Then
+
+$$ N_i = \sqrt{2 E_{p_1}} \sqrt{2 E_{p_2}} \int \frac{d^3p}{(2\pi)^3} \int
+\frac{d^3q}{(2\pi)^3} \frac{1}{\sqrt{2 E_p}} \frac{1}{\sqrt{2 E_q}} e^{-ip \cdot
+  x_1 - i q \cdot x_2} \bra{0} b_p b_q b_{p_1}^\dagger b_{p_2}^\dagger \ket{0} $$
+
+where we set $A = \bra{0} b_p b_q b_{p_1}^\dagger b_{p_2}^\dagger \ket{0}$ and
+$[b_p, b_{p'}^\dagger] = (2\pi)^3 \delta(p - p')$ so
+
+$$ A = (2\pi)^6 (\delta(p_1 - p) \delta(p_2 - q) + \delta(p_2 - p) \delta(p_1 -
+q)) $$
+
+(notice the apparent Bose symmetry). Consequently,
+
+$$ N_i = e^{-i p_1' \cdot x_1 + i p_2' \cdot x_2} + e^{ip_2' \cdot x_1 + ip_1
+  \cdot x_2 } $$
+
+As such,
+
+\begin{align*}
+  A_{i \to f}^{(2)} &= \frac{1}{2} \frac{g^2}{i^2} \int d^4 x_1
+                      \int d^4 x_2 N_f N_i
+                      \int \frac{d^4k}{(2\pi)^4}
+                      \frac{i e^{ik(x_1 - x_2)}}{k^2 + m^2 + i \epsilon} \\
+                    &= \frac{g^2}{2i^2} \int \frac{d^4k}{(2\pi)^4}
+                      \frac{i}{k^2 - m^2 + i\epsilon} \int d^4 x_1 \int d^4 x_2
+                      \left( e^{ix_1 \cdot (k - p'_1 -p_1)} e^{ix_2 \cdot (k - p_2' + p_2)}
+                      + e^{i x_1 \cdot (k + p_2' - p_1) e^{ix_2 \cdot (k - p_1' + p_2)}} \right)
+\end{align*}
+
+where the two terms are related by swapping $x_1, x_2$. Doing the $x_1, x_2$
+integral using $\int d^4x e^{ipx} = (2\pi)^4 \delta(p)$ we get
+
+$$ A_{i \to f}^{(2)} = i(-ig)^2 (2\pi)^4 \delta(p_1 + p_2 - p_1' - p_2') \left(
+  \frac{1}{(p_1 - p_1')^2 - m^2 + i\epsilon} + \frac{1}{(p_1 - p_1')^2 - m^2 +
+    i\epsilon} \right) $$
+
+Now, $(p_1 - p_1')^2, (p_2 - p_2')^2 < 0$ means that we can just set $\epsilon =
+0$.
+
+\subsubsection{Feynman Diagrams}
+
+We can systemise the previous calculations through the use of Feynman diagrams.
+In particular, we see that terms of $\bra{f} S - 1 \ket{i}$ correspond to
+Feynman diagrams.
+
+In Feynman diagrams, we represent terms via lines (or \textbf{propagators}) and
+connect these according to the Hamiltonian. We also always specify a direction
+for time. So if time flows from left to right we get
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/QFT/feynman_propagators}
+  \caption{Feynman Diagram Propagators}
+  \label{feynman_propagators}
+\end{figure}
+
+meaning that in our previous example we get leading terms as
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=9cm]{res/QFT/feynman_example}
+  \caption{Feynman Diagram Leading Terms}
+  \label{feynman_example}
+\end{figure}
+
+Note that here every propagator has a momentum associated with it, and that
+particles/anti-particles have ``directions'' associated with them. Now to
+convert these to calculations we have the following correspondance:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/QFT/feynman_correspondance}
+  \caption{Feynman Propagator Meaning}
+  \label{feynman_correspondance}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=7cm]{res/QFT/feynman_correspondance_2}
+  \caption{Feynman Vertex Meaning}
+  \label{feynman_correspondance_2}
+\end{figure}
+
+Consequently, the top diagram we had correspondance to (to appropritae order)
+
+$$ A_{i \to f} |_{O(g^2)} = i(-ig)^2 \left( \frac{1}{(p_1 - p_1')^2 - m^2} +
+  \frac{1}{(p_2 - p_2') - m^2} \right) (2\pi)^4 \delta(p_1 + p_2 - p_1' -
+p_2') $$
+
+That completes the Feynman rules for this theory!
+
+\section{Fermions}
+
+We've now completed the scalar field theory of the course, and now want to move
+to scalar fields of spins $1/2, 1$. To do so, we now need to start considering
+representation theory. Now, what is ``spin'' here, just so we see how we might
+generalise. We can roughly define spin to be the angular momentum of a
+particular in its rest frame, $\bra{0} J \ket{0}$. Non-relativistically, we get
+$2s + 1$ such spin states.
+
+\subsection{Relativistic Spin}
+
+To represent relativistic spins, it turns out we have to use representations of
+the Lorentz group. [End of lecture 15] For that, let's review how representation
+theory fits into quantum field theory. In particular, we move from a scalar
+field to a vector field, and we specify how it transforms via a representation
+$D$ of the Lorentz group such that
+
+$$ \psi_A (x) \mapsto \psi_A'(x') = D(\Lambda)_{AB} \psi_B(\Lambda^{-1} x) $$
+
+How can we get more representations? In general, we have a Lie group $G$, which
+is quite hard to describe, being on a manifold. Fortunately, we can greatly
+simplify our analysis by focusing on the Lie algebra $\mathbb{L}(G)$, which is
+linear approximation of the Lie group near the identity. We then can use the
+exponential map $\text{Exp} : \mathbb{L}(G) \to G$ to map back into the Lie
+group. This, however, is just a local bijection, but for most purposes this is
+enough. A representation of a Lie algebra is a map $R : \mathbb{L}(G) \to
+\text{Mat}_N (\mathbb{C})$ that is linear and preserves the Lie bracket
+
+$$ R([X, Y]) = [R(X), R(Y)]. $$
+
+where we can then recover the Lie group by using $D(\Lambda) = Exp(R(X))$.
+However, this is not a surjective map, and only gives us one representation of a
+large set of possible representations. More importantly, we dont actually get a
+representation itself, but rather of the cover of $G$, denoted $\tilde{G}$, just
+like us getting $SL(2, \mathcal{C})$ as a double-cover of $SO(3, 1)$. This is
+important to know since we will actually be using representations of the cover,
+not the group itself.
+
+As such we see that for proper Lorentz transformations $\Lambda = e^\omega$ we
+have $\omega$ antisymmetric (by considering on a linear level $\Lambda \eta
+\Lambda^T = \eta$). Consequently the Lie alegbra of the Lorentz transformations
+is just the set of antisymmetric $4\times 4$ real matrices.
+
+Antisymmetry means that treated as a linear space, this space has dimension
+$\frac{1}{2} 4 \cdot 3 = 6$ (3 rotations and 3 boosts) which can express with
+the basis $M^{\rho \sigma} = (M^{\rho \omega})^{\mu \nu} = \eta^{\rho \mu}
+\eta^{\sigma \nu} - \eta^{\sigma \mu} \eta^{\rho \nu}$ where the generators are
+labelled such that $M^{\rho \sigma} = -M^{\sigma \rho}$. We can then write a
+general element of the Lie algebra $\mathbb{L}(G_L)$ is
+
+$$ \omega^\mu_{\ \nu} = \frac{1}{2} \Omega_{\rho \sigma} (M^{\rho
+  \sigma})^\mu_{\ \nu} $$
+
+where the parameters $\Omega_{\rho \sigma} = -\Omega_{\rho \sigma}$ (the
+symmetric part does not contribute). To finish showing that this truly is a
+representation of the Lie Algebra we can observe that
+
+$$ [M^{\rho \sigma}, M^{\tau \nu}] = \eta^{\sigma \tau} M^{\rho \nu} -
+\eta^{\rho \tau} M^{\sigma \nu} + \eta^{\rho \nu} M^{\sigma \tau} - \eta^{\sigma
+\nu} M^{\rho \tau} $$
+
+[why?] A trick due to Dirac in organising representations of the Lorentz group is to
+start with the Clifford alegbra $\gamma^\mu$ for $\mu = 0, 1,2 3$ with the
+property
+
+$$ \{ \gamma^\mu, \gamma^\nu \} = 2 \eta^{\mu \nu} I $$
+
+This is satisfied by the Pauli matrices, however, there are only 3 of those, and
+it turns out the lowest-dimensional set of 4 matrices satisfying these
+properties are
+
+\begin{align*}
+\gamma^0 &= 
+\begin{pmatrix}
+& I \\
+I & 
+\end{pmatrix} \\
+\gamma^i &=
+\begin{pmatrix}
+& \sigma^i \\
+-\sigma^i & 
+\end{pmatrix}
+\end{align*}
+
+The Lorentz Lie Algebra generators then arise (for reasons not discussed here)
+as
+
+$$ S^{\rho \sigma} = \frac{1}{4} [\gamma^\rho, \gamma^\sigma] = \frac{1}{2}
+\gamma^\rho \gamma^\sigma - \frac{1}{2} \eta^{\rho \sigma} $$
+
+On example sheet 3, one shows that as required
+
+$$ [S^{\mu \nu}, S^{\rho \sigma}] = \eta^{\nu \rho} S^{\mu \sigma} - \eta^{\mu
+  \rho} S^{\nu \sigma} + \eta^{\mu \sigma} S^{\nu \rho} - \eta^{\nu \sigma}
+S^{\mu \rho} $$
+
+We can then exponentiate to get a representation of the double cover $SL(2,
+\mathbb{C})$.
+
+$$ \Lambda = \text{Exp}(\frac{1}{2} \Omega_{\rho \sigma} M^{\rho \sigma}),
+S(\Lambda) = \text{Exp}(\frac{1}{2} \Omega_{\rho \sigma} S^{\rho \sigma}) $$
+
+(we establish a representation of the Lorentz group by establish a simple
+correspondance between generators of the Lorentz group as a vector space and
+similar generators for the representation). ($M$s generate the Lie algebra, $S$s
+generate the Lie group) [End of lecture 16]
+
+Now, for rotations we can write
+
+$$ \Omega_{ik} = -\epsilon_{ijk} a^k $$
+
+and so the Spinor representation is given by (for $i \neq j$)
+
+$$ S^{ij} = \frac{1}{4} [\gamma^i, \gamma^j] = \frac{1}{2} \gamma^i \gamma^j =
+-i \frac{1}{2} \epsilon^{ijk}
+\begin{pmatrix}
+  \sigma^k & \\
+  & \sigma^k
+\end{pmatrix}
+$$
+
+in the Chiral representation. This corresponds to Lorentz transformation
+
+$$ S(\Lambda) = \text{Exp} (\frac{1}{2} \Omega_{ij} S^{ij}) =
+\begin{pmatrix}
+  e^{ia \cdot \sigma / 2} & \\
+  & e^{ia \cdot \sigma / 2}
+\end{pmatrix}
+$$
+
+Consequently for a rotation around the $z$-axis where $a^1 = a^2 = 0$ we get
+
+$$ S(a^3) = S(\Lambda) =
+\begin{pmatrix}
+  e^{i a^3 / 2} & & & \\
+  & e^{-ia^3 / 2} & & \\
+  & & e^{i a^3 / 2} & \\
+  & & & e^{-ia^3 / 2}
+\end{pmatrix} $$
+
+for $\Lambda = \text{Exp}(\frac{1}{2} \Omega_{ij} M^{ij})$. In this case we see
+that
+
+$$ \Lambda(a^3) = \text{Exp}(-a^3 M^{12}) $$
+
+and
+
+$$ M^{12} =
+\begin{pmatrix}
+  0 & & & \\
+  & 0 & -1 & \\
+  & 1 & 0 & \\
+  & & & 0
+\end{pmatrix} $$
+
+meaning that by pairing sines and cosines
+
+$$ \Lambda(a^3) =
+\begin{pmatrix}
+  0 && \\
+  & M(a^3) & \\
+  && 0
+\end{pmatrix} $$
+
+for standard rotation matrix
+
+$$ M(a^3) =
+\begin{pmatrix}
+  \cos(a^3) & \sin(a^3) \\
+  -\sin(a^3) & \cos(a^3)
+\end{pmatrix} $$
+
+Note here that for $a^3 = 2\pi$ we get $\Lambda(a^3) = I$. However, the spinors
+in this case correspond to
+
+$$ S(a^3 = 2\pi) = - I $$
+
+confirming indeed that we have a representation of the double-cover and not the
+space itself. This in particular, is a characteristic of fermion
+representations. 
+
+\subsection{Spinor Representations}
+
+Our Clifford algebra forms a ``invariant tensor'' in the sense that [what
+exactly is meant here]
+
+$$ S^{-1} (\Lambda) \gamma^\mu S(\Lambda) = \Lambda^\mu_{\ \nu} \gamma^\nu $$
+
+We only verify this infinitesimally where we see that to first order
+
+\begin{align*}
+  \Lambda &= \text{Exp} \left( \frac{1}{2} \Omega_{\rho \sigma}
+            M^{\rho \sigma} \right) \\
+          &\approx \left( S^\mu_{\ \nu} + \frac{1}{2} \Omega_{\rho \sigma}
+            (M^{\rho \sigma})^\mu_{\ \nu}) \right)
+            \gamma^\nu + O(\Omega^2) \\
+          &= \gamma^\nu + \frac{1}{2} \Omega_{\rho \sigma}
+            (M^{\rho \sigma})^\mu_{\ \nu} \gamma^\nu + O(\Sigma) \\
+          &= \gamma^\mu + \frac{1}{2} \Omega_{\rho \sigma} (\eta^{\rho \mu} \gamma^\sigma
+            - \eta^{\sigma \mu} \gamma^\rho)
+\end{align*}
+
+And so on the LHS we find
+
+\begin{align*}
+  S(\Lambda) &= \text{Exp} \left( \frac{1}{2} \Omega_{\rho \sigma}
+               S^{\rho \sigma} \right) \\
+             &\approx I - \frac{1}{2} \Sigma_{\rho \sigma} S^{\rho \sigma}
+               \cdot \gamma^\mu \cdot \left( I + \frac{1}{2} \Omega_{\rho \sigma}
+               S^{\rho \sigma} \right) + O(\Sigma^2) \\
+             &\approx \gamma^\mu + \frac{1}{2} \Omega_{\rho \sigma}
+               [\gamma^\mu, S^{\rho \sigma}] + O(\Omega^2)
+\end{align*}
+
+As such we get equality to linear order, or in other words, we get
+
+$$ [\gamma^\mu, S^{\rho \sigma}] = \eta^{\rho \sigma} \gamma^\sigma -
+\eta^{\sigma \mu} \gamma^\rho $$
+
+\subsection{Spinor Fields}
+
+So how do we construct fields (and eventually equations of motion) in this case.
+For field $\psi : \mathbb{R}^{3, 1} \to \mathbb{C}^4$ we have transformation
+property
+
+$$ \psi^\alpha(x) \to \psi'^\alpha(x') = S(\Lambda)^\alpha_\beta
+\psi^\beta(\Lambda^{-1} \cdot x) = S(\Lambda) \cdot \psi(\Lambda^{-1} x) $$
+
+which fortunately satisfies the key property that under a $2\pi$ rotation we
+have $\psi \mapsto -\psi$. This is all nice and well, but we need a Lorentz
+transformation that is Lorentz invariant, and it is not immediately obvious how
+we construct that from these terms that transform in a more complex manner.
+First we observe that
+
+$$ \partial_\mu \psi(x) \mapsto (\Lambda^{-1})^\nu_{\ \mu} S(\Lambda) \cdot
+\partial_\nu (\Lambda^{-1} \cdot x) $$
+
+and 
+
+$$ \psi^\dagger_\alpha(x) \mapsto \psi^\dagger \cdot S(\Lambda)^\dagger $$
+
+Unlike before $S(\Lambda)$ is not always unitary, which means $\psi^\dagger
+\cdot \psi$ is no longer a scalar quanttiy. Furthermore, we have the theorem
+that
+
+\begin{theorem}
+A simple non-compact Lie group has no non-trivial finite dimensional unitary
+representation.
+\end{theorem}
+
+which severely restricts our options here. As such, notice first that for our
+Clifford algebra using the Chiral representation we get
+
+$$ \{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu \nu} I, (\gamma^0)^2 = I,
+(\gamma^i)^2 = -I, (\gamma^i)^\dagger = -\gamma^i, (\gamma^0)^\dagger =
+\gamma^0 $$
+
+Consequently we can see that
+
+$$ (\gamma^\mu)^\dagger = \gamma^0 \gamma^\mu \gamma^0 $$
+
+[End of lecture 17]
+
 \end{document}
