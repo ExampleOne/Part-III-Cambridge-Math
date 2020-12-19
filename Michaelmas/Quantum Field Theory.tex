@@ -11,6 +11,7 @@
 \usepackage{adjustbox}
 \usepackage{physics}
 \usepackage{dsfont}
+\usepackage{cancel}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -1729,5 +1730,1190 @@ Consequently we can see that
 $$ (\gamma^\mu)^\dagger = \gamma^0 \gamma^\mu \gamma^0 $$
 
 [End of lecture 17]
+
+meaning that
+
+\begin{align*}
+(S^{\mu \nu})^\dagger &= \frac{1}{4} ([\gamma^\mu, \gamma^\nu])^\dagger \\
+&= \frac{1}{4} [\gamma^0 \gamma^\nu \gamma^0, \gamma^0 \gamma^\mu \gamma^0] \\
+&= -\frac{1}{4} \gamma^0 [\gamma^\mu, \gamma^\nu] \gamma^0 \\
+&= -\gamma^0 S^{\mu} \gamma^0
+\end{align*}
+
+and
+
+$$ S(\Lambda)^\dagger = (\text{Exp}(\frac{1}{2} \Omega_{\rho \sigma} S^{\rho
+  \sigma}))^\dagger = \gamma^0 S(\Lambda)^{-1} \gamma^0 $$
+
+so while we don't get orthogonality, we get something like it.
+
+That means that our spinor field $\psi^\alpha(x)$ transforms as
+
+$$ \psi^\dagger \mapsto \psi^\dagger(\Lambda^{-1}) \gamma^0 S^{-1}(\Lambda)
+\gamma_0 $$
+
+As such $\psi^\dagger \psi$ is not scalar, however, if we define the
+\textbf{Dirac adjoint} to be $\bar{\psi}(x) = \psi^\dagger(x) \cdot \gamma^0$ we
+see that 
+
+$$ \bar{\psi}(x) \mapsto \bar{\psi}'(x) = \bar{\psi}(\Lambda^{-1} \cdot x) \cdot
+S^{-1}(\Lambda) $$
+
+which is a nicer rule and means that
+
+$$ \Sigma(x) = \bar{\psi}(x) \cdot \psi(x) $$
+
+is indeed a scalar. Furthermore, one can also form a vector field as
+
+$$ V^\mu(x) = \bar{\psi}(x) \gamma^\mu \psi(x) $$
+
+\subsection{Dirac Action}
+
+From here we can finally state the \textbf{Dirac action} associated with
+non-scalar fields. We require the following conditions:
+
+\begin{itemize}
+\item it is Lorentz invariant
+\item it is real
+\item it is local, so action $S = \int d^4x \mathcal{L}(x)$ for scalar real
+  field $\mathcal{L}$
+\end{itemize}
+
+We consequently get
+
+$$\mathcal{L} = \mathcal{L}_1 + \mathcal{L}_2 = \bar{\psi}(x) \cdot i
+\gamma^\mu \partial_\mu \cdot \psi(x) - m \bar{\psi} \cdot \psi = \bar{\psi}(x)
+\cdot (i \gamma^\mu \partial_\mu - m) \psi(x) $$ 
+
+where $\mathcal{L}_2$ is the mass term. Notice here that $\mathcal{L}_1$ is real
+(take the Hermitian conjugate) and scalar (can prove - done in handwritten notes
+- this uses $S(\Lambda)^{-1} \cdot \gamma^\mu \cdot S(\Lambda)$).
+
+So what do the equations of motion --- the so-called \textbf{Dirac equation} ---
+look like here? Setting $\delta S = 0$ as usual we find that
+
+$$ (i \gamma^\mu \partial_\mu - m) \cdot \psi(x) = 0 $$
+
+with conjugate equation
+
+$$ i (\partial_\mu \bar{\psi}) \gamma^\mu + m \bar{\gamma} = 0 $$
+
+We often use the notation here that $\cancel{V} = \gamma^\mu V_\mu$. Doing so we
+can write the Dirac equation as
+
+$$ (i \cancel{\partial} - m) \cdot \psi = 0 $$
+
+For our spinors
+
+\begin{align*}
+  \Lambda &= \text{Exp}(\frac{1}{2} \Omega_{\rho \sigma} M^{\rho \sigma}) \\
+  S(\Lambda) &= \text{Exp}(\frac{1}{2} \Omega_{\rho \sigma} M^{\rho \sigma})
+\end{align*}
+
+with rotations given by $\Omega_{ij} = -\epsilon{ijk} a^k, \Omega_{i0} = 0$
+(anti-symmetric) and boost given by $\Omega_{i0} = - \Omega_{0i} = \chi_i,
+\Omega_{ij} = 0$. We covered rotations before, so focusing on boosts now we find
+that
+
+$$ S^{0i} = \frac{1}{4} [\gamma^0, \gamma^i] = \frac{1}{2}
+\begin{pmatrix}
+  -\sigma^i & \\
+  & \sigma^i
+\end{pmatrix} $$
+
+so
+
+$$ S(\chi) = S(\Lambda) =
+\begin{pmatrix}
+  e^{\chi \cdot \sigma / 2} & \\
+  & e^{-\chi \cdot \sigma / 2}
+\end{pmatrix} $$
+
+meaning both rotations and boosts result in block diagonal matrices, meaning
+that these represntations are reducible. To do so, it is convenient to define
+
+$$ \gamma^5 = -i \gamma^0 \gamma^1 \gamma^2 \gamma^3 $$
+
+which in the Chiral representation corresponds to
+
+$$ \gamma^5 =
+\begin{pmatrix}
+  I_2 & \\
+  & -I_2
+\end{pmatrix} $$
+
+which satisfies $\{\gamma^\mu, \gamma^5\} = 0, (\gamma^5)^2 = I$. To reduce this
+representation we can use the projection operators
+
+$$ P_\pm = \frac{1}{2} (I \pm \gamma^5), P_+ P_- = 0 $$
+
+leaving
+
+$$ \psi_\pm = P_\pm \psi =
+\begin{pmatrix}
+  U_+ \\ \\
+\end{pmatrix},
+\begin{pmatrix}
+  \\ U_- \\
+\end{pmatrix} $$
+
+for \textbf{Weyl spinors} $U_\pm$. [End of lecture 18]
+
+\subsection{Lorentz Group Representations}
+
+For the Lorentz group $G_L = SO(3, 1)_+$ where the $+$ denotes the proper
+orthochronousness of matrices, and for the cover $\overline{G}_L = SL(2,
+\mathbb{C}) \equiv Spin(3, 1)_+$. As discussed we use the Lie alegbra to study
+these Lie groups, but since the Lie algebra depends only on the behaviour of the
+group in the neighbourhood of the identity, and these groups differ only by the
+number of connected components we see that
+
+$$ \mathbb{L}(SL(2, \mathbb{C})) = \mathbb{L}(SO(3, 1)) = \mathbb{L}(SO(3,
+1)_+) $$
+
+Also, note that
+
+$$ \mathbb{L}_{\mathbb{C}}(SO(2, 1)) \equiv \mathbb{L}_{\mathbb{C}}(SO(4)) $$
+
+and from a theorem classifying Lie algebras we know that
+
+$$ \mathbb{L}(SO(4)) = \mathbb{L}(SU(2)) \oplus \mathbb{L}(SU(2)) $$
+
+Now, all finite dimensional (irreducible?) representations of $\mathbb{L}(SU(2))$ are given by
+$j=0, 1/2, \dots$ and some $-j \leq j_z \leq j$ such that the representation
+$R_j$ has dimension $2j + 1$. Consequently, by the correspondance given above we
+know that finite dimensional irreducible representations of $\mathbb{L}(SO(3,
+1))$ are given by pairs $(j_+, j_-)$ for $j_+, j_- = 0, 1/2, \dots$ with
+dimension $(2j_+ + 1)(2j_- + 1)$. We can then classify the smallest irreducible
+representations to be
+
+\begin{itemize}
+\item when $j_+ = j_- = 0$ we get the scalar (trivial) representation of
+  dimension 1.
+\item $j_+ = 1/2, j_- = 0$ we get the left Weyl spinor.
+\item $j_+ = 0, j_- = 1/2$ we get the right Weyl spinor,
+\item and for $j_+ = j_- = 1/2$ we get the 4-vector represntation from above (?)
+\end{itemize}
+
+Note that the Dirac spinor from before is reducible (into the right and left
+spinors as $S \equiv (1/2, 0) \oplus (0, 1/2)$). 
+
+\subsection{Soultions of the Dirac Equation}
+
+We want to quantise our theory, but as before, in order to do that, we first
+need to find the form of the solutions to our equations of motion (after all,
+our quantisation really just corresponds to the superposition of solutions to
+our equation of motion). For the equation
+
+$$ (i\gamma^\mu \partial_\mu - mI) \cdot \psi = 0 $$
+
+we see that if we apply $-i \gamma^\nu \partial_\nu - mI $ to the LHS we get the
+wave equation
+
+$$ (\gamma^\mu \gamma^\nu \partial_\nu \partial_\mu + m^2 I) \cdot \psi =
+(\partial_mu \partial^\mu + m^2) \cdot I \cdot \psi = 0 $$
+
+since $\gamma^\mu \gamma^\nu \partial_\nu \partial_\mu = \frac{1}{2}
+\{\gamma^\mu, \gamma^\nu\} \partial_\nu \partial_\mu = \eta^{\mu \nu} I$. As
+such each component of the vector field solves the Klein Gordon equation.
+So
+
+$$ \psi \sim e^{\pm i p \cdot x} $$
+
+where $p^\mu p_\mu = m^2, p^0 = E_p = \sqrt{p^2 + m^2}, p^\mu = (E_p,
+\vec{p})$. Now it turns out we get slightly different forms for positive and
+negative frequencies, as such we start with positive frequency solutions
+
+$$ \psi_alpha(x) = u_\alpha(p) e^{-i p \cdot x} $$
+
+Also, the Dirac equation is actually stronger than the Klein Gordon equation, so
+applying that we see that
+
+$$ (p^\mu \gamma_\mu - mI) \cdot (p) = 0 $$
+
+Now, applying a Lorentz boost to translate the solution, we start wlog with
+$p^\mu = (m, 0)$ leaving us with
+
+$$ m(\gamma^0 - I) \cdot u = 0 $$
+
+which in the Chiral representation means that
+
+$$ m
+\begin{pmatrix}
+  -I_2 & I_2 \\
+  I_2 & -I_2
+\end{pmatrix}
+u(p_0) = 0 $$
+
+meaning
+
+$$ u(p_0) = \sqrt{m}
+\begin{pmatrix}
+  \xi \\
+  \xi
+\end{pmatrix}
+, \xi \in \mathbb{C}^2 $$
+
+So, if we take a boost of rapidity $\eta$ in direction $n$ to leave the rest
+frame, which corresponds to the Lorentz transformation
+
+$$ \Lambda(\chi) \in G_L, \chi = \eta n $$
+
+such that
+
+$$ \Lambda(\chi) (m, 0) = (E_p, \vec{p}) = (m \cosh(\eta), m \sinh(\eta) n) $$
+
+so
+
+$$ u(p) S(\chi) u(p_0) = \sqrt{m}
+\begin{pmatrix}
+  e^{\chi \cdot \sigma / 2} & \\
+  & e^{-\chi \cdot \sigma / 2}
+\end{pmatrix}
+\begin{pmatrix}
+  \xi \\
+  \xi
+\end{pmatrix} = \sqrt{m}
+\begin{pmatrix}
+  e^{\chi \cdot \sigma / 2} \xi \\
+  e^{-\chi \cdot \sigma / 2} \xi
+\end{pmatrix}
+$$
+
+by expanding in even powers and noticing that
+
+$$ (\chi \cdot \sigma)^2 = \chi^i \chi^j \sigma^i \sigma^j = \frac{1}{2} \chi^i
+\chi^j \{\sigma^i, \sigma^j \} = \chi^2 I = \eta^2 I $$
+
+so
+
+$$ e^{\pm \chi \pm \sigma} = \cosh(\eta) I_2 \pm \sinh(\eta) (n \cdot \sigma) $$
+
+Since these matrices are symmetric so diagonalisable, and defining $e^{\chi
+  \cdot \sigma / 2}$ to take the square root of the eigenvalues of the previous
+matrix, but preserving the eigenvectors and setting $\sigma^\mu = (I, \sigma),
+\bar{\sigma}^\mu = (I, -\sigma)$ we then get that
+
+$$ me^{\chi \cdot \sigma} = \sigma^\mu p_\mu, me^{-\chi \cdot \sigma} =
+\bar{\sigma}^\mu p_\mu $$
+
+and so we can use the notation
+
+$$ \sqrt{p \cdot \sigma} = \sqrt{m} e^{\chi \cdot \sigma / 2}, \sqrt{p \cdot
+  \bar{\sigma}} = \sqrt{m} e^{-\chi \cdot \sigma / 2} $$
+
+($M = \sum_\mu p^\mu \sigma^\mu$ is symmetric). As such for positive
+(nonnegative frequency) we can write our solution as
+
+$$ \psi(x) = u(p) e^{-p \cdot x}, u(p) =
+\begin{pmatrix}
+  \sqrt{p \cdot \sigma} \xi \\
+  \sqrt{p \cdot \bar{\sigma}} \xi
+\end{pmatrix} $$
+
+where $\xi$ is spanned by the orthonormal basis vectors $\xi^s$ for $s = 1, 2$
+form a basis for $\mathbb{C}^2$, and so we only get two linearly independent
+parts
+
+$$ u^s(p) =
+\begin{pmatrix}
+  \sqrt{p \cdot \sigma} \xi^s \\
+  \sqrt{p \cdot \bar{\sigma}} \xi
+\end{pmatrix} $$
+
+Similarly for negative frequencies, $\psi = v(p) e^{ip \cdot x}$ we can repeat
+the same process, except now we find that
+
+$$ m
+\begin{pmatrix}
+  I_2 & I_2 \\
+  I_2 & I_2
+\end{pmatrix} v(p_0) = 0 $$
+
+so instead
+
+$$ v(p_0) = \sqrt{m}
+\begin{pmatrix}
+  \eta \\
+  -\eta
+\end{pmatrix}, \eta \in \mathbb{C}^2 $$
+
+giving us the general solution for negative frquencies to be
+
+$$ \psi(x) = v(p) e^{i p \cdot x}, v^s(p) =
+\begin{pmatrix}
+  \sqrt{p \cdot \sigma} \eta^s \\
+  -\sqrt{p \cdot \bar{\sigma}} \eta^s
+\end{pmatrix} $$
+
+for orthonormal basis $\eta^s$, $\eta^{r\dagger}\eta^s = \delta^{rs}$. Many
+identities can be calculated on these solutions, as we do on ES 3 [do we need to
+memorise these?]. [End of lecture 19]
+
+\subsection{Quantising Spinor Fields}
+
+We want to quantise our field  with
+
+$$ S = \int d^4 x \mathcal{L}, \mathcal{L} = i \bar{\psi} \partial^\mu_\mu \psi
+- m \bar{\psi} \psi $$
+
+This action has the following symmetries
+
+\begin{itemize}
+\item Lorentz symmetry
+\item so-called \textbf{vector symmetry} corresponding to
+  $$ \psi \mapsto e^{-i \alpha} \psi, \bar{\psi} \mapsto e^{i \alpha}
+  \bar{\psi} $$
+  which leads to the conserved current $j^\mu_V = \bar{\psi} \gamma^\mu \psi,
+  \partial_\mu j^\mu_V = 0$ and conserved charge $Q = \int d^3x \psi^\dagger
+  \psi$.
+\item \textbf{chiral/axial symmerty} when mass $m=0$ corresponding to
+  $$ \psi \mapsto e^{i \alpha \gamma^5} \psi, \bar{\psi \mapsto e^{-i \alpha
+      \gamma^5}} \bar{\psi} $$
+\item Finally there are the discrete charge, parity and time symmetries, which
+  are discussed in more detail in Peskin and Schr\"{o}der.
+\end{itemize}
+
+Again, as before to perform the quantisation, we first move to the Hamiltonian
+formulation of the theory. First we note that the conjugate momentum here is
+just
+
+$$ \pi = \partial_{\dot{\psi}} \mathcal{L} = i\bar{\psi} \gamma^0 = i
+\psi^\dagger $$
+
+which is quite different before (it also results in half the number of degrees
+of freedom one might otherwise expect). The Hamiltonian then is given by
+
+$$ H = \int d^3x \mathcal{H}(x), \mathcal{H}(x) = \pi(x) \dot{\psi}(x) -
+\mathcal{L}(x) = \bar{\psi}(- i \gamma^i \partial_i + m) \psi $$
+
+Just as in free tield theory, we split into many harmonic oscillators. As
+before, we want to expand in a complete basis of solutions of the Dirac
+equation, which we found in the previous section. These can be parameterised by
+$p^\mu p_\mu = m^2, p_0 > 0$ and $s = 1,2$ for $\psi = u^s(p) e^{-ip \cdot x},
+v^s(p) e^{i p \cdot x}$ so that we get 4 independent solutions summed as
+
+$$ \psi_\alpha(x) = \sum_{s = 1}^2 \int \frac{d^3p}{(2\pi)^3} \left( b^s_p
+  u^s_\alpha(p) e^{-ip \cdot x} + c^{s*}_p v^s_\alpha(p) e^{ip \cdot x}
+\right) $$
+
+and similar for $\psi_\alpha^\dagger(x)$ where the $b_p, c_p$ are the ladder
+operators for the particle and its anti-particle. In the bosonic case we had the
+quantisation rules
+
+\begin{itemize}
+\item $[a, a^\dagger] = 1, [a, a] = [a^\dagger, a^\dagger] = 0$
+\item $H_B = \frac{1}{2} w (a^\dagger a + a a^\dagger) = w(N + \frac{1}{2}), N_B
+  = a^\dagger a$
+\item ground state $\ket{0}$ such that $a\ket{0} = 0$
+\item excited states $\ket{n} = (a^\dagger)^n \ket{0}$ such that $N_F \ket{n} =
+  n \ket{n} \forall n \in \mathbb{N}_0$ 
+\end{itemize}
+
+whil in the fermionic case we get the same as before, except we replace
+commutators with anti-commutators:
+
+\begin{itemize}
+\item $\{b, b^\dagger\} = 1, \{b, b\} = \{b^\dagger, b^\dagger\} = 0$ (which
+  means that $b^2 = b^{\dagger 2} = 0$)
+\item $H_F = \frac{1}{2} w (b^\dagger b - bb^\dagger) = w(N_F - 1/2)$ for
+  Fermionic number operator $N_F$.
+\item ground state $\ket{0}$ such that $b \ket{0} = 0$
+\item excited states $\ket{n} = b^{\dagger n} \ket{0}$ such that $N_F \ket{n} =
+  n\ket{n}$
+\end{itemize}
+
+Importantly, the fermionic case shares the property that
+
+$$ [H_F, b] = -wb, [H_F, b^\dagger] = wb^\dagger $$
+
+meaning that as before we still get the standard harmonic oscillator ladder
+operators!
+
+The next big result, which will not be proven, or discussed in much detail at
+all, is the \textbf{spin statistics theorem}, which says that half-integer spin
+particles are always fermions, and whole integer spin particles are always
+bosons. Basically, what goes wrong is that if these are matched up the wrong way
+around, the energy is unbounded below, which is an issue.
+
+Now that we have our basic quantisation, let's look at some basic properties. In
+the Schr\"{o}dinger picture at a fixed point in time, so $\psi(x) \mapsto
+\psi(\vec{x})$ then we get canonical anti-commutator relations:
+
+$$ \{\psi_\alpha(x), \psi^\dagger_\beta(y)\} = \delta_{\alpha \beta} \delta(x -
+y), \{\psi_\alpha(x), \psi_\beta(y)\} = 0, \{\psi_\alpha^\dagger(x),
+\psi_\beta^\dagger(y)\} = 0 $$
+
+We then get a Schr\"{o}dinger [Heisenberg?] picture mode expansion
+
+$$ \psi_\alpha(x) = \sum_{s = 1}^2 \int \frac{d^3p}{(2\pi)^3}
+\frac{1}{\sqrt{2E_p}} \left( b^s_p u^s_\alpha(p) e^{ip \cdot x} + c^\dagger_p
+  v^s_\alpha(p) e^{-ip \cdot x} \right) $$
+
+where we have
+
+$$ \{b^s_p, b^{\dagger r}_q\} = \{c^s_p, c^{\dagger r}_q\} = (2\pi)^3
+\delta^{sr} \delta(x - y) $$
+
+We then find
+
+$$ H = \int \frac{d^3p}{(2\pi)^3} E_p \left( \sum_{s = 1}^2 (b_p^{\dagger s}
+  b_p^s + c_p^{\dagger s} c_p^\dagger) - (2\pi)^3 \delta(0) \right) $$
+
+where just like the bosonic case we get a stray infinity, however, unlike before
+we git minus infinity not plus inifity. This changing of sign is a common
+occurance between bosonic and fermionic calculations. We also get
+
+$$ Q = \int \frac{d^3p}{(2\pi)^3} \left( \sum_{s = 1}^2 b^{\dagger s}_p b^s_p -
+  c^{\dagger s}_p c^s_p \right) $$
+
+Finally, to discuss particles, we really get an identicle situation as in the
+bosonic case. The vacuum is the state that solves $b_p^r \ket{0} = c_p^r \ket{0}
+= 0$, and we construct particle and anti-particle states by using creations
+operators (up to a factor) such that $b^{\dagger s}_p \ket{0} = \ket{p, s}$ with
+charge $Q = 1$ for $E_p = \sqrt{p^2 + m^2}$ (the anti-particle has charge $Q =
+-1$). [End of lecture 20]
+
+\subsection{Interacting Fermions}
+
+To generalise to interacting fermions, we write
+
+$$ \mathcal{L} = \mathcal{L}_0 + \mathcal{L}_{int}, \mathcal{L}_0 = \bar{\psi}
+\cdot (i \gamma^\mu \partial_\mu - m) \cdot \psi $$
+
+Dimensional analysis means that $[\mathcal{L} = 4], [\partial] = 1, [\psi] =
+[\bar{\psi}] = 3/2$ meaning that the simplest fermion self-coupling
+
+$$ \mathcal{L}_{int} = -g_F (\psi \bar{\psi})^2 $$
+
+is irrelevant since $[g_F] = -2$. As we can only develop an interesting
+interacting theory by introducing another field, which in its simplest form
+introduces a new scalar field. This is \textbf{Yukawa theory} where we add
+scalar field $\phi(x)$ with mass $\mu$ to get
+
+$$ \mathcal{L} = \bar{\psi} (i \gamma^\mu \partial_\mu - m) \cdot \psi +
+\frac{1}{2} (\partial_\mu \psi) (\partial^\mu \psi) - \frac{\mu^2}{2} \psi +
+\lambda \phi \bar{\psi} \psi $$
+
+Here we can show that $[\lambda] = 0$ so at least this is marginal. In terms of
+applications, this was used as an early theory of the interactions between
+mesons and nucleons (protons and neutrons). We use this as a stepping stone to
+describe quantum electrodynamics (QED) by using the standard process
+
+\begin{enumerate}
+\item try to use Dyson formula
+\item calculate time ordered products
+\item find a version of Wick's theorem
+\item develop Feynman rules
+\end{enumerate}
+
+First we need to work out a propagator as in the scalar case so that we can
+perform contrations. As such we write
+
+$$ S_F(x - y)_{\alpha \beta} = \bra{0} T(\psi_\alpha(x) \bar{\psi}_\beta(y))
+\ket{0} =
+\begin{cases}
+0 & x^0 = y^0 \\
+\bra{0} \psi_\alpha(x) \bar{\psi}_\beta(y) \ket{0} & x^0 > y^0 \\
+- \bra{0} \bar{\psi}_\beta(y) \psi_\alpha(x) \ket{0} & x^0 < y^0 
+\end{cases} $$
+
+where $\psi_\alpha(x), \bar{\psi}_\beta(y)$ are Heisenberg picture operators.
+Here the big difference is that we get the minus sign in order for things to
+agree. In particular, when $(x - y)^2 < 0$ we should agree where we have a
+spacelike overlap, giving rise to the sign (swapping operators inverts the
+sign). 
+
+As such we see that similar to the scalar case we may write
+
+$$ \psi_\alpha(x) = \sum_{s = 1}^2 \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2
+    E_p}} (b^s_p u^s_\alpha(p) e^{-ip \cdot x} + c^{s \dagger}_p v^s_\alpha
+e^{ip \cdot x}), \bar{\psi}_\alpha(x) = (\psi^\dagger(x) \cdot
+\gamma^0)_\alpha $$
+
+As such splitting the components from the propagator we get (we only need to
+focus on the annihilation operators in $\psi_\alpha(x)$ and the creation
+operators in $\bar{\psi}_\beta(y)$)
+
+\begin{align*}
+M_+ &= \bra{0} \psi_\alpha(x) \bar{\psi}_\beta(y) \ket{0} \\
+&= \sum_{r,s = 1}^2 \int \frac{d^3p}{(2\pi)^3} \int \frac{d^3q}{(2\pi)^3}
+   \frac{u_\alpha^s(p) \bar{u}_\beta^r(q)}{\sqrt{4 E_p E_q}} e^{-i(p \cdot x - q \cdot y)} 
+   \bra{0} b_p^r b_q^{s \dagger} \ket{0}
+\end{align*}
+
+where using anti-commutation rules we see that $\bra{0} b_p^r b_q^{s \dagger}
+\ket{0} = (2\pi)^3 \delta(p - q) \delta^{rs}$ and the $d^3q$ integral yields
+
+$$ M_+ = \int \frac{d^3p}{(2\pi)^3} \frac{1}{2E_p} e^{-ip \cdot (x - y)} \sum_{s
+= 1}^2 u^s_\alpha(p) \bar{u}^s_\beta (p) $$
+
+where using example sheet 3 for $\sum_s u^s_\alpha(p) \bar{u}_\beta^s(p) =
+(\cancel{p} + mI)_{\alpha \beta}$ 
+
+$$ M_+ = \int \frac{d^3p}{(2\pi)^3} \frac{1}{E_p} (\cancel{p} + m)_{\alpha
+  \beta} e^{-ip \cdot (x - y)} $$
+
+and similarly
+
+$$ M_- = \bra{0} \bar{\psi}_\beta (y) \psi_\alpha (x) \ket{0} = \int
+\frac{d^3p}{(2\pi)^3} \frac{1}{2E_p} (\cancel{p} - mI)_{\alpha \beta} e^{ip
+  \cdot (x - y)} $$
+
+so
+
+$$ S_F(x - y)_{\alpha \beta} = 
+\begin{cases}
+M_+ & x^0 > y^0 \\
+-M_- & x^0 < y^0
+\end{cases} 
+= \int \frac{d^4p}{(2\pi)^4} \frac{i(\cancel{p} + mI)_{\alpha \beta}}{p^2 - m^2
+  + i \epsilon} e^{-ip \cdot (x - y)}, \ \epsilon \to 0^+ $$
+
+where just as before we summarise this function with a complex integral limit.
+
+Working to find an analogue of Wick's theorem we write
+
+$$ T[\psi_\alpha(x) \bar{\psi}_\beta(y)] = : \psi_\alpha(x) \bar{\psi}_\beta(y)
+: + \psi_\alpha(x) [\bar{\psi}_\beta(y)] $$
+
+where the last square brackets denote a contraction between the two. We then
+compute the vacuum expectation value (VEV)
+
+$$ [\psi_\alpha(x) \bar{\psi}_]beta(y)] = \bra{0} T(\psi_\alpha(x)
+\bar{\psi}_\beta(y)) \ket{0} = S_F(x - y)_{\alpha \beta} $$
+
+
+As hoped (here this is the only contraction, since the $\psi \psi$ and
+$\bar{\psi} \bar{\psi}$ terms disappear). Consequently, once we countthe number
+of transpositions [?] we just get Wick's theorem in its usual form:
+
+\begin{theorem}
+For a product $\pi$ of $\psi, \bar{\psi}$s with $\psi(x_i) = \psi_i$ and similar
+for $\bar{\psi}$ we find
+
+$$ T(\pi) = :\mathcal{C}(\pi): $$
+
+where $\mathcal{C}(\pi)$ is the sum over all contractions.
+\end{theorem}
+
+To calculate our scatering amplitude then we can apply Dyson's formula to get
+
+$$ A_{i \to f} = \bra{f} T \left( e^{\frac{1}{i} \int_{-\infty}^\infty dt
+  H_I(t)} \right) \ket{i} = \bra{f} T \left( e^{\frac{\lambda}{i} \int d^4x
+    \phi(x) \bra{\psi}(x) \psi(x)} \right) \ket{i} $$
+
+in Yukawa theory, and we can apply as a similar approach as we did in
+Scaler-Yukawa theory as we did before. 
+
+As our final result, we may work out the Feynman rules in this theory as for
+incident particles, the term $u_\alpha^r(p)$ term for 4-momentum $p$, spin $r$
+corresponds to
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=4cm]{res/QFT/feynman_incident_particle}
+  \caption{Incident Particle}
+  \label{feynman_incident_particle}
+\end{figure}
+
+and for an incident anti-fermion, $v_\alpha^r(p)$ corresponds to
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=5cm]{res/QFT/feynman_incident_anti-particle}
+  \caption{Incident Anti-particle}
+  \label{feynman_incident_anti-particle}
+\end{figure}
+
+Similarly for final states (outgoing (anti-)particles)
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{res/QFT/feynman_final_particles}
+\caption{Final (Anti-)Particles}
+\label{feynman_final_particles}
+\end{figure}
+
+Similarly for internal propagators we have for spin-1/2 fermions
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm]{res/QFT/feynman_vector_propagator}
+\caption{Spin-1/2 Propagator}
+\label{feynman_vector_propagator}
+\end{figure}
+
+and for scalar propagators
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm]{res/QFT/feynman_scalar_propagator}
+\caption{Scalar Propagator}
+\label{feynman_scalar_propagator}
+\end{figure}
+
+and for a vertex
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{res/QFT/feynman_vertex}
+\caption{A Vertex}
+\label{feynman_vertex}
+\end{figure}
+
+and then for all these together adding the integral
+
+$$ \int \frac{d^4p}{(2\pi)^4} $$
+
+completes our job. [End of lecture 21]
+
+\subsection{Gauge Fields}
+
+We want to somehow combine a 4-vector field where
+
+$$ A^\mu(x) \mapsto \Lambda^\mu_{\ \nu}(\Lambda^{-1} \cdot x) $$
+
+and the field strength tensor
+
+$$ F^{\mu \nu} = \partial^\mu A^\nu - \partial^\nu A^\mu $$
+
+which is invariant under gauge-transform
+
+$$ A^\mu \mapsto A^\mu + \partial^\mu \lambda $$
+
+For Maxwell's theory, we usually use the action
+
+$$ S = \int d^4 x \mathcal{L}, \mathcal{L} = -1/4 F_{\mu \nu} F^{\mu \nu} $$
+
+giving the equations of motion $\partial_\mu F^{\mu \nu} = 0$ and Bianchi
+identity $\partial_\mu *F^{\mu \nu} = 0$ where $*F^{\mu \nu} = \frac{1}{2}
+\epsilon^{\mu \nu \rho \sigma} F_{\rho \sigma}$. 
+
+Now why is this different than the cases we covered before? The most obvious
+issue is that when we reformulate in a Hamiltonian manner and compute the
+canonical moentum we get
+
+\begin{align*}
+\pi^0 &= \partial_{\dot{A}^0} \mathcal{L} = 0 \\
+\pi^i &= -F^{0i} = E^i
+\end{align*}
+
+The zero here is particularly fatal, and is related to the redudancies that
+appear in a Gauge theory - multiple states in the configuration space lead to
+the same behaviour. Anyways, we need to ``fix a gauge'' somehow, which involves
+quite a horrible process really. 
+
+A convenient choice of gauge is the Lorentz gauge
+
+$$ \partial_\mu A^\mu = 0 $$
+
+but we cannot just assume this off the bat. Instead we solve the theory as if
+this isn't true, and then force the condition later on...
+
+We start with a Lagrangian with a ``gauge fixing term''
+
+$$ \mathcal{L}_\xi = -1/4 F_{\mu \nu} F^{\mu \nu} - \frac{1}{2 \xi}
+(\partial_\mu A^\mu)^2 $$
+
+Note here that the $\xi = 1$ case is called the \textbf{Feynman gauge}. Anyways,
+suing this approach we find that the equations of motion become
+
+\begin{align*}
+\partial_\mu \partial_{\partial_\mu A_\nu} \mathcal{L} &=
+-\partial_\mu F^{\mu \nu} - \partial_\mu (\eta^{\mu \nu} (\partial_\rho A^\rho)) \\
+&= -\partial_\mu \partial^\mu A^\nu + \partial_\mu \partial^\nu A^\nu - \partial^\nu \partial_\mu A^\mu \\
+&= -\partial_\mu \partial^\mu A^\nu
+\end{align*}
+
+which means that the equations of motion correspond to the wave equation!
+
+$$ \square A^\mu = (\partial_\rho \partial^\rho) A^\mu = $$
+
+Then we get
+
+\begin{align*}
+\pi^0 &= \partial_{\dot{A}_0} \mathcal{L} = -\partial_\mu A^\mu \\
+\pi^i &= \partial_{\dot{A}_i} \mathcal{L} = \partial^i A^0 - \dot{A}^i
+\end{align*}
+
+As such we get the Gupta-Bleuler quantisation which involves
+
+\begin{enumerate}
+\item quantise using the gauge fixing term
+\item impose the gauge constraint afterwards
+\end{enumerate}
+
+It's quite crude. As such in the Schr\"{o}dinger picture at fixed time where
+$A^\mu(x) = A^\mu(\vec{x})$ and the same for $\pi^\mu$ we are left with
+commutator
+
+$$ [A^\mu(x), \pi^\nu(y)] = i\eta^{\mu \nu} \delta(x - y) $$
+
+[how is this deduced again?] To expand in modes, we notice that since we are
+dealing with the wave equation, our solutions are of the form.
+
+$$ \epsilon^\mu e^{\pm i p \cdot x}, p^\mu p_\mu = 0 \forall \epsilon^\mu \in
+\mathbb{R}^{1, 3} $$
+
+This makes sense since the theory we are developing corresponds to
+electromagnetism, so the particles being considered here are photons, which are
+light-like ($p^\mu p_\mu = 0$). As such we find that $E_p = |p|, p^\mu = (E_p,
+p)$. Now, normally we get a constraint on $\epsilon^\mu$ restricting it to two
+dimensions, but here in fact, $\epsilon^\mu$ is completely free until we impose
+the gauge constraint. As such we pick a basis $\epsilon_\mu^{(\lambda)}(p),
+\lambda=0, 1, 2, 3$ such that
+
+$$ \epsilon_\mu^{(\lambda)} \eta^{\mu \nu} \epsilon_\nu^{(\rho)} (p) =
+\eta^{\lambda \rho} $$
+
+and $\epsilon^{(0)}$ is timelike and $\epsilon^{(1)}$ is spacelike. By writing
+this as a matrix equation and noting that $\eta$ is orthogonal, it is easy to see
+that this means that
+
+$$ \eta_{\lambda \rho} \epsilon^{(\lambda)}_\mu(p) \epsilon^{(\mu)}_\nu(p) =
+\eta_{\mu \nu} $$
+
+Let's also choose $\epsilon^{(1)}, \epsilon^{(2)}$ to be transverse so $p^\mu
+\epsilon_\mu^{(i)} = 0$ for $i=1, 2$, and so necessarily, $\epsilon^(3)$ is
+parallel to $p_\mu$. We then get mode expansions
+
+$$ A_\mu(x) = \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2 |p|}} \sum_{\lambda =
+  0}^3 \epsilon_\mu^{(\lambda)} (p) (a_p^\lambda e^{i p \cdot x} + a^{\lambda
+  \dagger}_p e^{-ip \cdot x}) $$
+
+$$ \pi_\mu(x) = \int \frac{d^3p}{(2\pi)^3} \sqrt{\frac{|p|}{2}} i \left(
+  a^\lambda e^{ip \cdot x} - a^{\lambda \dagger}_p e^{-i p \cdot x} \right) $$
+
+where we notice that since both $A, \pi$ must be real, we enforce realness in
+the last part of these terms (so we get no anti-particles or these particles are
+half-anti-particle half-particle).
+
+From here we can derive the commutation relations
+
+$$ [a_p^\lambda, a^{\rho \dagger}_q ] = -\eta^{\lambda \rho} (2\pi)^3 \delta(p
+- q) $$
+
+As such we find Hamiltonian
+
+$$ H = \int \frac{d^3p}{(2\pi)^3} |p| \left( \sum_{i = 1}^3 a_p^i a_p^i - a_p^{0
+  \dagger} a_p^0 \right) $$
+
+and vacuum state $\ket{0}$ such that
+
+$$ a^\lambda_p \ket{0} = 0 $$
+
+Now, if we work in the Hilbert space spanned by creation operators applied to
+$\ket{0}$ we encounter issues. In particular, we can get negative norms for
+timelike states, and energy is unbounded below! As such we now impose the
+gauge condition as suggested by Gupta-Bleuler so that we only allow states
+$\ket{\psi}$ if
+
+$$ \bra{\psi} \partial_\mu A^\mu (x) \ket{\psi} = 0 $$
+
+(use the Heisenberg field operator $A$ here). This perfectly remoevs unphysical
+states and does the job. It also restricts $\epsilon_\mu$ to be purely
+transeverse instead of being any arbitrary vector, so now we get photons
+
+$\ket{p, l} = (2|p|)^{1/2} a^{l \dagger}_p \ket{0}, l=1,2$
+
+which are massless particles with energy $E = |p|$. [End of lecture 22]
+
+Using similar approaches as before for the photon propagator we find that
+
+$$ \Delta_{\mu \nu} (x - y) = \bra{0} T(A_\mu(x) A_\nu(y)) \ket{0} =
+\begin{cases}
+  M_+ & x^0 > y^0 \\
+  M_- & x^0 < y^0
+\end{cases} $$
+
+where
+
+\begin{align*}
+  M_+ &= \bra{0} A_\mu(x) A_\nu(y) \ket{0} \\
+      &= \int \frac{d^3p}{(2\pi)^3} \int \frac{d^3q}{(2\pi)^3} \frac{1}{\sqrt{2 |p|}} \frac{1}{\sqrt{2 |q|}}
+        \sum_{\lambda, \eta=0}^4 \epsilon_\mu^{(\lambda)}(p) \epsilon_\nu^{(\eta)}(q)
+        \bra{0} (a_p^\lambda e^{-ip \cdot x} + \cancel{a^{\lambda \dagger}_p e^{ip \cdot x}})
+        (\cancel{a^\mu_q e^{-iq \cdot y}} + a_q^{\mu \dagger} e^{iq \cdot y}) \ket{0} \\
+\end{align*}
+
+where
+
+$$ \bra{0} a_p^\lambda e^{-ip \cdot x} a_q^{\mu \dagger} e^{iq \cdot y} \ket{0}
+      = e^{-i(p \cdot x + q \cdot y)} \bra{0} a_p^\mu a_q^{\nu \dagger} \ket{0}
+      = e^{-i(p \cdot x + q \cdot y)} (- \eta^{\mu \nu}) (2\pi)^3 \delta(p - q) $$
+
+which leaves us with
+
+$$ M_+ = -\eta_{\mu \nu} \int \frac{d^3p}{(2\pi)^3} \frac{1}{2|p|} e^{-ip \cdot
+  (x - y)} $$
+
+and similar for $M_-$ leaving us with
+
+$$ \Delta_{\mu \nu}(x - y) = \int \frac{d^4p}{(2\pi)^4} \frac{-i \eta_{\mu
+    \nu}}{p^2 + i\epsilon} e^{-p \cdot (x - y)}, \ \epsilon > 0 $$
+
+\subsubsection{Coupling to Matter (QED)}
+
+The Maxwell equations with source $J^\mu(x) = (\rho(x), \vec{J}(x))$ as
+
+$$ \partial_\mu J^\mu = 0, \partial_\mu F^{\mu \nu} = J^\nu $$
+
+then the action is
+
+$$ S = \int d^4 \mathcal{L}(x), \mathcal{L}(x) = -\frac{1}{4} F_{\mu \nu} F^{\mu
+  \nu} - A_\mu J^\mu $$
+
+For spinor fields on the hand we had
+
+$$ \mathcal{L}_F = \bar{\psi} (i \gamma^\mu \partial_\mu - m) \psi $$
+
+with the $U(1)$ global symmetry
+
+$$ \psi(x) \mapsto e^{-i \alpha} \psi(x), \bar{\psi}(x) \mapsto e^{i \alpha}
+\bar{\psi}(x) $$
+
+where we get a Noether conserved current
+
+$$ J^\mu(x) = \bar{\psi} \gamma^\mu \psi(x), \partial_\mu J^\mu = 0 $$
+
+(proving this is conserved is rather non-trivial using other methods). In QED we
+then get that
+
+$$ \mathcal{L} = -\frac{1}{4} F_{\mu \nu} F^{\mu \nu} + \bar{\psi} (i \gamma^\mu
+\partial_\mu - m) \psi - e \bar{\psi} \gamma^\mu \psi A_\mu $$
+
+Note that the only new part to show that this is Lorentz invariant is to show
+that the last term $\bar{\psi} \gamma^\mu \psi A_\mu$ is Lorentz invariant. This
+follows immediately from the fact that $\bar{\psi} \gamma^\mu \psi$ and $A_\mu$
+are vector fields (use that the former is a conserved current!).
+
+This is also gauge invariant, but the proof is more involved. First of all,
+notice that the a gauge transform here takes the form that
+
+\begin{align*}
+  \psi(x) &\mapsto e^{-i e \alpha(x)} \psi(x) \\
+  \bar{\psi}(x) &\mapsto  e^{i e \alpha(x)} \bar{\psi}(x) \\
+  A^\mu(x) &\mapsto A^\mu(x) + \partial^\mu \alpha(x)
+\end{align*}
+
+As such, we find it is helpful to define \textbf{covariant derivative} $D_\mu
+\psi = \partial_\mu \psi + ie A_\mu \psi$. It follows then that $D_\mu \psi
+\mapsto e^{-ie\alpha(x)} D_\mu \psi$ and we can write
+
+$$ \mathcal{L} = -\frac{1}{4} F_{\mu \nu} F^{\mu \nu} + \bar{\psi}(i \gamma^\mu
+D_\mu - m ) \psi $$
+
+which is manifestly gauge invariant. Using dimensional analysis, it follows that
+$[\mathcal{L}] = 4 \implies [\psi] = [\bra{\psi}] = 3/2, [A] = 1 \implies
+[\bar{\psi} \gamma^\mu \psi A_\mu] = 4 \implies [e] = 0$, so our interaction is
+term is marginal, so interesting. It also worth noting that if we add in $\hbar,
+c$ again, we find that the dimensionaless parameter we are really expanding in
+is
+
+$$ \frac{e^2}{4\pi \hbar c} = \alpha \approx 1/136 $$
+
+the fine structure constant. This is certainly ``small'' and so using
+pertubation theory makes sense.
+
+\subsubsection{$\mu^+ - \mu^-$ pair creation}
+
+As an extended example, let's think about creating a muon - anti-muon pair. In
+particular, we are interested in the process
+
+$$ e^+ + e^- \mapsto \mu^+ + \mu^- $$
+
+In particular that means we now get two fields $\phi$ for the electron and
+$\chi$ for the muon. As such we can write (for $D_\mu = \partial_\mu + i e
+A_\mu$) that
+
+$$ \mathcal{L} = -\frac{1}{4} F_{\mu \nu} F^{\mu \nu} + \bar{\psi} \cdot (i
+\gamma^\mu D_\mu - m_e) \cdot \psi + \bar{\chi} (i \gamma^\mu D_\mu - m_\mu)
+\cdot \chi $$
+
+Doing a mode expansion for $\psi, \chi$ we get that for $E_p = \sqrt{|p|^2 +
+  m_e^2}, \mathcal{E}_p = \sqrt{|p|^2 + m_\mu^2}$ for two spin-1/2 particles.
+Here we label ladder operators as $b, c, d, e$ and spinors $u_\alpha^r,
+v_\alpha^r, \tilde{u}_\alpha^r, \tilde{v}_\alpha^r$ (different since these
+depend on the mass parameter). Here all anti-commutators vanish except for
+
+$$ \{ b_p^r, b_q^{s\dagger}\} = \{c_p^r, c_q^{s \dagger}\} = \{d_p^r, d_q^{s
+  \dagger}\} = \{e_p^r, e_q^{s \dagger}\} = \delta^{rs} (2\pi)^3 \delta(p - q) $$
+
+We then want to calculate scaterring amplitude between
+
+\begin{align*}
+\bra{i} &= \sqrt{2 E_p} \sqrt{2 E_q} b_q^{s \dagger} c_p^{r \dagger} \ket{0} \\
+\bra{f} &= \sqrt{2 \mathcal{E}_p} \sqrt{2 \mathcal{E}_q} d_q^{s \dagger} e_p^{r \dagger} \ket{0}
+\end{align*}
+
+Here we want to use the scattering operator $S = T \left( e^{\frac{1}{i} \int
+    d^4x M_I} \right)$ where we find that
+
+$$ M_I = e \bar{\psi} \gamma^\mu \psi A_\mu + e \bar{\chi} \gamma^\mu \chi
+A_\mu $$
+
+with $A_{i \to f} = \bra{f} S \ket{i}$ as usual. Since we need to destroy and
+create two particles, we must work to at least second order. As such, the
+leading order term is $O_2$ where
+
+$$ O_2 = (i e)^2 \int d^4x \int d^4y : \bar{\psi}(x) \gamma^\mu \psi(x) A_\mu(x)
+\bar{\chi}(y) \gamma^\mu \chi(y) A_\nu(y): $$
+
+where only the photon ($A_\mu$) is contracted since we have no photons. Here
+only the following terms turn out to be important
+
+\begin{align*}
+\bar{\psi} &\sim b_p^{s \dagger} + c_p^s \mapsto c_p^s \\
+\psi &\sim b_p^s + c_p^{s \dagger} \mapsto b_p^s \\
+\bar{\chi} &\sim d_p^{s \dagger} + e_p^s \mapsto d_p^{s \dagger} \\
+\chi &\sim d_p^s + e_p^{s \dagger} \mapsto c_p^{s \dagger}
+\end{align*}
+
+[End of lecture 23]. Using standard procedures, one can turn this into an
+explicit expression for $A_{i \mapsto f}$. However, the resulting expression is
+several lines long as
+
+\begin{multline*}
+  A_{i \to f} = \sqrt{4E_p E_q 4 \mathcal{E}_{p'} \mathcal{E}_{q'}} \sum_{s_1,
+    s_2, s_3, s_4 = 1}^2 \int \frac{d^3p_1 d^3p_2 d^3p_3 d^3p_4}{(2\pi)^4} \\
+  \frac{1}{\sqrt{4 E_{p_1} E_{p_2} 4 \mathcal{E}_{p_3} \mathcal{E}_{p_4}}}
+  (-ie)^2 \int d^4x \int d^4y \int \frac{d^4k}{(2\pi)^4} \frac{-i \eta_{\mu
+      \nu}}{k^2 + i \epsilon} e^{-ik \cdot (x + y)} \\
+(\bar{v}^{s_1}(p_1) \gamma^\mu u^{s_2}(p_2)) (\bar{\tilde{u}}^{s_3}(p_3)
+\gamma^\nu \tilde{v}^{s_4}(p_4)) e^{-ix \cdot (p_1 + p_2) + iy \cdot (p_3 +
+  p_4)} \\
+\bra{0} e_{q'}^{r'} d_{p'}^{s'} d_{p_3}^{s_3 \dagger} e_{p_4}^{s_4 \dagger}
+c_{p_1}^{s_1} b_{p_2}^{s_2} b_p^{s \dagger} c_q^{r \dagger} \ket{0}
+\end{multline*}
+
+where we note
+
+$$ 
+\bra{0} e_{q'}^{r'} d_{p'}^{s'} d_{p_3}^{s_3 \dagger} e_{p_4}^{s_4 \dagger}
+c_{p_1}^{s_1} b_{p_2}^{s_2} b_p^{s \dagger} c_q^{r \dagger} \ket{0}
+= (2\pi)^{12} s^{s_1 r} \delta^{s_2 s} \delta^{s_3 s'} \delta^{s_4 r'}
+\delta(p_1 - q) \delta(p_2 - p) \delta(p_3 - p') \delta(p_4 - q') $$
+
+Using standard procedures (not that wlog we can set $\epsilon = 0$ at some
+point) we find that
+
+$$ A_{i \to f} = (-ie)^2 \frac{1}{(p + q)^2} (2\pi)^4 \delta(p' + q' - p - q)
+(\bar{v}^r(q) \gamma^\mu u^s(p)) (\bar{\tilde{u}}^{s'}(p') \gamma_\mu
+\tilde{v}^{r'}(q')) $$
+
+This completes our extended example.
+
+\subsubsection{Feynman rules for QED}
+
+Initial states can be described by
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=9cm]{res/QFT/qed_initial_states}
+  \caption{QED Initial States}
+  \label{qed_initial_states}
+\end{figure}
+
+For final states we have
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=9cm]{res/QFT/qed_final_states}
+  \caption{QED Final States}
+  \label{qed_final_states}
+\end{figure}
+
+For internal lines we have
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=9cm]{res/QFT/qed_internal_lines}
+  \caption{QED Internal Lines}
+  \label{qed_internal_lines}
+\end{figure}
+
+and a vertex translates to
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=9cm]{res/QFT/qed_vertex}
+  \caption{QED Vertex}
+  \label{qed_vertex}
+\end{figure}
+
+Note that Feynman rules are in general gauge dependent, although the final
+results should always be the same. This specifically corresponds to the specific
+Feynman gauge.
+
+For example, for electron scattering, $e^+ + e^- \mapsto e^+ + e^-$ we get
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=9cm]{res/QFT/qed_electron_scattering}
+  \caption{electron scattering to lowest order}
+  \label{qed_electron_scattering}
+\end{figure}
+
+then using the Feynman rules we find that
+
+$$ A_{i \to f} = -i(-ie)^2 (2\pi)^4 \delta(p' + q' - p - q) \left( \frac{-X}{(p
+    - p')^2} + \frac{Y}{(p + q)^2} \right) $$
+  
+where
+
+\begin{align*}
+X &= (\bar{u}^{s'}(p') \gamma^\mu u^s(p)) (\bar{v}^r(q) \gamma_\mu v^{r'}(q')) \\
+Y &= (\bar{v}^r(q) \gamma^\mu u^s(p)) (\bar{u}^{s'}(p') \gamma_\mu v^{r'}(q'))
+\end{align*}
+
+Another example is $e^- + e^- \mapsto e^- + e^-$ is noted by
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{res/QFT/qed_electron_scattering_2}
+\caption{Another Electron Scattering?}
+\label{qed_electron_scattering_2}
+\end{figure}
+
+A third is $e^+ + e^- \mapsto \gamma + \gamma$ (note, one can
+show one cannot have the process $e^+ + e^- \mapsto \gamma$ for some reaosn...)
+leaving
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{res/QFT/electron_positron_annihilation}
+\caption{Electron-Position Annihilation}
+\label{electron_position_annihilation}
+\end{figure}
+
+A fourth example is Compton scattering $\gamma + e^- \mapsto \gamma + e^-$ with
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{res/QFT/compton_scattering}
+\caption{Compton Scattering}
+\label{compton_scattering}
+\end{figure}
+
+That completes our coverage of QED.
+
+\subsubsection{Comparison with Experiment}
+
+Basically, to compare our theoretical predictions to experiments we in practice
+compare them to collider experiments. In particular, we want to measure $N =
+F\sigma$ for flux $F$ and cross-section $\sigma$. In particular, we are then
+interested in the probability of transitioning form state $i$ to $f$ 
+
+$$ P_{i \to f} = \frac{|\bra{f} S \ket{i}|^2}{\bra{f}\ket{f} \bra{i}\ket{i}} $$
+
+(note most QFT calculations are not normalised). This is how we relate to the
+scattering amplitude $A_{i \to f}$. Recall relativistic normalisation for a
+single particle state is
+
+$$ \bra{p}\ket{q} = 2E_p (2\pi)^3 \delta(p - q) $$
+
+where we have the $(2\pi)^3 \delta(0) = \int d^4x 1 = V$ where we can cancel the
+numerator and denominator as necessary.
+
+In particular, let's look at $2 \times 2$ scattering. Let's define differential
+cross section $d\sigma = \frac{1}{F} dP_{i \to f} = \frac{1}{4 E_{p_1} E_{p_2}}
+\frac{1}{FV} |M_{i \to f}|^2$ for the reduced scattering amplitude 
+
+$$A_{i \to f} = M_{i \to f} (2\pi)^4 \delta(p_1' + p_2' - p_1 - p_2)$$  
+
+and angular component
+
+$$ d\pi = \prod_{i = 1}^2 \frac{d^3p'_i}{2E_{p_i'}} (2\pi)^4 \delta(p_1' + p_2'
+- p_1 - p_2) $$
+
+and $F = |v_1 - v_2| / V, V_i = p_i / (p^0)_i$. We then can define the total
+cross section to be $\sigma = \int d\sigma$.
+
+We now work out the case of Fermion scatteringm and in particular, the case we
+looked at before $e^+ + e^- \mapsto \mu^+ + \mu^-$ with
+
+$$ M_{s,r, s', r'} = M(p, s, q, r \to p', s', q', r') = \frac{e^2}{(p + q)^2}
+(\bar{v}^r(q) \gamma^\mu u^s(p)) (\bar{\tilde{u}}^{s'}(p') \gamma_\mu
+\tilde{v}^{r'}(q')) $$
+
+We can then define the unpolarised differential cross section
+
+$$ P = \frac{1}{4} \sum_{r,s,r',s'=1}^2 |M_{r,s,r',s'}|^2 = \frac{e^4}{(p +
+  q)^4} A^{\mu \nu}B_{\mu \nu} $$
+
+where $A, B$ provide a specific factorisation. Here we have
+
+\begin{align*}
+A^{\mu \nu} &= \frac{1}{4} \sum_{r, s=1}^2 (\bar{v}^r(q) \gamma^\mu u^s(p))^* 
+(\bar{v}^r(q)\gamma^\nu u^s(p)) \\
+B_{\mu \nu} &= \frac{1}{4} \sum_{r',s'=1}^2 
+(\bar{\tilde{u}}^{s'}(p') \gamma_\mu \tilde{v}^{r'}(q'))^* 
+(\bar{\tilde{u}}^{s'}(p') \gamma_\nu \tilde{v}^{r'}(q'))
+\end{align*}
+
+To evaluate these we remark that $(\gamma^\mu)^\dagger = \gamma^0 \gamma^\mu
+\gamma^0, (\gamma^0)^2 = I$ we get
+
+\begin{align*}
+(\bar{v}^r(q) \gamma^\mu u^s(p))^* 
+&= (v^{r \dagger}(q) \gamma^0 \gamma^\mu u^s(p))^* \\
+&= u^{s \dagger}(p) (\gamma^\mu)^\dagger (\gamma^0)^\dagger v^r(q) \\
+&= u^{s \dagger}(p) \gamma^0 \gamma^\mu \gamma^0 \gamma^0 \gamma^0 \gamma^0 v^r(q) \\
+&= \bar{u}^s(p) \gamma^\mu v^r(q) \\
+&= (\bar{v}^s(q) \gamma^\mu u^s(p))^*
+\end{align*}
+
+So we have
+
+$$ \bar{u}^s(p) \gamma^\mu v^r(q) = (\bar{v}^s(q) \gamma^\mu u^s(p))^* $$
+
+which is helpful to known in general. As such by using some formulas from
+example sheet 3, we see that
+
+$$ A^{\mu \nu} = \frac{1}{4} \tr( (\cancel{p} + m_e) \gamma^\mu (\cancel{q} -
+m_e) \gamma^\nu) $$
+
+which via more trace identities from question 3 on example sheet 3 gives
+
+$$ A^{\mu \nu} = p^\mu q^\nu + p^\nu q^\mu - \eta^{\mu \nu} (p \cdot q +
+m_e^2) $$
+
+One can apply a similar approach for $B_{\mu \nu}$. 
+
+Now, working from the centre of momentum frame we find that $m_e << m_\mu$
+(since $m_e \approx \frac{1}{200} m_\mu$ for actual muons) and so also that $E
+\sim m_\mu$. So if we then also use the approximation $m_e \approx 0$ then we
+get
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{res/QFT/electron_muon_scattering}
+\caption{Centre of Momentum Frame}
+\label{electron_muon_scattering}
+\end{figure}
+
+This calculation is finished on example sheet 4, but we conseuqnelty find that
+
+$$P = \frac{1}{4} \sum_{r, s, r', s'} |M_{r,s,r',s'}|^2 = e^4(1 + m_\mu^2 / E^2)
++ (1 - m_\mu^2 / E^2) \cos^2(\theta) $$
+
+Consequently one can find that
+
+$$ \frac{d\sigma}{d \Omega} = \frac{1}{16 E^3} \frac{|k|}{16} P =
+\frac{\alpha^2}{16E^2} \sqrt{1 - m_\mu^2 / E^2} \left( (1 + m_\mu^2 / E^2) + (1
+  - m_\mu^2 / E^2) \cos^2(\theta) \right) $$
+
+so [factor?]
+
+$$ \sigma = \int^{2\pi}_0 d\phi \int^1_{-1} d(\cos(\theta)) \frac{d\sigma}{d
+  \Omega} = \frac{\pi^2 \alpha^2}{3 E^2} \sqrt{1 - m_\mu^2 / E^2} (1 + m_\mu^2 /
+E^2) $$
+
+This finally yields a quantity that can be compared with experiment! It also
+works out to correct, along with many of the other results of QED. Together with
+the annihilation and creation processes that have been described, this overall
+is a big vindication that this is an effective union of special relativity and
+quantum mechanics.
 
 \end{document}
