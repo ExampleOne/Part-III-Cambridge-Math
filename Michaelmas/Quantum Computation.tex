@@ -723,5 +723,105 @@ lecture 11].
 
 [include standard quantum gates in course summary]
 
+\section{The Harrow Hassidim Lloyd (HHL) Algorithm}
+
+The Harrow Hassidim Lloyd (HHL) algorithm describes a way of solving systems of
+linear exponentially faster on a quantum systems. However, it should be noted
+that by ``solving'' a system, we do not mean finding all the coefficients of the
+solution. Instead we simply mean that we find a state that is a normalised
+linear combination of all the right coefficients, which can be used to test
+specific properties, however, from which the full solution cannot be fully
+recovered without extra work. 
+
+In particular, we seek to solve
+
+$$ Ax = b, b, x \in \mathbb{C}^N $$
+
+for large $N$ in $poly(n)$ time for $n = \log(N)$. And we aim to compute the
+value of $x^\dagger M x$ completely, which allows us to say something about the
+solution. Given the ubiquity of linear systems, this would also have many many
+applications, especially in solving PDEs, but also data mining, etc. The best
+classical techniques in this area are $poly(N)$ so this represents an
+exponential speedup.
+
+The three parameters of interest no which this system depends are
+
+\begin{itemize}
+\item the system size $N$
+\item the error tolerance $\epsilon$
+\item the \textbf{condition number} $k = \left|
+    \frac{\lambda_{\max}}{\lambda_{\min}} \right|$ where $\lambda_{\max},
+  \lambda_{\min}$ are the largest and smallest eigenvalues of $A$ respectively (by
+  absolute value). Intuitively, $k=\infty$ for a singular matrix, so one can
+  think of $k$ being a measure of ``how'' singular a matrix is. Lower is better
+  here.
+\end{itemize}
+
+The HHL algorithm then can solve $Ax = b$ under the following conditions
+
+\begin{enumerate}
+  \item We require $A$ to be Hermitian, however, one should note that this does
+    not really restrict the algorithm at all, since for a non-Hermitian matrix
+    $A$ one can solve the system
+    $$ \begin{pmatrix} & A^\dagger \\ A & \end{pmatrix} \begin{pmatrix} x \\
+      y \end{pmatrix} = \begin{pmatrix} 0 \\ b \end{pmatrix} \implies y = 0, x =
+    A^{-1} b $$
+    Note that doing this on a system size $2N$ does not fundamentally change the
+    complexity of the algorithm.
+  \item $k$ is small, or in particular, $A$ is \textbf{well-conditioned} meaning
+    that $k$ is bounded by $poly(n)$ for increasing $N$.
+  \item One can implement Hamiltonian simulation of $e^{iAt_0}$ (need $e^{iA}$)
+    in $poly(n, t_0)$. This is the only real restriction on $A$. It works for
+    example when $A$ is $k$-local.
+  \item $b$ is normalised and $\sum b_i \ket{i}$ can be computed in $poly(n)$
+    (data can be ``loaded'' efficiently - loading $A$ efficiently is implicitly
+    covered in requiring its Hamiltonian simulation). Note if $b$ is not
+    normliased, then as long as $\sum b_i^2$ can be computed in $poly(n)$ so
+    that we can rescale before and after we should be fine.
+  \item $x^\dagger M x$ and the corresponding measurement is efficiently
+    implementable on $n$ qubits. We also require that $M$ is Hermitian, however,
+    note that again this is no real restriction, since by using
+    $$ M = K + iL, K = \frac{M + M^\dagger}{2}, L = \frac{M - M^\dagger}{2i} $$
+    we can get around this by repeating the algorithm twice, which does not
+    increase complexity.
+\end{enumerate}
+
+A first remark will be on the general set of matrices for which Hamiltonian
+simulation can be implemented. Here we remark that while the literature is quite
+involve, we find the following definitions helpful.
+
+\begin{definition}
+  $A$ is a \textbf{row sparse matrix} if $A$ has $poly(n)$ non-zero entries in
+  each row.
+\end{definition}
+
+\begin{definition}
+  $A$ is a \textbf{row $s$-spare matrix} if $A$ has no more than $s$ non-zero
+  entries in each row.
+\end{definition}
+
+\begin{definition}
+  $A$ is a \textbf{row computable matrix} if $A$ is row $s$-sparse and $\exists
+  \text{ a }O(s)$-time computation $C(i, k) = (j, A_{ij})$ which computes given
+  $1 \leq i \leq N$ and $1 \leq k \leq s$ gives the $k$th non-zero entry of row
+  $i$ in matrix $A$ and $j$ the column number of that non-zero entry.
+\end{definition}
+
+The following theorem was then shown in 2007 by Berry, Ahokas, Cleve and
+Sanders (0508139 on arXiv).
+
+\begin{theorem}
+  The \textbf{Hamiltonain Simulation Property} states that a row $s$-sparse, row
+  computable matrix $A$ can have $e^{iAt_0}$ computed to error $\epsilon$ in
+  $O(n s^2 t_0)$ time.
+\end{theorem}
+
+Note that in the statement of terms like $s^\alpha$ where $\alpha$ can be chosen
+to be arbitrarily small (e.g. due to Lie-Trotter-(Suzuki?) formulas, etc.) have
+been omitted.
+
+Convniently, this property is very common in PDE systems, and we also rarely
+require every state in a PDE system (perhaps we only need the final state),
+which is covered nicely here. [End of lecture 12]
 
 \end{document}
