@@ -824,4 +824,260 @@ Convniently, this property is very common in PDE systems, and we also rarely
 require every state in a PDE system (perhaps we only need the final state),
 which is covered nicely here. [End of lecture 12]
 
+The way in which HHL provides informatino about the system is that it allows us
+to calculate the quantity $M = x^\dagger M x$ for any Hermitian $M$ to accuracy
+$\epsilon$ in $O(\log(N)s^2 k^2 / \epsilon)$ compared with $O(Ns \sqrt{k} \log(1
+/ \epsilon))$ classically. You might note the exponential slowdown in $1 /
+\epsilon$, however, subsequent improvements of HHL have improved this part of
+the algorithm to $\log(1 / \epsilon)$. Now let's actually discuss how the HHL
+algorithm runs:
+
+Let's assume that phase estimation, and Hamiltonian simulation can be
+implemented errror free, and wlog assume $|\lambda_{max}| = 1$ and that $k$, the
+condition number, is known or upper bounded. Then let us assume that we have
+eigenvalue $\lambda_i$ for eigenvector $\ket{u_i}$ meaning that if $\ket{b} =
+\sum b_i \ket{i} = \sum \beta_i \ket{u_i}$ so $\ket{x} = A^{-1} \ket{b} = \sum
+\frac{\beta_j}{\lambda_j} \ket{u_j}$. But $A$ is Hermitian, not unitary, so
+cannot be implemented as a gate. Instead, we can implement $U = e^{iA}$ and then
+implement the $C-U$ gates via Hamiltonian simulation. We can then use a
+post-selection process to complete our ``non-unitary gate.''
+
+As such our algorithm takes the form
+
+\begin{enumerate}
+\item Apply the phase estimation unitary estimator $U_{PE} \ket{b} \ket{0} =
+  \sum \beta_j \ket{u_j} \ket{\lambda_j}$.
+\item add a qubit, and then apply the controlled rotation
+$$ C-\text{rot} \ket{\lambda_j} \ket{0} = \ket{\lambda_j} \left( \cos(\theta_j)
+  \ket{0} + \sin(\theta_j) \ket{1} \right) $$
+where $\sin(\theta_j) = c / \lambda_j, \cos(\theta_j) = \sqrt{1 - c^2 /
+  \lambda_j^2}$ where $c \leq \min \{ \lambda_j \}$ (e.g. $c = 1 / k$) is some
+constant. This controlled rotation, it is shown on ES 3, can implemented in
+$poly(n)$ time. Finally, we measure this last register.
+\item repeat this step until we measure a 1 (this is the ``post-selection
+  step''). Here we have the probability of getting a one as
+$$ \mathbb{P}(1) = P = \sum_j \left( \beta_j \frac{c}{\lambda_j} \right)^2 =
+\frac{1}{k^2} \sum_j \left| \frac{\beta_j}{\lambda_j} \right|^2 \geq \frac{1}{k^2} $$
+since $\lambda_j \geq 1$ here. Note that this is influenced by the accuracy of
+our estimate of $k$. We consequently get the state
+$$ \ket{V} = \frac{1}{\sqrt{P}} c \sum_{j = 0}^{N - 1} \frac{\beta_j}{\lambda_j}
+\ket{u_j} \ket{\lambda_j} $$
+Complexity-wise we find that if this is achieved with probability $1 - \eta$
+then it takes $\log(1 / \eta) / P = O(k^2)$ attempts, although after amplitude
+amiplification, this becomes $O(k)$ times.
+\item Now run $U_{PE}$ for phase setimation in reverse and discard the
+  $\ket{\lambda_j}$ register to get
+$$ \ket{\hat{x}} = \frac{c}{\sqrt{P}} \sum_{j = 0}^{N - 1}
+\frac{\beta_j}{\lambda_j} \ket{u_j} = \frac{c}{\sqrt{P}} \ket{x} $$
+\item To esimate
+$$ \frac{c^2}{P} \bra{x} M \ket{x} = \frac{c^2}{P} \mu $$
+we just perform many repeated measurements of the observable $M$ in this state,
+which can be somehow implemented? By the Chernoff-Hoeffeling bound, $O(\log(1 /
+\eta) / \xi^2)$ measurements suffice to estaimte $\mu$ to accuracy $\xi$ with
+probability $1 - \eta$. From our system, we know the value of $c$, but how do we
+get the value of $P$? This is done quite crudely, by noting that $P = 0 \times
+P_0 + 1 \times P_1$ is the expected value of the ancilla measurement in the
+first post-selection step of HHL. If during this post-selection step, we measure
+$P$ as well, using the same Chernoff-Hoeffeling bound we get the same result.
+[End of lecture 13]
+\end{enumerate}
+
+\subsection{The Accuracy of the HHL Algorithm}
+
+[this lecture - lecture 14 - on the accuracy bounds of HHL is non-examinable]
+First of all, we remark that a more detailed discussion of all the error bounds
+can be found in the original HHL paper. For simplicity, we assume here that
+$\ket{b}$ can be found exactly, and that the controlled rotation we use can be
+implemented exactly. Then we note that phase estimation is the most troublesome
+part of the whole algorithm. In particular, if we use $n$ qubit lines, and we
+assume that we get $\lambda'$ the closest $n$-bit approximation to $\lambda$ (so
+up to error $\eta = 2^{-n}$) then we see that for $U = e^{iA}, C-U =
+e^{i\tilde{A}}$ for
+
+$$ \tilde{A} =
+\begin{pmatrix}
+  0 & 0 \\
+  0 & A
+\end{pmatrix} $$
+
+(where each 0 is an $n \times n$ matrix) so we just need to be able to calculate
+$e^{i\tilde{A}t}$ for $t = 1, \dots, 2^{n - 1}, t_0 = 1 + \dots + 2^{n - 1} = 1
+/ \eta$. The result we get from our algorithm is
+
+$$ \ket{\hat{x}'} = \frac{1}{D'} \sum \beta_j \frac{c}{\lambda_j'} \ket{u_j}, D'
+= \sqrt{P'} = \sqrt{\sum_j |\beta_j|^2 \frac{c^2}{\lambda_j'^2}} $$
+
+Now, here we note that
+
+\begin{enumerate}
+\item If $\lambda$ has additive error, $\delta(\lambda) = \eta$ then $\delta
+  \left( \frac{1}{\lambda} \right) \sim \frac{1}{\lambda^2} \delta(\lambda)$,
+  and the associated relative error is (by using derivatives)
+  $$ \frac{\delta(1 / \lambda)}{1 / \lambda} = \delta(\lambda) / \lambda = \eta
+  / \lambda $$
+\item Consequently if $A', B'$ approximate $A, B$, respectively to relative
+  error $\xi$, then $\frac{A'}{B'}$ approximates $
+  frac{A}{B}$ to relative error $\xi$ as well.
+\end{enumerate}
+
+This means that the relative error in $\frac{1}{\lambda_j}$ is $\delta(1 /
+\lambda) / (1 / \lambda) = O(\eta / \lambda) = O(k \eta)$. [actually $k$ should
+be a $\kappa$]. Using $A' = \beta_j c / \lambda_j, B' = D'$ we see that the
+amplitudes of $\ket{\hat{x}}$ have relative error $O(k \eta) = \epsilon$.
+Consequently, $k \eta = \epsilon \implies \eta = \epsilon / k \implies t_0 = k /
+\epsilon$. Phase estimation then has complexity $O(\log(N) t_0 s^2) = O(\log(N) (k /
+\epsilon) s^2)$, which repeated with implitude amplification yields $O(\log(N)
+k^2 s^2 / \epsilon)$ as required.
+
+This analysis simplifies a lot. We assume that $\lambda'$ is the closest we can
+get to $\lambda$, and of course, we assumed controlled rotation and $\ket{b}$
+can be implemented error free. Nevertheless, this is the core of the result. It
+also reveals how we can improve things. Namely, the way we go from $1 /
+\epsilon$ to $\log(1 / \epsilon)$ is by replacing phase estimation entir3ely
+with something else called a ``linear combination of unitaries'' (see ES 3, Q 5,
+or for the paper arXiv's 1312.1414). We will also note that the original HHL
+paper also extends the algorithm for ill-conditioned matrices, which we do not
+discuss here, and improves performance somewhat by starting with a non-uniform
+superposition of states. [End of lecture 14]
+
+\section{Clifford Computations and the Classical Simulation of Quantum
+  Computing}
+
+We've now wrapped up all the algorithms we will be covering, so let's take a
+look at some more theoretical concepts. A big question remains the interest in
+trying to identify what property precisely allows quantum computing to
+outperform classical computing. It is still uncertain to what extent this is
+true. But some of the key concepts are the following. A \textbf{classical
+  simulation of a quantum computation} is a collection of
+
+\begin{itemize}
+\item a quantum circuit $C$, perhaps described as a list of $n$ qubit gates,
+  with circuit size $N = poly(n)$
+\item a description of the input (as product states or computational basis
+  states?)
+\item certain nominated output states
+\end{itemize}
+
+We then say that we have a \textbf{weak simulation} if we can sample the output
+distribution classically, and we have a \textbf{strong simulation} if we can
+calculate the $P_0, P_1$ (efficiently - so in polynomial ``time'') classically.
+Certainly strong implies weak. (the multiline output definition of a strong
+simulation is slightly more involved and mentioned on ES 3, but not in
+lectures). If this were always possible, then quantum computation would never
+give more than a polynomial improvement. Of course, quantum computing only ever
+achieves weak simulation, so demanding strong simulation is quite a tall order.
+One might note that one can always write down a direct strong simulation, but it
+may not be efficient. More interestingly, it can be shown that if every step in
+a computation can be written as a product state then we can always find an
+efficient direct strong simulation.
+
+This result also has the nice conceptual interpretation that without
+entanglement, quantum computing has no real advantage. However, it is unclear
+whether quantum entanglement is the source of that advantage, or a result of it. 
+
+\subsection{Clifford Computations}
+
+A useful subclass of computations are called Clifford Computations. Let's first
+note that we can define the \textbf{Pauli group} $P_n$ to be the group generated
+by Pauli matrices $\{I, X, Y, Z\}$ acting on individual qubits in the $n$-qubit
+space together with multiplication by $\{\pm 1, \pm i\}$. This is certainly a
+finite subgroup of $U(2^n)$. Consequently we can define \textbf{Clifford
+  Operations} $C$ on $n$ qubits as any unitary operator that conjugates Pauli
+operators to Pauli operators (ie. the normaliser of $P_n$ in $U(2^n)$). These
+play an important theoretical role, but are also particularly important in
+quantum error correction. Clifford compuations include Pauli matrices, the phase
+gate
+
+$$ S =
+\begin{pmatrix}
+  1 & \\
+  & i
+\end{pmatrix} $$
+
+the controlled $X$ or $C-X$ gate, the swap and Hadamard gate. In fact, one can
+show that
+
+\begin{theorem}
+  The $H, S$ and $C-X$ gates generate the Clifford computations.
+\end{theorem}
+
+(no proof given). A Clifford computation, in case it is note clear, is a
+circuit of Clifford gates/operations. The main result of this section then is
+the
+
+\begin{theorem}
+  \textbf{Gottesman-Knill theorem} (varian) which states that a Clifford circuit
+  $C$ on $n$ qubits of size $N = poly(n)$ (measured in number of $H, S$ and
+  $C-X$ gates) with input as any product state, and output a measurement on the
+  first qubit line can always be strongly simulated.
+\end{theorem}
+
+There are many proofs, and the original inspiration arises from the so-called
+stabiliser formalism (see the Nielsen and Chuang book for details). [End of
+lecture 15]
+
+\begin{proof}
+  Write $Z_1 = Z \otimes I \otimes \dots \otimes I$ for $Z = \ket{0}\bra{0} -
+  \ket{1}\bra{1}$, then $P_0 - P_1 = \bra{\psi_f} Z_1 \ket{\psi_f} =
+  \ket{\psi_i} C^\dagger Z_1 C \ket{\psi_i}$ for initial and final states
+  $\psi_f, \psi_i$. Now if as a sequence of $H, S$ and $C-X$ gates $C = C_N
+  \dots C_1$ then $Z_1$ as a difference of Pauli operations when conjugated by
+  each $C_i$ becomes a different Pauli operator. Consequently, $P_0 - P_1 =
+  \bra{\psi_i} \tilde{P}_1 \otimes \dots \otimes \tilde{P}_n \ket{\psi_i}$.
+  Since the $H, S, C-X$ gates each act on no more than 2 qubit, this Pauli
+  operation can be computed efficiently, leaving for $\ket{\psi_i} = \bra{a_1}
+  \dots \bra{a_n}$
+  $$ P_0 - P_1 = \prod_{i = 1}^n \bra{a_i} \tilde{P}_i \ket{a_i} $$
+  so using $P_0 + P_1 = 1$ we get our result.
+\end{proof}
+
+So in these Clifford circuits, quantum computers offer no advantage. Now let's
+extend our scope to include intermediate measurements in Clifford circuits. We
+then get the two scenarios
+
+\begin{itemize}
+\item a circuit with measurements is \textbf{adaptive} if the circuit can
+  change based on measurement outcome.
+\item a circuit with measurements is \textbf{non-adaptive} if the circuit cannot
+  change based on measurement outcome.
+\end{itemize}
+
+We then find that when we have product state inputs, and single-state outputs,
+we can strongly simulate non-adaptive circuits, whereas adaptive circuits
+achieve full quantum computation. We note that when we are restricted to the
+computational basis, then the adaptive case can be weakly simulated. For more
+see Jozsa and van den Nest (arXiv 1305.6190). An outline of the proof is as
+follows:
+
+\begin{proof}
+  In the non-adaptive case, we can easily replace measurement with a fully
+  unitary circuit by replacing a measurement on line $k$ with a $C-X$ gate
+  connected to a new line starting in the $\ket{0}$ state, with line $k$ doing
+  the controlling. The new line serves no other purpose, and is discarded after
+  the copying. The effect of this is to at least for weak simulation to separate
+  states, allowing us to do a single measurement at the end.
+
+  In the adaptive case, we use the Bravyi-Kitaev idea of so-called magic states.
+  We use the fact that if we adjoin the non-Clifford $T$-gate to the set of
+  Clifford operations
+  $$ T =
+  \begin{pmatrix}
+    1 & \\
+    & e^{i\pi / 4}
+  \end{pmatrix} = \sqrt{S} $$
+  we gain universal quantum computing. As such we start with a so-called ``magic
+  state'' $\ket{A} = \frac{1}{\sqrt{2}} (\ket{0} + e^{i \pi / 4}\ket{i})$, then
+  we can implement a $T$ gate in an adaptive Clifford circuit using the
+  so-called ``$T$-gadget'' where we let any line $k$ control a $C-X$ gate
+  applied to a new ancilla line that starts in the $\ket{A}$ state. We then
+  measure the outcome in the ancilla, and if we get a 1, we apply $S$ to the
+  $k$th line, and if not, we do not apply anything. For the purposes of weak
+  simulation at least (?) this provides a $T$ gate.
+\end{proof}
+
+For some this result was somewhat disconcerting because it meant that the
+``fully classical'' notion of measurement could be used to breach the gap
+between classical and quantum computing. I'm still not sure what I think about
+it...
+
 \end{document}

@@ -1078,7 +1078,7 @@ later.
 \end{example}
 
 \begin{example}
-  Scaler-Yukawa theory refers to a combination of two fields $\phi :
+  Scalar-Yukawa theory refers to a combination of two fields $\phi :
   \mathbb{R}^{3, 1} \to \mathbb{R}, \psi: \mathbb{R}^{3, 1} \to \mathbb{C}$ for
   masses $m, M$ where in additional to the momentum, and mass terms, we also get
   a
@@ -1924,7 +1924,7 @@ where $p^\mu p_\mu = m^2, p^0 = E_p = \sqrt{p^2 + m^2}, p^\mu = (E_p,
 \vec{p})$. Now it turns out we get slightly different forms for positive and
 negative frequencies, as such we start with positive frequency solutions
 
-$$ \psi_alpha(x) = u_\alpha(p) e^{-i p \cdot x} $$
+$$ \psi_\alpha(x) = u_\alpha(p) e^{-i p \cdot x} $$
 
 Also, the Dirac equation is actually stronger than the Klein Gordon equation, so
 applying that we see that
@@ -2195,6 +2195,13 @@ $$ \mathcal{L} = \bar{\psi} (i \gamma^\mu \partial_\mu - m) \cdot \psi +
 \frac{1}{2} (\partial_\mu \psi) (\partial^\mu \psi) - \frac{\mu^2}{2} \psi +
 \lambda \phi \bar{\psi} \psi $$
 
+[This Lagrangian disagrees with the Lagrangian given in ES 3 Q8? The example
+sheet gives the following:]
+
+$$ \mathcal{L} = \bar{\psi} (i \gamma^\mu \partial_\mu - m) \cdot \psi +
+\frac{1}{2} (\partial_\mu \phi) (\partial^\mu \phi) - \frac{\mu^2}{2} \phi^2 +
+\lambda \phi \bar{\psi} \psi $$
+
 Here we can show that $[\lambda] = 0$ so at least this is marginal. In terms of
 applications, this was used as an early theory of the interactions between
 mesons and nucleons (protons and neutrons). We use this as a stepping stone to
@@ -2301,10 +2308,10 @@ To calculate our scatering amplitude then we can apply Dyson's formula to get
 
 $$ A_{i \to f} = \bra{f} T \left( e^{\frac{1}{i} \int_{-\infty}^\infty dt
   H_I(t)} \right) \ket{i} = \bra{f} T \left( e^{\frac{\lambda}{i} \int d^4x
-    \phi(x) \bra{\psi}(x) \psi(x)} \right) \ket{i} $$
+    \phi(x) \bar{\psi}(x) \psi(x)} \right) \ket{i} $$
 
 in Yukawa theory, and we can apply as a similar approach as we did in
-Scaler-Yukawa theory as we did before. 
+Scalar-Yukawa theory as we did before. 
 
 As our final result, we may work out the Feynman rules in this theory as for
 incident particles, the term $u_\alpha^r(p)$ term for 4-momentum $p$, spin $r$
@@ -2334,6 +2341,10 @@ Similarly for final states (outgoing (anti-)particles)
 \caption{Final (Anti-)Particles}
 \label{feynman_final_particles}
 \end{figure}
+
+[Note one mistake here is that in Feynman diagrams, anti-particles should be
+drawn with negative momentum. Or not? I've heard something about this - see ES 3
+solutions, Q8...]
 
 Similarly for internal propagators we have for spin-1/2 fermions
 

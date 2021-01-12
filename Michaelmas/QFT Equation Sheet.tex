@@ -41,12 +41,21 @@ Here are some useful equations
       Field Operator & $\phi = \int \frac{d^3p}{(2\pi)^3} \frac{1}{\sqrt{2\omega_p}} (a_p e^{i p \cdot x} + a_p^\dagger e^{-i p \cdot x})$ & \\ \hline
       Momentum Operator & $\pi = \int \frac{d^3p}{(2\pi)^3} (-i) \sqrt{\frac{\omega_p}{2}} (a_p e^{i p \cdot x} - a_p^\dagger e^{-ip \cdot x})$ & \\ \hline
       Dirac Equation & $(i \gamma^\mu \partial_\mu - m) \cdot \psi = (i \cancel{\partial} - m) \cdot \psi = 0$ & \\ \hline
+      Dirac Adjoint & $\bar{\psi} = \psi^\dagger \gamma^0$ & \\ \hline
       Chiral represntation and Clifford Algebra & $\{\gamma^\mu, \gamma^\nu \} = 2\eta^{\mu \nu}I, \{\gamma^5, \gamma^\mu\} = 0, (\gamma)^2 = 0, \gamma^5 = i\gamma^0 \gamma^1 \gamma^2 \gamma^3$, $\gamma^0 = \begin{pmatrix} & I \\ I & \end{pmatrix}$, $\gamma^i = \begin{pmatrix} & \sigma^i \\ \sigma^i & \end{pmatrix}$, $\gamma^5 = \begin{pmatrix} I & \\ & -I \end{pmatrix}$ & \\ \hline
       General Solution to Dirac Equation &
       positive frequencies: $\psi(x) = u(p) e^{-i p \cdot x}, u^s(p) = \begin{pmatrix} \sqrt{p \cdot \sigma} \xi^s \\ \sqrt{p \cdot \bar{\sigma}} \xi^s \end{pmatrix}$,
       for negative frequencies $\psi(x) = v(p) e^{ip \cdot x}, v^s(p) = \begin{pmatrix} \sqrt{p \cdot \sigma} \eta^s \\ -\sqrt{p \cdot \bar{\sigma}} \eta^s \end{pmatrix}$ &
       Here $\xi^r, \eta^s$ form orthonormal bases for $\mathbb{C}^2$ and
       $\sqrt{p \cdot \sigma} = \sqrt{m} e^{\chi \cdot \sigma / 2}, \sqrt{p \cdot \bar{\sigma}} = \sqrt{m} e^{-\chi \cdot \sigma}$ \\ \hline
+      Plane wave solutions satisfy & $(\cancel{p} - m)u = 0 = (\cancel{p} + m)v$ & \\ \hline
+      Steps for Calculating Scattering Amplitudes & 0) Receive and quantise the Lagrangian 1) try to use the Dyson formula 2) calculate the time ordered product 3) find a version of Wick's formula 4) develop Feynman rules & \\ \hline
+      Dyson formula & $A_{i \to f} = \bra{f} S \ket{i}, S = T\left( e^{\frac{1}{i} \int_{-\infty}^\infty H_I(t) dt} \right)$ for interaction Hamiltonian $H_I$ & \\ \hline
+      Standard spin-1/2 Fermion Expansion & $\psi_\alpha = \sum_{s = 1}^2 \int \frac{d^3p}{(2\pi)^3}
+                                            \frac{1}{\sqrt{2 E_p}} \left( b_p^s u_\alpha^s(p) e^{-ip \cdot x} +
+                                            c_p^{s \dagger} v_\alpha^s(p) e^{ip \cdot x} \right)$ & \\ \hline
+      Scalar Contraction & $ \Delta_F(x - y) = \lim_{\epsilon \to 0^+}
+                           \frac{d^4p}{(2\pi)^4} \frac{i e^{-p_\mu (x - y)^\mu}}{p^2 - m^2 + i\epsilon}$ & \\ \hline
     \end{tabular}
   \end{adjustbox}
 \end{table}
