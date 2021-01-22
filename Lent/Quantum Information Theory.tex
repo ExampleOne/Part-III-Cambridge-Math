@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+\usepackage{dsfont}
+\usepackage{cancel}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
+
+\title{Quantum Information Theory}
+\author{quinten tupker}
+\date{January 22 2021 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by Professor S Strelchuk in Lent 2020.
+This was lectured online due to measures taken to counter the spread of Covid-19
+in the UK. These are not necessarily an accurate representation of what was
+lectures, and represent solely my personal notes on the content of the course,
+combinged with probably, very very many personal notes and digressions... Of
+course, any corrections/comments would be appreciated.
+
+Information theory is the theory of information storage and transmission. It
+provides the theoretical limits on what is possible with information
+technologies in much of our world, and a framework to study many other fields,
+such as animal communication as well. This is the quantum qersion of that
+theory.
+
+\section{Classical Information Theory}
+
+We begin by observing that information is closely related to uncertainty. In
+particular, what might be able to say it is the opposite of uncertainty, and so
+then, it is no surprise that we build our theory of information using concepts
+from probability theory. As such we define
+
+\begin{definition}
+  The \textbf{surprisal} of random variable $X$ taking values in discrete finite
+  \textbf{alphabet} $J$ according to distribution $p(x)$ is
+  $$ \mathcal{I}(x) = - \ln(p(x)) $$
+\end{definition}
+
+\begin{definition}
+  The \textbf{Shannon entropy} of a random variable $X$ is
+  $$ H(X) = -\sum_{x \in J} p(x) \ln(p(x)) $$
+\end{definition}
+
+This may appear to be a somewhat arbitrary definition, but it has a strong
+theoretical basis given that
+
+\begin{theorem}
+  The \textbf{Shannon Source Coding Theorem} states (informally) that the limit
+  that information can be compressed so that it can be reliably retrieved is the
+  Shannon entropy of the source.
+\end{theorem}
+
+Here a basic example of a source is a \textbf{memoryless source} which is an
+object producing a sequence of signals, but since it is memoryless, each signal
+is completely independent from any other, so $\mathbb{P}(u_1, \dots, u_n) =
+\mathbb{P}(u_1) \dots \mathbb{P}(u_n)$. It is also known as an \textbf{i.i.d.
+  information source}.
+
+But how do we actually compress information? Conceptually there are two ways
+
+\begin{itemize}
+\item a \textbf{variable length encoding} stores higher probability signals in
+  shorter codes, and lower probability signals in longer codes.
+\item a \textbf{fixed length encoding} stores higher probability signals in
+  unique fixed length codes, and lower probability signals in the same fixed
+  code. 
+\end{itemize}
+
+\begin{example}
+  An example of a fixed length code for the numbers $1, \dots, 8$ are their
+  binary representations, but if we also know that $p(1, \dots, 8) = 1/2, 1/4,
+  1/8, 1/16, 1/64, 1/64, 1/64, 1/64$ then the code $C(1, \dots, 8) = 0, 10, 110,
+  1110, 111100, 111101, 111110, 111111$ has an average length 2 compared to the
+  fixed length of 3. Furthermore, the Shannon entropy of this source is 2 as
+  well, so this is maximally efficient.
+\end{example}
+
+\subsection{Classical Data Compression}
+
+Let's start making the definitions necessary to formalise compression.
+
+\begin{definition}
+  A \textbf{compression map} is a map $C^n : u^{(n)} = (u_1, \dots, u_n) \mapsto
+  x(x_1, \dots, x_{nR})$ sending a \textbf{message} $u$ to a \textbf{code} $x$.
+\end{definition}
+
+\begin{definition}
+  A \textbf{decompression map} $D^n$ sends $D^n : x \in \{0, 1\}^{\lceil n R
+    \rceil} \mapsto u'^{(n)}$ with probability $\mathbb{P}(u^{(n)} | x)$.
+\end{definition}
+
+\begin{definition}
+  A \textbf{code} of rate $R$ and blocklength $n$ is the triple $(C^n, D^n, R)$.
+\end{definition}
+
+Here we can compute the probability of error as
+
+$$ P^{(n)}_{av}(C_n) = \sum_{u^{(n)} \in J^n} \mathbb{P}(u^{(n)}) \mathbb{P}(D^n
+(C^n(u^{(n)})) \neq u^{(n)}). $$
+
+\end{document}
+  
