@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+\usepackage{dsfont}
+\usepackage{cancel}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
+
+\title{Quantum Information Theory}
+\author{quinten tupker}
+\date{January 22 2021 - \today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+These notes are based on the course lectured by Professor Matthew Wingate in
+Lent 2020. 
+This was lectured online due to measures taken to counter the spread of Covid-19
+in the UK. These are not necessarily an accurate representation of what was
+lectures, and represent solely my personal notes on the content of the course,
+combinged with probably, very very many personal notes and digressions... Of
+course, any corrections/comments would be appreciated.
+
+[the lecturer outlines the course] This course is an extension of the Michaelmas
+Quantum Field Theory course that introduces renormalisation and the path
+integral formulation of quantum field theory.
+
+\section*{The Path Integral in Quantum Mechanics}
+
+We start by reformulating the Schr\"{o}dinger equation as an integral equation,
+which turns out to be a path integral. Anyways, starting with Schr\"{o}dinger's
+equation for a Hamiltonian $H(x, p), [x, p] = i\hbar$ with
+
+\begin{equation}
+  H = \frac{p^2}{2m} + V(x)
+\end{equation}
+
+we have
+
+\begin{equation}
+  i\hbar \partial_t \ket{\psi(t)} = H \ket{\psi(t)} \implies \ket{\psi(t)} = e^{-i H t / \hbar}
+  \ket{\psi(0)}
+\end{equation}
+
+where in the Schr\"{o}dinger picture the states evolve, but the operators remain
+constant, and the wavefunction $\Psi(x, t) = \bra{x} \ket{\psi(t)}$. As such we
+can rewrite our equation as
+
+\begin{equation}
+  \bra{x} H \ket{\psi(x)} = \left( \frac{-\hbar^2}{2m} \partial_x^2 + V(x) \right) \bra{x} \ket{\psi(t)}
+\end{equation}
+
+so we can write
+
+\begin{align*}
+  \Psi(x, t) &= \bra{x} \ket{\psi(t)} \\
+             &= \bra{x} e^{-i H t / \hbar} \ket{\psi(0)} \\
+             &= \int_{-\infty}^\infty dx_0 \bra{x} e^{-i H t / \hbar} \ket{x_0} \bra{x_0} \ket{\psi(0)} \\
+             &= \int_{-\infty}^\infty dx_0 K(x, x_0, t) \Psi(x_0, 0)
+\end{align*}
+
+for \textbf{kernel} $K(x, x_0, t) = \bra{x} e^{-i H t / \hbar} \ket{x_0}$. Now,
+if it is hard to calculate $K$ for large $t$, it can be beneficial to split this
+into many intervals for many values of $t$, such as $0 = t_0 < t_1 < \dots < t_n
+< t_{n + 1} = T$ leaving
+
+\begin{equation}
+  K(x, x_0, T) = \int_{-\infty}^\infty \prod_{r = 1}^n dx_r \bra{x_{r + 1}} e^{- iH(t_{r + 1} - t_r) / \hbar} \ket{x_r} \bra{x_1} e^{-iH (t_1 - t_0) / \hbar} \ket{0}
+\end{equation}
+
+which is in a sense an integral over all possible sequences of values of $x$. 
+
+In free field theory ($V = 0$) this can be explicitly evaluated using a Gaussian
+integral by rewriting things in the momentum basis as (use $\bra{x} \ket{p} =
+e^{i px / \hbar}$)
+
+\begin{align*}
+  K_0(x, x', t) &= \bra{x} e^{\frac{-i p^2 t}{2m \hbar}} \int \frac{dp}{2\pi \hbar} \ket{p} \bra{p} \ket{x'} \\
+                &= \int_{-\infty}^\infty \frac{dp}{2 \pi \hbar} e^{\frac{-ip^2 t}{2m \hbar}} e^{ip (x - x') / \hbar}\\
+                &= e^{\frac{ip(x - x')^2}{2\hbar t}} \sqrt{\frac{m}{2\pi i \hbar t}}
+\end{align*}
+
+where we note that the limit as $t \to 0$ is $\delta(x - x')$ which indeed
+matches $\bra{x} \ket{x'} = \delta(x - x')$ as expected.
+
+Now in an interacting theory, we struggle with the Baker-Campbell-Hausdorff fact
+that $e^A e^B \neq e^{A + B}$ so using Suzuki-Trotter we separate into steps
+size $t_{r + 1} - t_r = \delta t << T$ meaning that
+
+\begin{equation}
+  e^{-iH \delta t / \hbar} \approx e^{\frac{-ip^2 \delta t}{2m \hbar}} e^{\frac{-i V(x) \delta}{\hbar}} (1 + O(\delta t^2))
+\end{equation}
+
+so for $T = n \delta t$ we find that
+
+\begin{equation}
+  K(x, x_0, T) = \int \prod_{r = 1}^n dx_r \left( \frac{m}{2\pi i \hbar \delta t} \right)^{\frac{n + 1}{2}}
+  e^{i \sum_{r = 0}^n \left( \frac{m}{2 \hbar} \left( \frac{x_{r + 1} - x_r}{\delta t} \right)^2
+      - V(x_r) / \hbar \right) \delta t}
+\end{equation}
+
+which in the limit $n \to \infty, \delta t \to 0$ while keeping $T$ constant
+leaves
+
+\begin{equation}
+  \frac{1}{\hbar} \int_0^T dt \left( \frac{1}{2}m \dot{x}^2 - V(x) \right) = \int_0^T dt L(x, \dot{x}) = S
+\end{equation}
+
+for classical Lagrangian $L$ and action $S$. This is what we refer to as a path
+integral or function integral:
+
+\begin{equation}
+  K(x, x_0, t) = \int \mathcal{D}x e^{i S / \hbar}
+\end{equation}
+
+where $\mathcal{D} x$ is the limit describd above. Of course, many questions
+about the existence and uniqueness, etc. of such limits exists, and in fact
+often this limit does not exist, but in the cases we are interested it, it works
+well enough...
+
+\end{document}
