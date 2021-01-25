@@ -13,11 +13,14 @@
 \usepackage{dsfont}
 \usepackage{cancel}
 
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
 \newtheorem{example}{Example}
 \newtheorem{theorem}{Theorem}
 \newtheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 
 \title{Quantum Information Theory}
 \author{quinten tupker}
@@ -58,6 +61,7 @@ from probability theory. As such we define
 \begin{definition}
   The \textbf{Shannon entropy} of a random variable $X$ is
   $$ H(X) = -\sum_{x \in J} p(x) \ln(p(x)) $$
+  (the logarithm is base 2)
 \end{definition}
 
 This may appear to be a somewhat arbitrary definition, but it has a strong
@@ -112,10 +116,128 @@ Let's start making the definitions necessary to formalise compression.
   A \textbf{code} of rate $R$ and blocklength $n$ is the triple $(C^n, D^n, R)$.
 \end{definition}
 
-Here we can compute the probability of error as
+Here we can compute the \textbf{probability of error} as
 
-$$ P^{(n)}_{av}(C_n) = \sum_{u^{(n)} \in J^n} \mathbb{P}(u^{(n)}) \mathbb{P}(D^n
-(C^n(u^{(n)})) \neq u^{(n)}). $$
+\begin{equation}
+  P^{(n)}_{av}(C_n) = \sum_{u^{(n)} \in J^n} \mathbb{P}(u^{(n)}) \mathbb{P}(D^n
+  (C^n(u^{(n)})) \neq u^{(n)}).
+\end{equation}
+
+[End of lecture 1]
+
+\begin{definition}
+  A compression/decompression scheme is \textbf{reliable} iff $\forall \epsilon
+  > 0 \exists $ sequence of codes $C_n$ such that $\lim_{n \to \infty}
+  P_{av}^{(n)} (C_n) = 0$
+\end{definition}
+(does this require the code to i.i.d?) As such one could define the data
+compression rate as
+
+\begin{equation}
+  \inf \{ R : \exists C_n = \{C^n, D^n, R\} : \lim_{n \to \infty} P_{av}^{(n)}(C_n) = 0 \}
+\end{equation}
+
+\subsection{Typical Sequences}
+
+It is honestly surprising how easy it is to prove Shannon's source coding
+theorem, since we find we in fact only need one simple, and honestly rather
+crude tool to do so. That tool is
+
+\begin{definition}
+  a \textbf{typical set}, denoted $T_\epsilon^{(n)}$, which is the set of
+  sequences $u = (u_1, \dots, u_n)$ satisfying
+  \begin{equation}
+    2^{-n (H(u) + \epsilon)} \leq \mathbb{P}(u) \leq 2^{-n(H(u) - \epsilon)}
+  \end{equation}
+\end{definition}
+
+Why ``typical''? Because if we have a memoryless source generating a sequence of
+length $n$, then a ``typical'' sequence occurs with probability
+
+\begin{equation}
+  \prod_{u \in J} \mathbb{P}(u)^{n \mathbb{P}(u)} = 2^{-n H(u)}
+\end{equation}
+(a typical sequence would have the expected value as the number of occurences of
+each letter in the alphabet). We consequently find the following theorem (not
+proven)
+
+\begin{theorem}
+  $\forall \epsilon, \delta > 0, \exists n$ such that
+  \begin{enumerate}
+    \item $u \in T_\epsilon^{(n)} \implies H(u) - \epsilon \leq \frac{-1}{n}
+      \log(\mathbb{P}(u)) \leq H(u) + \epsilon$
+    \item $\mathbb{P}(T_\epsilon^{(n)}) > 1 - 3$
+    \item $|T_\epsilon^{(n)}| \leq 2^{n(H(u) + \epsilon)}$
+    \item $|T_\epsilon^{(n)} > (1 - \delta) 2^{2(H(u) - \epsilon)}$
+  \end{enumerate}
+\end{theorem}
+  
+and so
+
+\begin{corollary}
+  $\forall \epsilon, \delta > 0, \exists n_0, \forall n > n_0, J^n$ decomposes
+  into the disjoint \textbf{atypical and typical sets} $A_\epsilon^{(n)},
+  T_\epsilon^{(n)}$ satisfying
+  \begin{enumerate}
+    \item $\mathbb{P}(A_\epsilon^{(n)}) < \delta$
+    \item $2^{-n(H(u) + \epsilon)} \leq \mathbb{P}(u) \leq 2^{-n(H(n) -
+        \epsilon)}$ (on the typical set?)
+  \end{enumerate}
+\end{corollary}
+
+That allows us to formally state
+
+\begin{theorem}
+  \textbf{Shannon's source coding theorem}, which claims that for a i.i.d.
+  source $U$, if $R > H(U)$, then we can find a reliable compression scheme and
+  if $R < H(U)$ there are no reliable compression schemes.
+\end{theorem}
+
+\begin{proof}
+  If $R > H(U)$ then pick $\epsilon > 0$ such that $H(U) + \epsilon < R$ and $n$
+  such that $T_\epsilon^{(n)}$ satisfies our typical set theorem condiions. Then
+  for $\delta > 0$ there are at most $2^{n(H(U) + \epsilon)} < 2^{nR}$
+  $\epsilon$-typical sequences. Our compression scheme then works according to
+  \begin{enumerate}
+  \item Split $J^n$ into typical and atypical sequences
+  \item order typical sequences somehow (say lexicographically), assigning
+    each sequence a binary index.
+  \item typical sequences are sent to their binary code, prefixed with a 1,
+    leading to a total length of $\lceil nR \rceil + 1$
+  \item atypical sequences are all sent to the fixed string $00 \dots 0$ of
+    length $\lceil nR \rceil + 1$
+  \end{enumerate}
+
+  If $R < H(U)$ there does not exist a reliable compression scheme (see lemma
+  below).
+\end{proof}
+
+\begin{lemma}
+  For a collection of strings of length $n$, $S(n)$, with $|S(n)| \leq 2^{nR}, R
+  < H(U)$.
+  Then, $\forall \delta > 0, \exists n, \sum_{u \in S(n)} \mathbb{P}(u) <
+  \delta$
+\end{lemma}
+
+Basically, when $R < H(U)$ we will always get some typical sets that are
+indistinguishable after compression. Assume $S(n)$ is a set of such
+indistinguishables. This lemma states that these become less significant? 
+
+\begin{proof}
+Again, we split $S(n)$ into its typical and atypical part and then observe
+\begin{align*}
+\mathbb{P}(S(n)) &= \sum_{u \in S(n)} \mathbb{P}(u) \\
+&= \sum_{u \in S(n) \cap T_\epsilon^{(n)}} \mathbb{P}(u) + 
+\sum_{u \in S(n) \cap A_\epsilon^{(n)}} \mathbb{P}(u) \\
+&\leq |S(n)| 2^{-n(H(n) - \epsilon)} + \mathbb{P}(A_\epsilon^{(n)}) \\
+&\leq 2^{-n(H(n) - R)} + \mathbb{A_\epsilon^{(n)}}
+\end{align*}
+\end{proof}
+
+which completes the proof of Shannon's source coding theorem. Finally, we note
+that using a variable length encoding scheme or something like that does not
+fundamentally change this result. [End of lecture 2]
+
 
 \end{document}
   
