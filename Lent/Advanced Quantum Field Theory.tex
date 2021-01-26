@@ -132,6 +132,91 @@ integral or function integral:
 where $\mathcal{D} x$ is the limit describd above. Of course, many questions
 about the existence and uniqueness, etc. of such limits exists, and in fact
 often this limit does not exist, but in the cases we are interested it, it works
-well enough...
+well enough... [End of lecture 1]
+
+We make the following remarks
+
+\begin{itemize}
+\item In the classical limit $\hbar \to 0$ the lowest frequencies
+  dominate $K$. This is equivalent to Hamilton's principle (the principle of
+  least action), as expected.
+\item it is common and helpful to extend analytically to imaginary time $\tau =
+  it$ leaving $\bra{x} e^{-H\tau / \hbar} \ket{x_0} = \int \mathcal{D}x e^{-S /
+    \hbar}$ which has better convergence properties and is easier to interpret
+  than the complex version (Hamilton's principle appears more easily as well). 
+\end{itemize}
+
+\section{Integrals and their diagrammatic expansion}
+
+The above considered quantum mechanics, which is in a sense the $0 + 1$
+dimension vrsion of QFT (since $x$ is treated as an operator, while $t$ is
+treated as a variable). To move to more general QFT, we start, strangely, with 0
+dimensional QFT, for $\phi : \{ \cdot \} \to \mathbb{R}$ a field on a single
+point. Here,
+
+\begin{equation}
+  \mathcal{Z} = \int_\mathbb{R} d\phi e^{-S(\phi) / \hbar}
+\end{equation}
+
+where we assume $S$ is an even polynomial in $\phi$ for convergence reasons, and
+we are interested in expectation values
+
+\begin{equation}
+  \langle f \rangle = \frac{1}{\mathcal{Z}} \int d\phi f(\phi) e^{-S(\phi) / \hbar}
+\end{equation}
+
+\subsection{Free Theory}
+
+For $N$ fields $\phi_a, a = 1, \dots, N$, let $S(\phi) = \frac{1}{2} \phi^T m
+\phi$ for a symmetric positive definite matrix $m = P\Delta P^T$ for orthogonal
+$P$. As such, we can write this essentially Gaussian integral as
+
+\begin{equation}
+  \mathcal{Z}_0 = \int d^N \phi e^{-\frac{1}{2 \hbar} \phi^T m \phi} = \sqrt{\frac{(2\pi\hbar)^N}{\det m}}
+\end{equation}
+
+From here, we can turn this into a generating function to calculate expectation
+values by taking derivatives by turning $S_0(\phi) \mapsto S_0(\phi) - J^T
+\phi$, and writing $\mathcal{Z}_0 = \mathcal{Z}_0(J)$ (now a generating
+function(al) - functional later on). We then remark
+
+\begin{equation}
+  \mathcal{Z}_0(J) = \mathcal{Z}_0(0) e^{-\frac{1}{2\hbar} J^T m^{-1} J}
+\end{equation}
+
+Then we can calculate the correlation functions as
+
+\begin{equation}
+  \langle \phi_a \phi_b \rangle = \frac{1}{Z_0(0)} \hbar^2 \partial_{J_a} \partial_{J_b} \mathcal{Z}_0(J) |_{J = 0}
+  = h(m^{-1})_{ab}
+\end{equation}
+
+Conveniently, this can be diagrammatically interpreted as a connecting two
+vertices on indices $a, b$ with an undirected edge. We can generalise this to
+linear operator $l(\phi) = \sum l_a \phi_a$ as (for $p$ such operators)
+
+\begin{equation}
+  \langle l^{(1)}(\phi) \dots l^{(p)}(\phi) \rangle = \hbar^p \prod_{i = 1}^p l^{(i)}(\partial_J) e^{\frac{1}{\hbar} J^T m^1 J}
+\end{equation}
+
+If $p$ is odd, this is always 0 by symmetry, but if $p$ is even this corresponds
+to a linear combination of products $m_{ab}^{-1} m_{cd}^{-1} \dots$
+
+\begin{example}
+  For $p=4, l^{(1)}_a = \delta_{ab}, l^{(2)}_a = \delta_{ac}, l^{(3)}_a =
+  \delta_{ad}, l^{(4)}_a = \delta_{af}$ then
+  \begin{equation}
+    \langle \phi_b \phi_c \phi_d \phi_f \rangle = \hbar^2 (m_{bc}^{-1} m_{df}^{-1} + m_{bd}^{-1} m_{cf}^{-1} +
+    m_{bf}^{-1} m_{cd}^{-1})
+  \end{equation}
+  which also corresponds to the ways in which we can connect four vertices with
+  undirected edges
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{res/AQFT/connecting_four_vertices}
+    \label{connecting_four_vertices}
+  \end{figure}
+\end{example}
+
 
 \end{document}
