@@ -238,6 +238,111 @@ which completes the proof of Shannon's source coding theorem. Finally, we note
 that using a variable length encoding scheme or something like that does not
 fundamentally change this result. [End of lecture 2]
 
+Today we discuss the types of relationships one can have between various types
+of entropy. As such,
+
+\begin{definition}
+  the \textbf{joint entropy of $X, Y$} is
+  \begin{equation}
+    H(X, Y) = - \sum_{x \in J_X} \sum_{y \in J_Y} p(x, y) \log(p(x, y))
+  \end{equation}
+\end{definition}
+
+\begin{definition}
+  the \textbf{conditional entropy} is
+  \begin{equation}
+    H(Y | X) = - \sum_{x \in J_X} \sum_{y \in J_Y} p(x, y) \log(p(y | x))
+    = - \sum_{x \in J_X} p(x) H(Y | X = x)
+  \end{equation}
+\end{definition}
+
+where we note the ``chain rule''
+
+\begin{equation}
+  H(X, Y) = H(Y | X) + H(X)
+\end{equation}
+
+which generalises nicely as
+
+\begin{equation}
+  H(X, Y, Z) = H(X) + H(Y | X) + H(Z | Y, X)
+\end{equation}
+
+and similar for higher numbers of variables.
+
+\begin{definition}
+  We further define $p$ to be \textbf{absolutely continuous} wrt $q$ iff $q(x) =
+  0 \implies p(x) = 0$ or equivalently $\text{supp}(p) \subseteq \text{supp}(q)$
+  which we can denote as $p << q$.
+\end{definition}
+
+and
+
+\begin{definition}
+  the \textbf{relative entropy} or \textbf{Kullback-Leibler divergence} of $p <<
+  q$ to be
+  \begin{equation}
+    D(p || q) = \sum_{x \in J} p(x) \log(p(x) / q(x))
+  \end{equation}
+  Note that if $q(x) = 1 \forall x \in J$ then $D(p || q) = -H(X)$ so this is
+  stronger than the Shannon entropy.
+\end{definition}
+
+This measures how different two distributions are in a certain sense, however,
+it certainly is not a metric (not symmetric, and no triangle inequality).
+
+\begin{definition}
+We similarly define the \textbf{mutual information} between $X, Y$ to be
+\begin{equation}
+I(X : Y) = H(X) + H(Y) - H(X, Y) = H(X) - H(X | Y)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+and the \textbf{conditional mutual information} (CMI)
+\begin{equation}
+I(X : Y | Z) = H(X | Z) - H(X | Y, Z)
+\end{equation}
+\end{definition}
+
+Intuition wise, one can think of $H(X, Y)$ as adding entropy, $I(X:Y)$ as taking
+the intersection between the two, $D(p || q)$ as measuring the difference
+between one distribution contained in another, and $H(Y|X)$ as removing the
+overlap of one distribution into another ($H(Y | X) = H(Y) - I(Y : X)$). This
+also explains the commutativeness of these various operations. I'm not sure
+about the CMI yet...
+
+From here we can state
+
+\begin{theorem}
+the data processing inequality for Markov Chain $X \to Y \to Z$:
+\begin{equation}
+I(X : Y) \geq I(X : Z).
+\end{equation}
+\end{theorem}
+
+If we imagine $X$ as a perfect source, $Y$ as an observed, noisy signal, and $Z$
+as a ``cleaned up'' version of $Y$ after some data processing, then this states
+that no matter the data processing used to clean up $Y$, $Z$ can never contain
+more information about $X$ than $Y$.
+
+We finally have the following theorem.
+
+\begin{theorem}
+\begin{enumerate}
+\item $p << q \implies D(p || q) \geq 0$ with equality iff $p = q$
+\item $H(x) \geq 0$ with equality iff $X$ deterministic
+\item $H(X | Y) \geq 0$ or equivalently $H(X, Y) \geq H(Y)$
+\item $H(X) \leq \log(|J|)$
+\item $H(X, Y) \leq H(X) + H(Y)$ or equivalently $H(Y) \geq H(Y | X)$ with
+equality iff $X \perp Y$
+\item $H$ is concave meaning $H(\lambda p_x + (1 - \lambda) p_y) \geq
+ \lambda H(p_x) + (1 - \lambda) H(p_Y)$
+\item $I(X : Y) \geq 0$ and equal iff $X \perp Y$
+\end{enumerate}
+\end{theorem}
+
+All of these are exercises on the example sheet.
 
 \end{document}
   
