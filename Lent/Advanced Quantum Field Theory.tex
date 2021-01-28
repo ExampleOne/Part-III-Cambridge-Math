@@ -218,5 +218,107 @@ to a linear combination of products $m_{ab}^{-1} m_{cd}^{-1} \dots$
   \end{figure}
 \end{example}
 
+[End of lecture 2]
+
+\subsection{Interacting Theory}
+
+We start investigating interacting theory by doing a series expansion of
+
+\begin{equation}
+  \int_{\mathbb{R}^N} \d^N \phi f(\phi) e^{-S / \hbar}
+\end{equation}
+
+in $\hbar$. However, we find that in general, the radius of convergence of these
+perturbed series is 0, since if we take $\hbar < 0$ these do not converge. As
+such, we get asymptotic behaviour along the lines described by saying that
+
+\begin{definition}
+  $I(\hbar)$ is \textbf{asymptotic} to $\sum_{n = 0}^\infty c_n \hbar^n$
+  (denoted by $\sim$) if $\lim_{\hbar \to 0^+} \frac{1}{\hbar^N} | I(\hbar) -
+  \sum_{n = 0}^N c_n \hbar^n | = 0$ for fixed $N$.
+\end{definition}
+
+This is much weaker than convergence since we find that adding new terms may in
+fact make things worse. But it does allow us to account for transcendental terms
+like $e^{-1 / \hbar^2} ~ 0$ (called \textbf{nonperturbative contributions}).
+
+Now we work out the case where
+
+\begin{equation}
+S(\phi) = \frac{1}{2} m^2 \phi^2 + \frac{\lambda}{4!} \phi^4
+\end{equation}
+
+and expand about the minimum of $S$ at $\phi=0$ to get
+
+\begin{equation}
+\mathcal{Z} = \int d\phi e^{-S / \hbar} = \int d\phi e^{-S / \hbar} 
+\sum_v^\infty \frac{1}{v!} \left( \frac{-\lambda}{4! \hbar} \phi^4 \right)^v
+\end{equation}
+
+but since we don't converge, we certainly can't swap $\int$ and $\sum$ so here
+we first truncate, and then swap. As such, if we write $x = \frac{1}{2\hbar} m^2
+\phi^2$,
+
+\begin{equation}
+\mathcal{Z} \sim \frac{\sqrt{2\hbar}}{m} \sum_{v = 0}^N \frac{1}{v!} \left( 
+\frac{-\hbar \lambda}{4! m^4} \right)^v 2^{2v} \int_0^\infty dx e^x x^{2v
++ 1/2 - 1}
+\end{equation}
+
+where the integral is just the gamma function $\Gamma(2v + 1/2) = \frac{(4v)!
+  \sqrt{\pi}}{4^{2v} (2v)!}$ so
+
+\begin{equation}
+\mathcal{Z} \sim \frac{\sqrt{2\hbar}}{m} \sum_{v = 0}^N \frac{1}{v!} \left( 
+\frac{-\hbar \lambda}{4! m^4} \right)^v \frac{1}{(4!) v} \frac{(4v)! \sqrt{\pi}}{2^{2v} (2v)!}
+\end{equation}
+
+(the lecture notes seem to omit the $\sqrt{\pi}$). Here the $\frac{1}{(4!) v}$
+comes from expanding the interaction term $e^{-S_1 / \hbar}$ and the second
+fraction comes from the number of ways to pair $4v$ fields with $v$ copies of
+$\phi^4$. Applying stirling's formula, this series grows as $v!$ so this series
+is definitely not convergent, but still asymptotic. Now, as before, we want to
+insert our $J$ somehow to get a generating function. Here we get
+
+\begin{align*}
+\mathcal{Z}(J) &= \int d\phi e^{-\frac{1}{\hbar} (S_0(\phi) + S_1(\phi) - J\phi)} \\
+&= e^{-\frac{1}{\hbar} S_1(\hbar \partial_J)} \int d\phi e^{-\frac{1}{\hbar} 
+(S_0(\phi) - J\phi)} \\
+&\sim e^{-\frac{\lambda}{4! \hbar} (\hbar \partial_J)^4} e^{\frac{1}{2\hbar} J^T m^{-1} J}
+\end{align*}
+
+which works out to
+
+\begin{equation}
+  \mathcal{Z}(J) \sim \sum_{v=0}^N \frac{1}{v!} \left( \frac{-\lambda}{4! \hbar}
+    (\hbar \partial_J)^4 \right)^v \sum_{p = 0} \frac{1}{p!} \left( \frac{1}{2\hbar}
+    J^T m^{-1} J \right)^p
+\end{equation}
+
+where diagramatically $v$ corresponds to the number of vertices, and $p$ to the
+number of propagators.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=7cm]{res/AQFT/diagram_interpretation}
+  \label{diagram_interpretation}
+\end{figure}
+ 
+where in order to get a nonzero term we need the number of derivatives ($4v$
+vertex line ends - 4 per vertex here) to match the number of sources ($2p$ for
+each propagator) to match. However, we can have a predetermined number of
+external sources $E = 2p - 4v$. For example, the first two nontrivial terms in
+the $Z(0)$ expansion for $E = 0$ are $(v, p) = (1, 2), (2, 4)$ which corresponds
+diagrammatically to
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=7cm]{res/AQFT/quartic_series_diagram}
+  \label{quartic_series_diagram}
+\end{figure}
+
+Note that each diagram may have a factor in front of it determined by how often
+it repeats itself (affect by the product rule in taking derivatives). [end of
+lecture 3]
 
 \end{document}
