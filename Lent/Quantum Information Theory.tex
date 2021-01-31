@@ -342,7 +342,97 @@ equality iff $X \perp Y$
 \end{enumerate}
 \end{theorem}
 
-All of these are exercises on the example sheet.
+All of these are exercises on the example sheet. [End of lecture 4]
+
+\section*{Classical Information Transmission}
+
+Let's build the infrastructure for a bound on reliable information transmission.
+
+\begin{definition}
+  A \textbf{discrete channel} is a combination of
+  \begin{itemize}
+  \item discrete alphabets $J_X, J_Y$
+  \item a set of conditional probabilities $\mathbb{P}(y_1, \dots, y_n | x_1,
+    \dots x_m)$
+  \end{itemize}
+\end{definition}
+
+\begin{definition}
+  A memoryless channel is one satisfying
+  \begin{equation}
+    \mathbb{P}(y_1, \dots, y_n | x_1, \dots, x_n) = \prod_{i = 1}^n \mathbb{P}(y_i | x_i)
+  \end{equation}
+  These are completely characterised by the so-called \textbf{channel matrix} $P =
+  \mathbb{P}(y | x)$.
+\end{definition}
+
+\begin{example}
+  For example we can consider a \textbf{binary symmetric channel} for
+  $\mathbb{P}(0 | 0) = \mathbb{P}(1 | 1) = 1 - p$ where $p_{err} = 3p^2(1 - p) +
+  p^3 = 3p^2 - 2p^3$ if we use the redundant codingg $0 \mapsto 000, 1 \mapsto
+  111$.
+\end{example}
+
+\begin{definition}
+  Now for messages $m=x_1, \dots, x_n$ and $m'=y_1, \dots, y_m$ and $m \in [M] =
+  \{1, \dots, M\}$ we \textbf{encoding} $E_n : [M] \to J_X^n$, \textbf{decoder}
+  $D_n : [M] \to J_X^n$, and rate of encoding $R$ such that $M = \lfloor 2^{nR}
+  \rfloor$. The triple $C_n = (E_n, D_n, R)$ is then called an \textbf{error
+    correcting code}.
+\end{definition}
+
+\begin{definition}
+  and unlike the average error probabilities consider in information storage,
+  here the error probability is the maximum
+  \begin{equation}
+    P_{err}(C_n) = \max_{m \in [M]} \mathbb{P}(D_n(Y^{(n)}) \neq m | X^{(n)} = E_n(m))
+  \end{equation}
+\end{definition}
+
+\begin{definition}
+  and rate $R$ is called \textbf{achievable} if there exists an error correcting
+  code such that
+  \begin{equation}
+    \lim_{n \to \infty} P_{err}(C_n) = 0
+  \end{equation}
+\end{definition}
+
+and so quite naturally
+
+\begin{definition}
+the \textbf{capacity} of a discrete memoryless channel is $C(N) = \sup \{R : R
+\text{ is achievable}\}$.
+\end{definition}
+
+for which
+
+\begin{theorem}
+\textbf{Shannon's noisy channel coding theorem} states that
+\begin{equation}
+C(N) = \max_{p(x)} I(X : Y)
+\end{equation}
+(note that the maximum is only taken over the input, not the output
+distribution)
+\end{theorem}
+
+\begin{theorem}
+which has the properties
+\begin{itemize}
+\item $C(N) \geq 0$
+\item $C(X) \leq \log |J_X|, \log |J_Y|$
+\end{itemize}
+\end{theorem}
+
+rigorous proof of which is found in the 1991 book \textit{Elements of
+  Information Theory}.
+
+\begin{example}
+Finally, in the binary symmetric channel from before we find that
+\begin{equation}
+I(X : Y) = H(Y) - H(Y | X) = H(Y) - h(p) \implies C(N) = 1 - h(p)
+\end{equation}
+[End of lecture 4]
+\end{example}
 
 \end{document}
   

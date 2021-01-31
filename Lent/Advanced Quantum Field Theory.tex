@@ -321,4 +321,103 @@ Note that each diagram may have a factor in front of it determined by how often
 it repeats itself (affect by the product rule in taking derivatives). [end of
 lecture 3]
 
+To work out these prefactors, consider the first non-constant term above, the
+figure eight. We can split this into its components: a vertex and two
+propagators - it's so-called ``pre-diagram.'' We can work out the prefactor by
+considering the number of ways to connect these while still forming a figure
+eight, $A = 4!$, and dividing by a denominator given by the coefficients in the
+series
+
+\begin{equation}
+  F = v! (4!)^v (p!) 2^p = 1 \cdot 4! \cdot 2 \cdot 2^2 = 4! 2^3
+\end{equation}
+
+leaving prefactor $A / F = 1 / 8$. Note here that $F$ accounts for
+
+\begin{itemize}
+\item $v!$ ways to permute the vertices
+\item $4!$ ways to permute the vertex legs
+\item $p!$ ways to permute the propagator legs
+\item $2^p$ ways to swap propagator direction
+\end{itemize}
+
+Now, another interpretation is that $A / F = 1 / S$ where $S$ is the
+\textbf{symmetry factor} counting the number of ways of redrawing the unlabelled
+graph to leave its overall structure the same (the number of graph
+isomorphisms). So, for example, for the figure eight, we get $S = 2 \times 2
+\times 2 = 8$ for swapping the direction of loop 1, swapping the direction of
+loop 2, and swapping loops 1 and 2. Similarly for the basketball, we get $S = 4!
+\cdot 2 = 48$ for $4!$ ways to rearrange the lines and $2$ ways to swap
+vertices (what happened to swapping the orientations of the lines?). Working by
+brute force, to verify we get $A = 8 \cdot 6 \cdot 4 \cdot 2 \cdot 4! = 3^2
+2^{10}$ for the number of ways to connect propagators and the number of their
+permutations. Similarly, $F = 2(4!)^24! 2^4 = 3^3 2^{14},$ leaving $A / F = 1 /
+48 = 1 / S$. Overall, in this case we get
+
+\begin{equation}
+  \mathcal{Z}(0) / \mathcal{Z}_0(0) = 1 - \frac{\hbar \lambda}{8m^4} +
+  \frac{\hbar^2 \lambda^2}{m^8} \left( \frac{1}{48} + \frac{1}{16} +
+    \frac{1}{128} \right) + O(\hbar^3)
+  = 1 - \frac{\hbar \lambda}{8 m^4} + \frac{35}{384} \frac{\hbar^2 \lambda^2}
+  {m^8} + \dots
+\end{equation}
+
+Now to work out the $E = 2$ case we get that
+
+\begin{figure}
+  \centering
+  \includegraphics[width=7cm]{res/AQFT/E_2_expansion}
+  \label{E_2_expansion}
+\end{figure}
+
+where we get disconnected graphs of a different kind, and also get loose outputs
+really. Importantly, we can factor out the ``vacuum bubbles'' (or the $E = 0$
+case described earlier)
+
+\begin{figure}
+  \centering
+  \includegraphics[width=7cm]{res/AQFT/vacuum_bubble_product}
+  \label{vacuum_bubble_product}
+\end{figure}
+
+Note that this corresponds to the expectation value of $\langle \phi \phi
+\rangle$
+
+\begin{figure}
+  \centering
+  \includegraphics[width=7cm]{res/AQFT/E_2_mean}
+  \label{E_2_mean}
+\end{figure}
+
+\subsection{Effective Actions}
+
+Our next step is to simplify these calculations by showing that we only have to
+work hard on connected graphs. In particular, we define $W(J) = -\hbar \ln Z(J)$
+and a diagram $D$. Any such $D$ can be written as a product of connect diagrams
+as
+
+\begin{equation}
+  D = \frac{1}{S_D} \prod_i (C_i)^{n_i}
+\end{equation}
+
+where each $C_i$ is a distinct diagram, and we assume each $C_i$ contains its
+own symmetry factor, meaning that $S_D = \prod_i n_i!$ is only the number of
+ways to rearrange the various connected diagrams. Consequently,
+
+\begin{align*}
+  \mathcal{Z} / \mathcal{Z}_0
+  &= \sum_{\{n_i\}} \prod_i \frac{1}{n_i!} (C_i)^{n_i} \\
+  &= \prod_{i=1}^\infty \sum_{n_i} \frac{1}{n_i!} (C_i)^{n_i} \\
+  &= e^{\sum_i C_i} \\
+  &= e^{-(W - W_0) / \hbar}
+\end{align*}
+
+leaving
+
+\begin{equation}
+  \mathcal{Z} / \mathcal{Z}_0 = e^{\sum_i C_i} = e^{-(W - W_0) / \hbar}
+\end{equation}
+
+which is quite a remarkable decomposition into only connected graphs. [End of lecture 4]
+
 \end{document}
