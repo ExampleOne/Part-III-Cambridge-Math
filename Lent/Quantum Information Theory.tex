@@ -344,7 +344,7 @@ equality iff $X \perp Y$
 
 All of these are exercises on the example sheet. [End of lecture 4]
 
-\section*{Classical Information Transmission}
+\subsection{Classical Information Transmission}
 
 Let's build the infrastructure for a bound on reliable information transmission.
 
@@ -433,6 +433,47 @@ I(X : Y) = H(Y) - H(Y | X) = H(Y) - h(p) \implies C(N) = 1 - h(p)
 \end{equation}
 [End of lecture 4]
 \end{example}
+
+\section{Quantum Information Theory}
+
+\subsection{Quantum States}
+
+The lecturer reviews quantum states and how they are represented using linear
+algebra. Here we note that the \textbf{Hemming space} is the space
+$\mathbb{C}^{2^n}$, and use $B(H)$ to represent the space of bounded linear
+operators on $H$. We also mention the \textbf{Pauli Matrices} and their
+properties
+
+\begin{itemize}
+\item $\sigma^2_\alpha = I$
+\item $\sigma_\alpha \sigma_\beta = i\epsilon_{\alpha \beta \gamma}
+  \sigma_\gamma$
+\item $\{\sigma_\alpha, \sigma_\beta\} = 0$ for $\alpha \neq \beta$
+\end{itemize}
+
+\subsection{Open Quantum Systems}
+
+We generalise our formalism a bit to account for external noise. As such, the
+lecturer reviews the postulates of quantum mechanics. Then we define
+
+\begin{definition}
+  a \textbf{density matrix} to be a matrix representing a combination states
+  \begin{equation}
+    \rho = \sum p_i \ket{\psi_i} \bra{\psi_i}
+  \end{equation}
+\end{definition}
+
+which can be equivalently be defined by the properties that
+
+\begin{itemize}
+\item $\rho \geq 0$ (positive semi-definite) which implies $\rho$ Hermitian
+\item $\tr \rho = 1$
+\end{itemize}
+
+which serves as a more abstract definition density matrices. If we let
+$\mathcal{D}(H)$ represent the \textbf{set of density matrices} over space $H$
+then we notice the property that $\sigma_i \in \mathcal{D}(H), \sum p_i = 1
+\implies \sum p_i \sigma_i \in \mathcal{D}(H)$
 
 \end{document}
   
