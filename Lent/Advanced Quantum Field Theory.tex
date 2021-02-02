@@ -392,7 +392,8 @@ Note that this corresponds to the expectation value of $\langle \phi \phi
 \subsection{Effective Actions}
 
 Our next step is to simplify these calculations by showing that we only have to
-work hard on connected graphs. In particular, we define $W(J) = -\hbar \ln Z(J)$
+work hard on connected graphs. In particular, we define \textbf{effective
+  action} $W(J) = -\hbar \ln Z(J)$
 and a diagram $D$. Any such $D$ can be written as a product of connect diagrams
 as
 
@@ -418,6 +419,122 @@ leaving
   \mathcal{Z} / \mathcal{Z}_0 = e^{\sum_i C_i} = e^{-(W - W_0) / \hbar}
 \end{equation}
 
-which is quite a remarkable decomposition into only connected graphs. [End of lecture 4]
+which is quite a remarkable decomposition into only connected graphs. [End of
+lecture 4] Let's work out how to use the effective action, $W$ in general.
+
+\begin{example}
+  Consider 0-dimension action with two fields
+  \begin{equation}
+    S(\phi, \chi) = \frac{m^2}{2} \phi^2 + \frac{M^2}{2} \chi^2 +
+    \frac{\lambda}{4} \phi^2 \chi^2
+  \end{equation}
+  which has Feynman rules
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{res/AQFT/lec_5_effective_action_feynman_rules}
+    \caption{Feynman Rules}
+    \label{lec_5_effective_action_feynman_rules}
+  \end{figure}
+  and so we have a sum of connected diagrams given by
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{res/AQFT/lec_5_connected_diagrams}
+    \caption{Connected Diagrams Expansion}
+    \label{lec_5_connected_diagrams}
+  \end{figure}
+  in the so-called ``full theory''. Note here that the free theory involves
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{res/AQFT/lec_5_free_theory}
+    \caption{Free Theory Expected Value}
+    \label{lec_5_free_theory}
+  \end{figure}
+
+  We can reduce the complexity of these calculations by removing the explicit
+  $\chi$ depending by ``integrating it out'' (which can make sense if $\chi$ is
+  very massive, for example, so doesn't contribute strongly), then we define our
+  effective action to be $W(\phi)$ such that
+  \begin{equation}
+    e^{-W(\phi) / \hbar} = \int d\chi e^{-S(\phi, \chi) / \hbar}
+  \end{equation}
+  where we in effect treat $\phi^2 \chi^2$ as a local source for $\chi^2$ (with
+  $J = - \phi^2 \lambda / 4$). Consequently, correlatino functions are given by
+  \begin{equation}
+    \langle f(\phi) \rangle
+    = \frac{1}{\mathcal{Z}} \int d \phi d \chi f(\phi) e^{-S(\phi, \chi) / \hbar}
+    = \frac{1}{\mathcal{Z}} \int d \phi f(\phi) e^{-W(\phi) / \hbar}
+  \end{equation}
+  In this special case, we can evaluate the integral explicitly as
+  \begin{equation}
+    \int d\chi e^{-S(\phi, \chi) / \hbar} = e^{-m^2 \phi^2 / 2 \hbar}
+    \sqrt{\frac{2 \pi \hbar}{M^2 + \lambda \phi^2 / 2}}
+  \end{equation}
+  meaning
+  \begin{equation}
+    W(\phi) = \frac{1}{2} m \phi^2 + \frac{\hbar}{2}
+    \ln(1 + \frac{\lambda}{2M^2} \phi^2) + \frac{\hbar^2}{2}
+    \ln \left( \frac{M^2}{2 \pi \hbar} \right)
+  \end{equation}
+  Here the last constant term does not effect QFT, and is ignored. It does,
+  however, have interpretations relating to the energy density of the universe,
+  and thus, the cosmological constant. Expanding in $\phi$ (since $\phi = 0$ is
+  the local minimum here) gives
+  \begin{equation}
+    W(\phi) = \frac{m_{eff}^2 \phi^2}{2} + \frac{\lambda_4}{4!} \phi^4 + \dots +
+    \frac{\lambda_{2k}{(2k)!}} \phi^{2k}
+  \end{equation}
+  where $m_{eff}^2 = m^2 + \frac{\hbar \lambda}{4M^2}, \lambda_{2k} = (-1)^{k +
+    1} \hbar \frac{(2k)!}{2^{k + 1}k} \frac{\lambda^k}{M^{2k}}$. (notice how we
+  get many more terms in the effective theory than the full theory. This is a
+  standard effect.). However, integration, as done here, is usually not
+  possible, so we resort to pertubations, treating $
+  \frac{\lambda}{4} \phi^2 \chi^2$ as a source with rules
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{res/AQFT/lec_5_effective_source}
+    \caption{$\frac{\lambda}{4} \phi^2 \chi^2$ as a source}
+    \label{lec_5_effective_source}
+  \end{figure}
+  leaving
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{res/AQFT/lec_5_effective_pertubation}
+    \caption{Effective Action Expansion}
+    \label{lec_5_effective_pertubation}
+  \end{figure}
+  which as usual can be used to calculate correlation functions
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{res/AQFT/lec_5_effective_correlation}
+    \caption{Effective Action Correlation}
+    \label{lec_5_effective_correlation}
+  \end{figure}
+  which is the same as the full theory.
+\end{example}
+
+\subsection{Quantum Effective Action $\Gamma$}
+
+The previous effective action accounts for some quantum effects, we can also
+introduce the quantum effective action, which accounts for all quantum effects
+(?). As such we first define
+\begin{equation}
+  \Phi = -\partial_J W = \langle \phi \rangle
+\end{equation}
+for $J \neq 0$. Then we can do a Legendre transform (we assume convexity, and in
+practice, this is justified)
+\begin{equation}
+  \Gamma(\Phi) = W(J) + \Phi J
+\end{equation}
+which has the property that $\partial_\Phi \Gamma = J$ (so at $J = 0$ we get
+$0$, meaning we have a local extremum). In higher dimensions, we can use this to
+define the \textbf{effective/quantum} potential $V(\Phi)$ which can be more useful than
+the action
+\begin{equation}
+  \Gamma(\Phi) = \int d^4x \left( -V(\Phi)
+    - \frac{1}{2} \partial^\mu \Phi \partial_\mu \Phi + \dots \right)
+\end{equation}
+
+We can draw analogies to statistical mechanics with this Legendre transform, and
+the Gibbs free energy, for example.
 
 \end{document}
