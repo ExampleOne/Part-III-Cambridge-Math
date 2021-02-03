@@ -473,7 +473,58 @@ which can be equivalently be defined by the properties that
 which serves as a more abstract definition density matrices. If we let
 $\mathcal{D}(H)$ represent the \textbf{set of density matrices} over space $H$
 then we notice the property that $\sigma_i \in \mathcal{D}(H), \sum p_i = 1
-\implies \sum p_i \sigma_i \in \mathcal{D}(H)$
+\implies \sum p_i \sigma_i \in \mathcal{D}(H).$ [End of lecture 5] 
+
+Introducing some vocabulary, we say 
+
+\begin{definition}
+a state $\rho$ is a \textbf{pure state} if $\rho = \ket{\psi} \bra{psi}$ or
+equivalently that $\rho^2 = \rho$ or $\tr \rho^2 = 1$. If not, we call $\rho$ a
+\textbf{mixed state}
+\end{definition}
+
+\begin{definition}
+and we can define the \textbf{purity} of $\rho$ to be $\tr \rho^2$ which is 1
+for a pure state and strictly less than 1 for a mixed state. It is minimised for
+$I / d$.
+\end{definition}
+
+\begin{definition}
+  For a product space $H_A \otimes H_B$ we find it useful to define the
+  \textbf{partial trace} $\tr_B$ that sends an operator
+  \begin{equation}
+    X_{AB} \mapsto X_A = \tr_B X_{AB} = \sum \bra{e_i^B} X_{AB} \ket{e_i^B}
+  \end{equation}
+  for an orthonormal basis $e_i^B$.
+\end{definition}
+
+We can then define $\tr_{AB} = \tr_A \circ \tr_B$. For observable $M_{AB} = M_A
+\otimes I_B$ we then find that the expectation value
+\begin{equation}
+\langle M_{AB} \rangle = \tr(M_{AB} \rho_{AB}) = \tr(M_A \rho_A)
+\end{equation}
+where
+\begin{equation}
+\rho_{AB} = \sum{i,j,\alpha,\beta} a_{i\alpha, j\beta} \ket{i}\bra{j}_A \otimes
+\ket{\alpha}\bra{\beta}_B 
+\implies \rho_A = \sum_{i, j, \alpha} a_{i\alpha, j\alpha} \ket{i}\bra{j}
+\end{equation}
+
+We then see that $\tr_B(\rho_A \otimes \rho_B) = \rho_A$ for states $\rho_A,
+\rho_B$ (called a \textbf{bipartite system}), while for maximally entangled
+states such as the \textbf{Bell states} or \textbf{EPR pairs}
+
+\begin{align}
+\ket{\phi^\pm} = \frac{1}{\sqrt{2}} (\ket{00} \pm \ket{11}) \\
+\ket{\chi^\pm} = \frac{1}{\sqrt{2}} (\ket{01} \pm \ket{10})
+\end{align}
+
+have $\tr_B \rho_{AB} = I_A / 2$ meaning that the qubits are maximally mixed,
+even though the global state is known! For both density matrices and state
+vectors, we define them to be \textbf{separable} if they can be written as
+tensor products $\ket{\psi} = \ket{\phi}_A \otimes \ket{\chi}_B$ or $\rho_{AB} =
+\sum_i p_i \omega_i^A \otimes \sigma_i^B$ and if not we call them
+\textbf{entangled}. [End of lecture 6]
 
 \end{document}
   
