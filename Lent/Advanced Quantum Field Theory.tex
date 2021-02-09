@@ -537,4 +537,245 @@ the action
 We can draw analogies to statistical mechanics with this Legendre transform, and
 the Gibbs free energy, for example. [End of lecture 5]
 
+We can interpret the effective action $\Gamma(\Phi)$ nicely in Feynman diagrams,
+but first
+
+\begin{definition}
+  we define a \textbf{bridge} to be an internal line of a connected graph such
+  that if it is cut, the graph becomes disconnected.
+  (in the context of Feynman diagrams, graphs can contain both internal and
+  external lines.)
+\end{definition}
+
+\begin{definition}
+  Furthermore, we call a connected graph a \textbf{one particle irreducible} or
+  1PI if it contains no bridges.
+\end{definition}
+
+\begin{claim}
+  From here we claim that when we expand $\Gamma(\Phi)$ we sum over the 1PI
+  graphs of the $S(\phi)$ theory with vertices
+  \begin{equation}
+    \gamma(\Phi) = \Gamma^{(0)} + \Gamma^{(1)} \Phi +
+    \frac{1}{2!} \Gamma^{(2)} \Phi^2 + \dots
+  \end{equation}
+  which can be thought of interactions.
+\end{claim}
+
+\begin{example}
+  For example, in a theory with $\phi^3, \phi^4$ terms we may have
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{res/AQFT/lec_6_effective_action_expansion}
+    \label{lec_6_effective_action_expansion}
+    \caption{Expanding the Effective Action}
+  \end{figure}
+  where the $3, 4$ powers come from the number of vertices connecting to each
+  1PI graph.
+\end{example}
+
+But we should provide some justification for this statement. Let's imagine we
+treat $\Gamma(\Phi)$ just as we treat the normal action, and so we get
+
+\begin{equation}
+  e^{W_\Gamma(J) / g} = \int d\Phi e^{-(\Gamma(\Phi) - J \Phi) / g}
+\end{equation}
+
+for fictitious Planck's constant $g$ and sum of connected diagrams $W_\Gamma$.
+We can expand this as $W_\Gamma(J) = \sum_{l = 0}^\infty g^l W_\Gamma^{(l)} (J)$
+and then, as with $S(\phi), W(J)$ only the tree graphs (so the graphs without
+loops) contribute to $W_\Gamma(J)$ as $g \to 0$.
+
+\begin{equation}
+  \lim_{g \to 0} W_\Gamma (J) = W_\Gamma^{(0)}(J)
+\end{equation}
+
+Note also that as $g \to 0$ the minimum dominates, so we have $\partial_\Phi
+\Gamma = J$ (Legendre transform) and so
+
+\begin{equation}
+  W_\Gamma(J) = W_J^{(0)}(J) = \Gamma(\Phi) - J\Phi = W(J)
+\end{equation}
+
+where $W(J)$ is given by
+
+\begin{equation}
+  e^{-W(J) / \hbar} = \int d\phi e^{-(S(\phi) - J\phi) / \hbar}
+\end{equation}
+
+meaning that the sum of connected diagrams from $W(J)$ can be represented as a
+sum of tree diagrams in $W_\Gamma(J)$ for $g \to 0$ (is this only true for
+$\hbar \to 0$?).
+
+Note also, that for a theory with $N$ fields $\phi_a$ we have
+
+\begin{align*}
+  \langle \phi_a \phi_b \rangle_J^{conn}
+  &= \langle \phi_a \phi_b \rangle_J - \langle \phi_a \rangle_J
+    \langle \phi_b \rangle_J \\
+  &= -\hbar \partial_{J_a} \partial_{J_b} W \\
+  &= \hbar \partial_{J_a} \Phi_b \\
+  &= \hbar \left( \partial_{\Phi_b) J_a} \right) \\
+  &= \hbar (\partial_{\Phi_a} \partial_{\Phi_b} \Gamma)^{-1}
+\end{align*}
+
+so the full propagator including loops is $\hbar$ times the inverse quadratic
+term in $\Gamma$.
+
+\subsection{Fermions}
+
+The current theory works well for bosons, but to allow for the antisymmetric
+nature of fermions, we need a little extra work. Here we introduce the
+\textbf{Grassmannian numbers} $\theta_a$ obeying
+\begin{equation}
+  \theta_a \theta_b = - \theta_b \theta_a
+\end{equation}
+meaning for example that $\theta_a^2 = 0$ always. This last property is
+convenient, since it means in particular, that all series expansions are finite.
+Also, for $\phi \in \mathbb{C}$ we simply define $\phi \theta = \theta \phi$.
+Then we have that series here take the form
+\begin{equation}
+  F(\theta) = f + \phi_a \theta_a + \frac{1}{2!} g_{ab} \phi_a \phi_b + \dots +
+  \frac{1}{N!} k_{a_1 \dots a_N} \theta_{a_1} \dots \theta_{a_N}
+\end{equation}
+which is indeed a finite sum. Notice also that we require here that the tensors
+of coefficients are totally antisymmetric in the swapping of indices $g_{ab} =
+-g_{ba}$. Also note that even products of Grassmannians are not Grassmannian, so
+$\theta_a \theta_b$ is not Grassmannian since
+\begin{equation}
+  (\theta_1 \theta_2) (\theta_3 \theta_4) = (\theta_3 \theta_4) (\theta_1 \theta_2)
+\end{equation}
+
+Now, we extend to some extra definitions for other operations. Here we define
+\textbf{Grassmannian differentiation} such that
+\begin{equation}
+  \partial_{\theta_a} (\theta_b F(\theta)) = - \theta_b \partial_{\theta_a} F +
+  \delta_{ab} F
+\end{equation}
+
+Integration is a bit different, but we require linearity of differentiation, and
+so if $\eta$ is a Grassmannian constant we have that $\int d\theta \eta = 0$, so
+we see that $\int d\theta = 0, \int d \theta \theta = 1$ (normalising). As such
+we define \textbf{Grassmannian integration} such that
+\begin{equation}
+  \int d\theta (f + \phi \theta) =
+\end{equation}
+These rules are called the \textbf{Berezin rules}. We also notice that $\int
+d\theta \partial_\theta F(\theta) = 0$. [End of lecture 6]
+
+From here we note that if we take an integral $\int d^N\theta F$ the only term
+that does not vanish is the one that has each $\theta_a$ appearing exactly once.
+In particular, we find that
+\begin{equation}
+  \int d\theta^N \theta_{a_1} \dots \theta_{a_N} = \epsilon^{a_1 \dots a_N}
+\end{equation}
+
+Now suppose we want to change variables $\theta_a' = X_{ab}\theta_b, X_{ab} \in
+\mathbb{C}$ then
+
+\begin{align*}
+  \int d^N \theta \theta_{a_1}' \dots \theta_{a_N}'
+  &= X_{a_1b_1} \dots X_{a_Nb_N} \int d^N \theta \theta_{b_1} \dots \theta_{b_N} \\
+  &= X_{a_1b_1} \dots X_{a_Nb_N} \epsilon^{b_1 \dots b_N} \\
+  &= \det (X) \epsilon^{a_1 \dots a_N} \\
+  &= \det (X) \int d^N\theta' \theta_{a_1}' \dots \theta_{a_N}'
+\end{align*}
+which leads to an interesting contrast with commuting scalars:
+\begin{align}
+  \theta' = X\theta \implies d^N \theta' = \frac{1}{\det(X)} d^N \theta \\
+  \phi' = Y \phi \implies d^N \phi' = \det(Y) d^N\phi
+\end{align}
+
+\subsubsection{Free fermion field theory (0 dimensions)}
+
+For $N = 2m$ fermionic fields $m \in \mathbb{N}$ we see that the action must
+take the form $S = \frac{1}{2} A_{ab} \theta_a \theta_b$ since $S$ must be
+bosonic. Then we see that
+\begin{align*}
+  \mathcal{Z}_0
+  &= \int d^{2m} \theta e^{-S / \hbar} \\
+  &= \frac{(-1)^m}{(2\hbar)^m m!} \int d^{2m}\theta A_{a_1a_2} \dots
+    A_{a_{2m - 1}a_{2m}} \theta_{a_1} \dots \theta_{a_{2m}} \\
+  &= \frac{(-1)^m}{(2\hbar)^m m!} \epsilon^{a_1 \dots a_{2m}}
+    A_{a_1a_2} \dots A_{a_{2m - 1}a_{2m}} \\
+  &= \frac{(-1)^m}{\hbar^m} \text{Pf}(A) = \pm \sqrt{\frac{\det(A)}{\hbar^N}}
+\end{align*}
+where we remove the exponential by noticing that in its power series the only
+term that does not vanish is the term that contains all $\theta$s exactly once.
+We also note that the Pfaffian of an antisymmetric matrix here can be defined as
+\begin{equation}
+  \text{Pf}(A) = \frac{1}{2^m m!} \epsilon^{a_1 \dots a_{m}}
+  A_{a_1a_2} \dots A_{a_{2m - 1}a_{2m}}
+\end{equation}
+(the Pfaffian is necessary content in this course. It apparently also has uses
+in supersymmetry.) Consequently, we can summarise our results as
+\begin{align}
+  \mathcal{Z}_{0, bosons} = \sqrt{\frac{(2\pi \hbar)^N}{\det(M)}} \\
+  \mathcal{Z}_{0, fermions} = \pm \sqrt{\frac{\det(A)}{\hbar^N}}
+\end{align}
+As such in computer simulations, which struggle with Grassmanns, one often
+treats fermions as bosons with $M = A^{-1}$...
+
+\subsubsection{Adding external sources}
+
+To add external source we introduce Grassmann $\eta$ and say that
+\begin{equation}
+  S(\theta) - \eta \theta = \frac{1}{2} A_{ab} \theta_a \theta_b - \eta_a \theta_a
+\end{equation}
+and so completing the square we find
+\begin{equation}
+  S(\theta) - \eta \theta = \frac{1}{2} ((\theta_a - \eta_c (A^{-1})_{ca}) A_{ab}
+  (\theta_b - \eta_d (A^{-1})_{db})) + \frac{1}{2} \eta_a (A^{-1})_{ab} \eta_b
+\end{equation}
+and so we use translational invariance to get
+\begin{equation}
+  \mathcal{Z}_0(\eta) = e^{-\frac{1}{2\hbar} \eta^T A^{-1} \eta}
+  \mathcal{Z}_0(0)
+\end{equation}
+and propagator
+\begin{equation}
+  \langle \theta_a \theta_b \rangle = \frac{\hbar^2}{\mathcal{Z}_0} \partial_{\eta_a}
+  \partial_{\eta_b} \mathcal{Z}_0(\eta) |_{\eta = 0} = \hbar (A^{-1})_{ab}
+\end{equation}
+
+\section{LSZ Reduction Formula}
+
+(LSZ means Lehmann-Symanzik-Zimmerman) The LSZ reduction formula is a useful
+tool, but for us it relates the concepts of scattering amplitudes, correlation
+functions, and vacuum expectation values (VEVs - really the same as correlation
+functions). It also introduces the normalisation of fields. Here, the lecturer
+tries to keep the same conventions as David Tong notes, though he warns he may
+not do so perfectly. In particular, that means that for $\hbar = 1$ we have
+\begin{equation}
+  \phi(x) = \int \frac{d^3k}{(2\pi)^3 2 E_k} \left( a(k) e^{-ik \cdot x} +
+    a^\dagger(k) e^{ik \cdot x} \right)
+\end{equation}
+and use the mostly minus sign convention in Minkowski spacetime ($+---$) so
+\begin{equation}
+  k \cdot x = E_k t - k \cdot x
+\end{equation}
+and the relativistic normalisation for $a(k)$ mentioned below. We want to
+express $a$ in terms of $\phi$ and as such we note that
+\begin{align}
+  \int d^3x e^{ik \cdot x} \phi(x) = \frac{1}{2E} a(k) +
+  \frac{1}{2E} e^{2iEt} a^\dagger(-k) \\
+  \int d^3x e^{ik \cdot x} \partial_a \phi(x) = \frac{-i}{2} a(k) +
+  \frac{i}{2} e^{2iEt} a^\dagger(-k)
+\end{align}
+
+\subsubsection{Initial States}
+
+To describe initial states then, for example in free theory with 1 particle, we
+take
+\begin{equation}
+  \ket{k} = a^\dagger(k) \ket{\Omega}
+\end{equation}
+for the full vacuum state $\ket{\Omega}$ (Tong includes a discussion of full
+vacuum states and another type) such that $a(k) \ket{\Omega} = 0 \forall k$ and
+$\bra{\Omega} \ket{\Omega} = 1$) and we use the relativistic normalisation
+\begin{equation}
+  \bra{k} \ket{k'} = (2\pi)^3 (2E) \delta(k - k'), E = \sqrt{k^2 + m^2}
+\end{equation}
+[End of lecture 7]
+
 \end{document}
