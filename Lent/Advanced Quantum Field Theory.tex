@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{float}
@@ -777,5 +778,65 @@ $\bra{\Omega} \ket{\Omega} = 1$) and we use the relativistic normalisation
   \bra{k} \ket{k'} = (2\pi)^3 (2E) \delta(k - k'), E = \sqrt{k^2 + m^2}
 \end{equation}
 [End of lecture 7]
+
+We wish to compute an (approximation) to scattering amplitudes, and as such it
+makes sense to consider Gaussian wavepackets $a_1^\dagger = \int d^3k f_1(k)
+a^\dagger(k)$ for $f(k) \propto e^{\frac{-(k - k_1)^2}{2 \sigma^2}}$ and
+similarly for $a_2^\dagger$ for a different $k_2$. These represent waves of
+different momenta, of course, and we imagine these collide giving a certain
+outcome. Here we assume that interactions are weak, and that for time $t = \pm
+\infty$ we can approximate our theory with free theory, and so we define
+
+\begin{align}
+  \ket{i} &= \lim_{t \to \infty} a_1^\dagger(t) a_2^\dagger(t) \ket{\Omega} \\
+  \ket{f} &= \lim_{t \to \infty} a_{2'}^\dagger(t) a_{2'}^\dagger(t) \ket{\Omega}
+\end{align}
+
+for $k_1 \neq k_2, k_{1'} \neq k_{2'}$. Then we see that
+
+\begin{align*}
+  a_1^\dagger(\infty) - a_1^\dagger(-\infty)
+  &= \int_{-\infty}^\infty dt \partial_0 a_1^\dagger(t) \\
+  &= \int d^3k f_1(k) \int d^4x \partial_0 \left( e^{-ik \cdot x}
+    (-i \partial_0 \phi + E \phi) \right) \text{ (why?)} \\
+  &= -i \int d^3k f_1(k) \int d^4x e^{-ik \cdot x} (\partial_0^2 + E^2 \phi) \\
+  &= -i \int d^3 k f_1(k) \int d^4x e^{-ik \cdot x} (\partial_0^2 + |k|^2 + m^2) \phi
+\end{align*}
+
+where we can turn the $|k|^2$ into $-\overleftarrow{\nabla}^2$ (derivative
+applied to the left) which by integration by parts becomes $\vec{\nabla}^2$
+which then combines with $\partial_0^2$ to becomes $\partial^2$ leaving
+
+\begin{equation}
+  a_1^\dagger(\infty) - a_1^\dagger(-\infty) = -i \int d^3k f_1(k)
+  \int d^4x e^{-ik \cdot x} (\partial^2 + m^2) \phi
+\end{equation}
+
+where we notice the last $\partial^2 + m^2$ is the Klein-Gordon operator which
+should be 0 in free theory, so in a sense this measures deviation from free
+theory. We then write
+
+\begin{equation}
+  \bra{f} \ket{i} = \bra{\Omega} T a_{1'} (\infty) a_{2'}(\infty)
+  a_1^\dagger(-\infty) a_2^\dagger(-\infty) \ket{\Omega}
+\end{equation}
+
+so we can use the previous relation to reorder and notice that the only non-zero
+term is
+
+\begin{multline}
+  \bra{f} \ket{i} = i^4 \int d^4x_1 d^4x_2 d^4x_{1'} d^4x_{2'}
+  e^{-ik_1 \cdot x_1 - ik_2 \cdot x_2 + ik_{1'} \cdot x_{1'} + ik_{2'} \cdot
+    x_{2'}} \\
+  (\partial_1^2 + m^2) (\partial_2^2 + m^2) (\partial_{1'}^2 + m^2)
+  (\partial_{2'}^2 + m^2) \\
+  \bra{\Omega} T\phi(x_1) \phi(x_2) \phi(x_{1'}) \phi(x_{2'}) \ket{\Omega}
+\end{multline}
+
+This is the \textbf{LSZ reduction formula}. It is fortunately easily generalised
+to more than two wavepackets by considering $T \phi(x_1) \dots \phi(x_n)
+\phi(x_{1'}) \dots \phi(x_{2'}) \ket{\Omega}$. It works under relatively
+standard assumptions in QFT, but it does occasionally encounter a need for
+renormalisation, which will be a big topic later on. [End of lecture 8]
 
 \end{document}
