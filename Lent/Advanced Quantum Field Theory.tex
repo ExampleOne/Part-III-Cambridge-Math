@@ -839,4 +839,141 @@ to more than two wavepackets by considering $T \phi(x_1) \dots \phi(x_n)
 standard assumptions in QFT, but it does occasionally encounter a need for
 renormalisation, which will be a big topic later on. [End of lecture 8]
 
+\section{Scalar field theory}
+
+\subsection{Wick rotation}
+
+We now finally start looking at scalar field theory in more than 0 dimensions.
+Here we first introduce the Wick rotation, which is to say we introduce
+imaginary time as a means of turning the Minkowski metric into a standard
+Euclidean one. In many applications this is useful.
+
+In particular, in the (mostly minus) Minkowski metric we may have $\mathcal{L} =
+\frac{1}{2} \partial_\mu \phi \partial^\mu phi - V(\phi)$ for $V(\phi) =
+\frac{1}{2} m^2 \phi^2 + \sum_{n > 2} \frac{1}{n!} V^{(n)} \phi^n$ and
+\begin{equation}
+\mathcal{Z} = \int \mathcal{D}\phi e^{i \int dx^0 L}, L = \int d^3x \mathcal{L}, 
+S = \int d^4x \mathcal{L}
+\end{equation}
+where we've adopted the convention that $\hbar = 1$. Then here we have
+propagator
+\begin{equation}
+\frac{i}{k^2 - m^2 + i\epsilon} = \frac{i}{(k^0)^2 - |k|^2 - m^2 + i\epsilon}
+\end{equation}
+
+To introduce the \textbf{Wick rotation} or imaginary time then we set $x_4 =
+ix^0$ and use a standard $(++++)$ Euclidean metric we now have $\mathcal{L} =
+\frac{1}{2} \partial_\mu \phi \partial^\mu \phi + V(\phi)$ with
+\begin{equation}
+\mathcal{Z} = \int \mathcal{D} \phi e^{-\int dx_4 L}
+\end{equation}
+and momentum satisfies $k_0 x^0 - k \cdot x = -ik_0 x_4 - k \cdot x = -k_4 x_4 -
+k \cdot x$ leaving $k_4 = ik_0$. Notice, however that this implies that
+\begin{equation}
+\pm ik \cdot x \mapsto \mp ik \cdot x
+\end{equation}
+Some use this to justify the use of the mostly plus Minkowski metric. As such
+our propagator becomes
+\begin{equation}
+\tilde{\Lambda_0}(k) = \frac{1}{k^2 + m^2} = \frac{1}{k_4^2 + |k|^2 + m^2}
+\end{equation}
+Note that we are able to get rid of the $i\epsilon$ in the denominator since now
+the the denominator never hits 0 (essentially by integrating over $k_4$ we have
+swapped the real and imaginary axes moving the singularities onto what is now
+the imaginary axis of $k_4$ instead). 
+
+\subsection{Feynman rules}
+
+Let's develop Feynman rules. For a free propagator we see that if, as usual,
+\begin{equation}
+S_0(\phi, J) = \int d^4x \left( \frac{1}{2} \partial_\mu \phi \partial^\mu \phi
++ \frac{1}{2} m^2 \phi^2 - J(x) \phi(x) \right)
+\end{equation}
+where we remove the derivatives by using a Fourier transform $\phi = \int
+\frac{d^4k}{(2\pi)^4} e^{ik \cdot x} \tilde{\phi}(k)$. Also, we split the $J(x)
+\phi(x) = \frac{1}{2}(J(x) \phi(x) + J(x) \phi(x))$ and integrate each term
+differently, which you see in the Fourier transform.
+\begin{align*}
+S_0(\tilde{\phi}, \tilde{J}) 
+&= \frac{1}{2} \int \frac{d^4k}{(2\pi)^4} \left( \tilde{\phi}(-k) (k^2 + m^2) 
+\tilde{\phi}(k) - \tilde{J}(-k) \tilde{\phi}(k) - \tilde{J}(k) \tilde{\phi}(-k)
+ \right) \\
+&= \frac{1}{2} \int \frac{d^4k}{(2\pi)^4} \left( \tilde{\chi}(-k) (k^2 + m^2)
+\tilde{\chi}(k) - \frac{\tilde{J}(-k) \tilde{J}(k)}{k^2 + m^2} \right)
+\end{align*}
+where we completed the square with $\tilde{\chi} = \tilde{\phi} - \tilde{J} /
+(k^2 + m^2)$. This leaves
+\begin{equation}
+  \mathcal{Z}_0(J) = e^{\frac{1}{2} \int \frac{d^4k}{(2\pi)^4}
+    \frac{\tilde{J}(-k) \tilde{J}(k)}{k^2 + m^2}}
+\end{equation}
+(where we assume $\mathcal{Z}_0(0) = 1$). This leaves us with propagator
+\begin{equation}
+  \tilde{\Lambda_0}(J) = \frac{\delta^2 \mathcal{Z}_0(J)}
+  {\delta \tilde{J}(-q) \delta \tilde{J}(q)} = \frac{1}{q^2 + m^2}
+\end{equation}
+for functional derivatives
+\begin{equation}
+  \frac{\delta}{\delta f(x_1)} f(x_2) = \delta(x_1 - x_2),
+  \frac{\delta}{\delta \tilde{g}(k_1)} \tilde{g}(k_2) =
+  (2\pi)^4 \delta(k_1 - k_2)
+\end{equation}
+Transforming the propagator we then finally get
+\begin{equation}
+  \Lambda_0(x - x') = \int \frac{d^4k}{(2\pi)^4}
+  \frac{e^{ik \cdot (x - x')}}{k^2 + m^2}
+\end{equation}
+which is the same as we get via
+\begin{equation}
+  \mathcal{Z}_0(J) = e^{\frac{1}{2} \int d^4x d^4x' J(x) \Lambda_0(x - x') J(x')}
+\end{equation}
+
+Moving from free theory to interacting theory we write
+\begin{equation}
+  \mathcal{L} = \mathcal{L}_0 + \mathcal{L}_1,
+  \mathcal{L}_0 = \frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+  + \frac{1}{2} m^2 \phi^2
+\end{equation}
+and as in the 0-dimensional case we get the asymptotic series given by
+\begin{align*}
+  \mathcal{Z}_0(J)
+  &= \int \mathcal{D}\phi e^{-\int d^4 (\mathcal{L}_0 + \mathcal{L}_1 - J\phi)} \\
+  &= e^{-\int d^4 y \mathcal{L}_1 \left( \frac{\delta}{\delta J(y)} \right)}
+    e^{\frac{1}{2} \int d^4x d^4x' J(x) \Lambda_0 (x - x') J(x')} \\
+  &= \sum_{v = 0}^N \frac{1}{v!} \left( - \int d^4 y \mathcal{L}_1 \left(
+    \frac{\delta}{\delta J(y)}\right) \right)
+    \sum_{p = 0} \frac{1}{p!} \left( \frac{1}{2} \int d^4x d^4x'
+    J(x) \Lambda_0(x - x') J(x') \right)
+\end{align*}
+where similarly each term corresponds to a graph where
+\begin{itemize}
+\item propagators connect points (here $x, x'$ act like indices on the points)
+\item vertices with $n$ legs correspond to powers of $\mathcal{L}_1 \left(
+    \frac{\partial}{\partial J(y)} \right)$
+\item we integrate over the positions of internal lines
+\item we include symmetry factors as before
+\end{itemize}
+which give us the position space Feynman rules (momentum space Feynman rules are
+also common and described later). 
+
+\begin{example}
+  We have correlation function
+  \begin{equation}
+    \langle \phi(x_2) \phi(x_1) \rangle = -\frac{\delta}{\delta J(x_2)}
+    \frac{\delta}{\delta J(x_1)} W(J)
+  \end{equation}
+  and we take $\mathcal{L}_1 = \frac{\lambda}{3!} \phi^3$. Then we have
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{res/AQFT/lec_9_expansion}
+    \caption{$\frac{\lambda}{3!} \phi^3$ expansion}
+    \label{lec_9_expansion}
+  \end{figure}
+  so that if the more complex second term is $D$ we have
+  \begin{equation}
+    D = \frac{\lambda^2}{2} \int d^4y_1 d^4y_2 \Lambda_0(x_2 - y_2)
+    \Lambda_0(y_1 - x_1) (\Lambda_0(y_0 - y_1))^2
+  \end{equation}
+\end{example}
+
 \end{document}
