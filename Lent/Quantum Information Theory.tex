@@ -22,6 +22,8 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 
+\newcommand{\id}{\text{id}}
+
 \title{Quantum Information Theory}
 \author{quinten tupker}
 \date{January 22 2021 - \today}
@@ -526,5 +528,157 @@ tensor products $\ket{\psi} = \ket{\phi}_A \otimes \ket{\chi}_B$ or $\rho_{AB} =
 \sum_i p_i \omega_i^A \otimes \sigma_i^B$ and if not we call them
 \textbf{entangled}. [End of lecture 6]
 
+\subsection{Schmidt Decomposition}
+
+The lecturer gives the following special case of the Schmidt decomposition theorem:
+
+\begin{theorem}
+	The \textbf{Schmidt decomposition theorem} states that a pure state 
+	$\ket{\Psi_{AB}}$ with $d_A = \text{dim}(\mathcal{H}_A), 
+	d_B = \text{dim}(\mathcal{H}_B)$ where the spaces 
+	$\mathcal{H}_A, \mathcal{A}_B$ has Schmidt bases $\ket{i_A}, \ket{i_B}$ 
+	and nonnegative real \textbf{Schmidt coefficients} $\lambda_i$ such that
+	\begin{equation}
+		\sum_{i = 1}^{\min(d_A, d_B)} \lambda_B^2 = 1
+  \end{equation}
+  and note here that $\rho_A = \sum_i \lambda_i^2 \ket{i_A} \bra{i_A}$ and 
+  the same for $\rho_B$.
+\end{theorem}
+\begin{proof}
+  The lecturer provides a proof using the Singular Value Decomposition (SVD), and uses the fact that $\tr \rho_A = 1 = \tr \rho_B$ to get $\sum \lambda_i^2 = 1$.
+\end{proof}
+
+From here we note that if $\rho_A, \rho_B$ have no degenereate eigenvalues 
+other than $0$, the  $\Psi_{AB}$ is determined uniquely by $\rho_A, \rho_B$ 
+since one can
+\begin{enumerate}
+  \item diagonalise $\rho_A, \rho_B$
+  \item and then match up eigenvectors corresponding to the same eigenvalues
+\end{enumerate}
+
+We also define
+\begin{definition}
+  the texbf{Schmidt rank} of pure bipartite state $\ket{\Psi_{AB}}$ to be the
+  non-zero coefficients in its Schmidt decomposition. This is denoted by
+  $n(\Psi_{AB})$.
+\end{definition}
+This provides a simple way of checking whether or not $\ket{\Psi_{AB}}$ is
+entangled since it is entangled iff $n(\Psi_{AB}) > 1$.
+
+\subsection{Purification}
+
+A useful mathematical trick is to represent mixed states as pure states. In
+particular, for density $\rho_A$ on system $A$ we can introduce a 
+\textbf{reference system} $R$ and pure state $\Psi_{AR}$ such that
+\begin{equation}
+  \rho_A = \tr_R ( \ket{\Psi_{AR}} \bra{\Psi_{AR}} )
+\end{equation}
+In particular, we can do so for $\mathcal{H}_R \simeq \mathcal{H}_A$ by considering 
+for
+\begin{equation}
+  \rho_A = \sum_i p_i \ket{i_A} \bra{i_A}
+\end{equation}
+the pure state
+\begin{equation}
+  \ket{\Psi_{AB}} = \sum_i \sqrt{p_i} \bra{i_A} \otimes \bra{i_R}
+\end{equation}
+(which is just the Schmidt decomposition of $\Psi_{AR}$. More generally, we can 
+use the \textbf{canonical purification}
+\begin{equation}
+  \ket{\Psi_{AR}} = \sqrt{d} (\sqrt{\rho_A} \otimes I_R ) \ket{\Omega}
+\end{equation}
+where
+\begin{equation}
+  \ket{\Omega} = \frac{1}{\sqrt{d}} \sum_{i=1}^d \ket{i}\ket{i} \in
+  \mathcal{H}_A \otimes \mathcal{H}_R
+\end{equation}
+
+Also, we not that any pure state $\ket{\Psi_{AR}}$ with reduced state $\rho_A$ can
+be written as 
+\begin{equation}
+  \ket{\Psi_{AR}} = \sqrt{d} (\sqrt{\rho_A} \otimes V) \ket{\Omega}
+\end{equation}
+where $V$ is an isometry rotating $\ket{i}$ into the Schmidt basis of 
+$\ket{\Psi_{AR}}$. [End of lecture 7]
+
+\subsection{The no cloning theorem}
+
+Although it shows up in part II, we review the no cloning theorem.
+
+\begin{theorem}
+  The \textbf{no cloning theorem} states that there is no quantum
+  process that universally clones quantum states. More precisely,
+  one can only design a quantum process that clones orthogonal states.
+\end{theorem}
+\begin{proof}
+  Suppose that for two states $\ket{\psi}, \ket{\phi}$ we have that for any
+  state $\ket{s}$ 
+  \begin{align*}
+    U(\ket{\psi} \otimes \ket{s}) &= \ket{\psi} \otimes \ket{\psi} \\
+    U(\ket{\phi} \otimes \ket{s}) &= \ket{\phi} \otimes \ket{\phi}
+  \end{align*}
+  meaning that by taking the inner product we have $\bra{\phi} \ket{\psi}
+  = \bra{\phi} \ket{\psi}^2$ meaning that $\phi, \psi$ are either identical
+  or orthogonal. Now, one might argue that this assumes that we are in a pure
+  state, and also assumes that any operation we use is unitary. However, 
+  by considering the purification of a non-pure state this generalises to
+  non-pure states. Also, by adding an ancilla we can make (any?) state unitary
+  so we this generalises to copying any quantum state.
+\end{proof}
+
+\subsection{Time evaluation of open systems}
+
+\subsection{Quantum operations}
+
+To describe changes in open quantum systems, we use \textbf{quantum operations}
+which we define to be \textbf{linear completely positive trace preserving} maps
+or CPTP maps. These describe discrete changes in a system, and have the advantage
+that they do no explicitly introduce time. Specifically, we consider these maps to
+be maps of densities
+\begin{equation}
+  \Lambda: \mathcal{D}(\mathcal{H}) \to \mathcal{D} \mathcal{H}; \rho \mapsto \rho'
+\end{equation}
+satisfying the properties that $\Lambda$ is
+\begin{itemize}
+  \item linear (allowing us to interpret mixed states probabilistically)
+  \item trace-preserving (we need to preserve total probability)
+  \item positive (meaning that $\rho \geq 0 \implies \lambda(\rho) \geq 0$.
+    Here $\rho \geq 0$ means $\rho$ is positive semi-definite.
+  \item \textbf{complete positivity} which means that $\forall$ ancillas $B$
+    the map $\Lambda \otimes \id_B$ is positive too. This is a stronger statement
+    than positivity, since in particular we note that $\rho \mapsto \rho^T$ is not
+    completely positive.
+\end{itemize}
+
+\begin{theorem}
+  A map $\Lambda : \mathcal{B}(\mathcal{H}) \to \mathcal{B}(\mathcal{K})$ for 
+  $\mathcal{H} \simeq \mathbb{C}^d$ is completely positive if and only if
+  $$ (\Lambda \otimes \id_d) \ket{\Omega} \bra{\Omega} \geq 0 $$
+  where $\ket{\Omega} = \frac{1}{\sqrt{d}} \sum \ket{ii} \in \mathbb{C}^d \times
+  \mathbb{C}^d$ is the maximally entngled state of Schmidt rank $d$.
+\end{theorem}
+\begin{proof}
+  Necessity of this condition is clear. To prove sufficiency we observe that 
+  $\forall k \geq 1$ we have that $\rho \in \mathcal{D}(\mathcal{H} \otimes 
+  \mathbb{C}^d)$ so we that if $\rho = \sum p_i \ket{\phi_i} \bra{\phi_i}$ then
+  $$ \forall (\Lambda \otimes \id_k) \ket{\phi_i} \bra{\phi_i} \geq 0
+  \implies (\Lambda \otimes \id_k) \rho \geq 0 $$
+  From the last lecture we know that nay pure state can be written in the form
+  $(I_d \otimes R) \ket{\Omega}$ for $R \in \mathcal{B}(\mathbb{C}^d, 
+  \mathbb{C}^k)$ so in particular we see that $(\Lambda \otimes \id_k)
+  \ket{\phi_i} \bra{\phi_i} \geq 0$ can be written in the forms
+  \begin{align*}
+    (\Lambda \otimes \id_k) (I_d \otimes R_i) \ket{\Omega} \bra{\Omega}
+    (I_d \otimes R_i^\dagger) &\geq 0 \\
+    (I_{d'} \otimes R_i) (\Lambda \otimes \id_d) \ket{\Omega} \bra{\Omega}
+    (I_{d'} \otimes R_i^\dagger) &\geq 0
+  \end{align*}
+  meaning that since the outside conjugation is invertible, we are positive iff
+  $$ (\Lambda \otimes \id_d) \ket{\Omega} \bra{\Omega} \geq 0 $$
+  as required
+\end{proof}
+Note that here we call $J(\Lambda) = J = (\Lambda \otimes \id_d) \ket{\Omega}
+\bra{\Omega}$ the \textbf{Choi matrix} or the \textbf{Choi state} of $\Lambda$.
+[End of lecture 8]
+
 \end{document}
-  
