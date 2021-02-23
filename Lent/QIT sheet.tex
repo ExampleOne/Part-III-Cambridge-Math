@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{amsthm}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{physics}
+\usepackage{dsfont}
+\usepackage{cancel}
+
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\newcommand{\id}{\text{id}}
+
+\title{Quantum Information Theory Info Sheet}
+\author{quinten tupker}
+\date{January 22 2021 - \today}
+
+\begin{document}
+
+\maketitle
+
+Handy definitions:
+
+\begin{itemize}
+\item The \textbf{Shannon entropy} of rand var $X$ is $H(X) = -\sum_{x \in J} 
+p(x) \log_2 (p(x))$
+\item \textbf{Typical sets} contain sequences $u = (u_1, \dots, u_n)$ satisfying
+$ 2^{-n(H(U) + \epsilon)} \leq \mathbb{P}(u) \leq 2^{-n(H(U) - \epsilon)}$. Here
+$U$ describes a single letter in the sequence.
+\item The \textbf{joint entropy} of $X, Y$ is $H(X, Y) = -\sum_{x \in J_X, y \in
+  J_Y} p(x, y) \log_2(p(x, y))$
+\item The \textbf{relative entropy} or \textbf{Kullback-Leibler divergence} of 
+  $p << q$ ($p$ \textbf{absolutely continuous} wrt $q$ meaning $\text{supp}(p) 
+    \subseteq \text{supp}(q))$ is $D(p||q) = \sum_x p(x) \log(p(x) / q(x))$
+\item The \textbf{mutual information} is $I(X:Y) = H(X) + H(Y) - H(X, Y) =
+  H(X) - H(Y | X)$.
+\item The \textbf{conditional entropy} (weirdly) is $H(Y | X) = - \sum_{x, y}
+  p(x, y) \log(p(x, y)) = \sum_x p(x) H(Y | X=x)$
+\end{itemize}
+
+Handy equations:
+
+\begin{itemize}
+\item
+\end{itemize}
+
+Handy theorems:
+
+\begin{itemize}
+\item Jensen's inequality states that if $\phi$ convex,
+  then $\phi(\mathbb{E}(X)) \leq \mathbb{E}(\phi(X))$.
+  Moreover, equality occurs iff $\phi$ is linear 
+  almost everywhere.
+\end{itemize}
+
+\end{document}

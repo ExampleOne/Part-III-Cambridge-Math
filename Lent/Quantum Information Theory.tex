@@ -57,12 +57,12 @@ from probability theory. As such we define
 \begin{definition}
   The \textbf{surprisal} of random variable $X$ taking values in discrete finite
   \textbf{alphabet} $J$ according to distribution $p(x)$ is
-  $$ \mathcal{I}(x) = - \ln(p(x)) $$
+  $$ \mathcal{I}(x) = - \log(p(x)) $$
 \end{definition}
 
 \begin{definition}
   The \textbf{Shannon entropy} of a random variable $X$ is
-  $$ H(X) = -\sum_{x \in J} p(x) \ln(p(x)) $$
+  $$ H(X) = -\sum_{x \in J} p(x) \log(p(x)) $$
   (the logarithm is base 2)
 \end{definition}
 
@@ -168,7 +168,7 @@ proven)
   \begin{enumerate}
     \item $u \in T_\epsilon^{(n)} \implies H(u) - \epsilon \leq \frac{-1}{n}
       \log(\mathbb{P}(u)) \leq H(u) + \epsilon$
-    \item $\mathbb{P}(T_\epsilon^{(n)}) > 1 - 3$
+    \item $\mathbb{P}(T_\epsilon^{(n)}) > 1 - \delta$
     \item $|T_\epsilon^{(n)}| \leq 2^{n(H(u) + \epsilon)}$
     \item $|T_\epsilon^{(n)} > (1 - \delta) 2^{2(H(u) - \epsilon)}$
   \end{enumerate}
@@ -680,5 +680,149 @@ satisfying the properties that $\Lambda$ is
 Note that here we call $J(\Lambda) = J = (\Lambda \otimes \id_d) \ket{\Omega}
 \bra{\Omega}$ the \textbf{Choi matrix} or the \textbf{Choi state} of $\Lambda$.
 [End of lecture 8]
+
+We mentioned earlier that any quantum operation can be represented as a unitary
+operation on a larger space. Formally, this is described by
+
+\begin{theorem}
+  \textbf{Stinespring's Dilation Theory} which states that for any CPTP operator
+  $\Lambda: \mathcal{B(H)} \to \mathcal{B(H)}$ there exists 
+  a Hilbert space $\mathcal{H'}$ and a unitary operator $U \in \mathcal{B(H 
+  \otimes H')}$ such that for any $\rho \in \mathcal{D(H)}$
+  \begin{equation}
+    \Lambda(\rho) = \tr_{\mathcal{H}'}(U(\rho \otimes \varphi) U^\dagger)
+  \end{equation}
+  where $\varphi$ is fixed in $\mathcal{D(H')}$ (and can be chosen to be pure).
+\end{theorem}
+
+In essence this states that any quantum operation can be described by
+
+\begin{enumerate}
+  \item Adding an ancilla $\mathcal{H'}$
+  \item Converting it to a unitary operator on the extended space ($U$)
+  \item Removing the ancilla $\tr_{\mathcal{H'}}$
+\end{enumerate}
+
+\subsection{Krauss representation or operator sum representation}
+
+Just a side note, $T : \rho \mapsto \rho^T$ is not CP since $T \otimes \id$
+acts as a swap operator which has $-1$ as an eigenvalue.
+
+\begin{theorem}
+  The \textbf{Kraus Representation Theorem} states that $\Lambda : 
+  \mathcal{B(H}_A) \to \mathcal{B(H}_B)$ is CPTP iff 
+  \begin{equation}
+    \Lambda(\rho) = \sum_k A_k \rho A_k^\dagger
+  \end{equation}
+  for some linear \textbf{Krauss operators} $A_k \in \mathcal{B(H}_A, 
+  \mathcal{H}_B)$ satisfying $\sum A_k^\dagger A_k = I$.
+\end{theorem}
+
+In fact, this can be seen as a restatement/special case of Stinespring's
+Dilation theorem since wlog we can choose the initial ancilla to be in the
+state $\phi = \ket{\varphi} \bra{\varphi}$ so that if $\ket{e_k}$ is an 
+orthonormal basis of the ancilla then
+\begin{equation}
+  A(\rho) = \sum_k \bra{e_k} U (\rho \otimes \varphi) U^\dagger \ket{e_k}
+  = \sum_k A_k \rho A_k^\dagger
+\end{equation}
+where $A_k = \bra{e_k} U \ket{\phi}$ is an operator on the system state
+(the ancilla part has already been evaluated). Then we have $\sum_k 
+A_k^\dagger A_k = I$ by the completeness of $\ket{e_k}$ and $U$ is unitary
+since $\ket\varphi$ is normalised. Finally, we see that $\Lambda(\rho)$ is 
+certainly linear, and it is completely positive since
+\begin{equation}
+  (\Lambda \otimes \id_d) \ket\Omega \bra\Omega = \sum_k \bra\psi (A_k
+  \otimes I) \ket\Omega \bra\Omega (A_k^\dagger \otimes I) \ket\psi =
+  \sum_k \bra{\varphi_k} \ket\Omega \bra\Omega \ket{\varphi_k} \geq 0
+\end{equation}
+for $\ket{\varphi_k} = (A_k^\dagger \otimes I) \ket\psi$ since $\Omega =
+\ket\Omega \bra\Omega$ is positive (semi-definite).
+
+Basically, the Kraus representation is a way of achieving what Stinespring's
+Dilation does without using an ancilla. Note that the Kraus representation
+is not unique. [End of lecture 9]
+
+\subsection{Choi-Jamilkowski Isomorphism}
+
+\begin{theorem}
+  The \textbf{Choi-Jamilkowski Isomorphism} states that there is an isomorphism
+  between $\Lambda: \mathcal{M}_d \to \mathcal{M}_{d'}$ and $J \in \mathcal{B}
+  (\mathbb{C}^{d'} \otimes \mathbb{C}^d)$ given by
+  \begin{align}
+    J &= (\Lambda \otimes \id_d) \ket\Omega \bra\Omega \\
+    \tr(A \Lambda(B)) &= d \tr(J(A \otimes B^T))
+  \end{align}
+  where the last holds for all $A \in \mathcal{M}_{d'}, B \in \mathcal{M}_d$ and
+  we have the properties
+  \begin{enumerate}
+    \item $\Lambda$ is completely positive iff $J \geq 0$
+    \item $\Lambda$ is trace-preserving iff $\tr_A J = I / d$ where $\tr_A$ is 
+      the partial trace on $\mathbb{C}^{d'}$
+  \end{enumerate}
+\end{theorem}
+
+To justify this, we first define the \textbf{adjoint} of $\Lambda : \mathcal{M}_d
+\to \mathcal{M}_{d'}$ to be $\mathcal{\Lambda}^*$ satisfying $\tr(A \Lambda(B)) =
+\tr(\Lambda^*(A)B)$. Also, we note that complete positivity and trace-preserving 
+follow from our earlier work. To establish that these are truly mutual inverses, 
+let's start by reviewing the following identities (proof left as an exercise) 
+for $A, B \in \mathcal{B}(\mathbb{C}^d)$:
+\begin{itemize}
+  \item $(A \otimes I) \ket\Omega = (I \otimes A^T) \ket\Omega$
+  \item if $F\ket{ij} = \ket{ji}$, then $d\ket\Omega \bra\Omega^{T_B} = F$ where
+    $T_B$ is the partial transpose defined such that for $C \in \mathcal{B(H}_A
+    \otimes \mathcal{H}_B)$ has $\bra{ij} C^{T_A} \ket{kl} = \bra{kj} C \ket{il}$
+  \item $\tr((A \otimes B)F) = \tr(AB)$
+  \item $(A \otimes I)F = F(I \otimes A)$
+\end{itemize}
+As such, we argue that $\tr(A \Lambda(B)) = d\tr(J(A \otimes B^T))$ since 
+\begin{align*}
+  d\tr(J(A \otimes B^T))
+  &= d \tr ((\Lambda \otimes \id_B) \ket\Omega \bra\Omega(A \otimes B^T)) \\
+  &= d\tr((\Lambda \otimes \id_B) \frac{1}{d} F^{T_B} (A \otimes B^T)) \\
+  &= \tr(F^{T_B} (\Lambda^* \otimes \id_B)(A \otimes B^T)) \\
+  &= \tr(d \ket\Omega \bra\Omega (\Lambda^*(A) \otimes B^T)) \\
+  &= d\tr(B\Lambda^*(A)) \\
+  &= d\tr(A \Lambda(B))
+\end{align*}
+This shows we are an inverse in one direction, giving us injectivity in a certain
+direction. As such it suffices to show that the map $\Lambda \to J$ is surjective,
+but we can justify this by breaking $J$ into rank one $\ket\psi \bra\psi$ bits and
+using $\ket\psi = (R \otimes I) \ket\Omega$ from before.
+
+\subsection{From Choi-Jamilkowski to Kraus Representation to Stinespring's 
+Dilation}
+
+We note that it is possible to use the Choi-Jamilkowski Isomorphism to prove
+the Kraus representation to prove Stinespring's Dilation theorem. We begin by
+proving the Kraus representation from Choi-Jamilkowski
+\begin{proof}
+\item Note that $J(\Lambda) = \sum p_i \ket{\psi_i} \bra{\psi_i} \geq 0$ for
+  $\ket{\psi_i} \in \mathcal{B(H}_A, \mathcal{H}_B)$, but we also know that we
+  can write $\ket{\psi_i} = (R_i \otimes I) \ket\Omega$ for $R_i \in 
+  \mathcal{B(H}_A, \mathcal H_B)$ so $J(\Lambda) = \sum_i (A_i \otimes I) \ket
+  \Omega \bra\Omega (A_i^\dagger \otimes I)$ where $A_i = \sqrt{p_i} R_i$, and
+  since $J \leftrightarrow \Lambda$ is an isomorphism so we can describe 
+  $\Lambda$ entirely by its action on $\rho \in \mathcal{D(H}_A)$ as $\Lambda
+  (\rho) = \sum A_i \rho A_i^\dagger$ as required. Furthermore, $\Lambda$ is
+  trace preserving since $\forall \rho \in \mathcal{B(H}_A), \tr \Lambda(\rho)
+  = \tr((\sum_i A_i^\dagger A_i) \rho) = \tr(\rho)$ meaning that since this holds
+  for any $\rho$, we have $\sum A_i^\dagger A_i = I$. 
+\end{proof}
+
+For the proof of Stinespring's Dilation theorem from the Kraus representation
+we see that
+\begin{proof}
+  For a Hilbert space $\mathcal H_E$ with dimension $r \geq \dim(J(\Lambda))$ 
+  (why?) we can define $U$ by $\ket{\psi_A} \otimes \ket \varphi$ forall 
+  $\ket{\psi_A} \in \mathcal H_A$ such that if $\varphi = \ket \varphi \bra
+  \varphi$ then $U \bra{\psi_A} \otimes \bra \varphi = \sum_i A_i \bra{\psi_A}
+  \otimes \ket i$ for an orthonormal basis $\ket i$ and Kraus operators $A_i$. 
+  Then $U$ is an isomerty, and we see that for $\rho = \sum_i p_i \ket{\psi_i}
+  \bra{\psi_i}$ then we have that $\tr_{\mathcal H_E}(U(\rho \otimes \phi) 
+  U^\dagger) = \sum_i A_i \rho A_i^\dagger$ which is the same as $\Lambda(
+  \rho)$ by Kraus representation.
+\end{proof}
 
 \end{document}
