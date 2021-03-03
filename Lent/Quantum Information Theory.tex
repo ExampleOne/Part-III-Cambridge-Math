@@ -825,4 +825,108 @@ we see that
   \rho)$ by Kraus representation.
 \end{proof}
 
+[End of lecture 11]
+
+\subsection{Generalised Measurements}
+
+Traditionally we characterise measurements entirely as projection operators,
+but we find we need a more powerful notion of measurement in certain 
+situations.
+
+\begin{example}
+  Consider the state $\ket\psi$ satisfying $\sigma \cdot \hat{n} \ket\psi = 
+  \ket \psi$. If we are given $\psi$ and want to obtain $\hat n$ using only
+  one copy of $\psi$ then this is impossible using only projective 
+  measurements.
+\end{example}
+
+As such we develop the
+
+\begin{definition}
+  \textbf{generalised measurement postulate} which states that a quantum 
+  measurement is a collection of \textbf{measurement operators} on the Hilbert
+  space such that
+  \begin{align}
+    \sum H_a^\dagger H_a = I & \mathbb{P}(a) = \bra \psi H_a^\dagger H_a \ket 
+    \psi
+  \end{align}
+  and the final measured state collapses to
+  \begin{equation}
+    \frac{H_a \ket \psi}{\sqrt{\bra \psi H_a^\dagger H_a \ket \psi}}
+  \end{equation}
+\end{definition}
+
+Note that the projective measurement postulate is the special case when
+\begin{align}
+  P_a^\dagger = P_a & P_a P_b^\dagger = \delta_{ab} P_a
+\end{align}
+This is equivalent to requiring that the $H_a$ are orthogonal projections.
+
+\subsubsection{Postive Operator Value Measurements (POVMs)}
+
+We notice that $E_a = H_a^\dagger H_a$ satisfies
+
+\begin{itemize}
+  \item $E_a^\dagger = E_a$
+  \item $E_a \geq 0$
+  \item $\sum_a E_a = I$
+  \item $\mathbb{P}(a) = \bra\psi E_a \ket\psi = \tr(E_a \rho)$ for 
+    $\rho = \ket \psi \bra \psi$
+\end{itemize}
+
+As such, we notice that if we do not care about the final state that the 
+measurement leaves are system in, then we can define a
+\begin{definition}
+  \textbf{positive operator value measurement} (POVM) 
+  to be a partition of $I$ into
+  a finite number of positive semi-definite operators satisfying the above four
+  properties. We call a POVM \textbf{pure} if all of its operators are of rank
+  1 meaning that there exists states $\ket{\varphi_a}$ such that $E_a = 
+  \ket{\varphi_a} \bra{\varphi_a}$.
+\end{definition}
+
+\begin{theorem}
+  Then \textbf{Neumann's theorem} states that any pure POVM acting on an $N$ 
+  dimensional Hilbert space $\mathcal{H}$ consisting of $n \geq N$ operators 
+  $E_i$ can be realised by extending $\mathcal{H}$ to dimension $n$ and
+  performing a projective measurement.
+\end{theorem}
+There are some exercises concerning these on the example sheet.
+
+Finally, we check what it means to be a projective operator in the context of 
+POVMs. Here we notice that
+\begin{equation}
+  E_M = P_m^\dagger P_m = P_m^2 = P_m
+\end{equation}
+so we see that in the case of projective measurements, the projections are the 
+same as the POVMs.
+
+\subsubsection{Implementation of a generalised measurement}
+
+To implement a genrealised measurement, we implement the idea stated in 
+Neumann's theorem by using unitary operators and projective measurements.
+Our procedure is as follows
+\begin{enumerate}
+  \item start with a system $A, \mathcal{H}_A$ and POVMs $\{H_a\}$
+  \item add an auxilliary space $B, \mathcal{H}_B$ with an orthonormal basis
+    corresponding to outcomes of $H_a$, labelled as $\ket{e_a}$.
+  \item Implement operator $U$ such that for a state $\ket\varphi$ 
+    \begin{equation}
+      U \ket\psi \ket\varphi = \sum_a H_a \ket\phi \ket{e_a}
+    \end{equation}
+    meaning that if we define
+    \begin{align}
+      \ket\Psi &= U\ket\psi \ket\varphi \\
+      \ket\Phi &= U\ket\phi \ket\varphi
+    \end{align}
+    we find that
+    \begin{equation}
+      \bra\Psi \ket\Phi = \bra\psi \ket{\phi}
+    \end{equation}
+    allowing us to use the inner product of the smaller space in the larger
+    space. [End of lecture 11]
+\end{enumerate}
+
+
+
 \end{document}
