@@ -925,8 +925,23 @@ Our procedure is as follows
     \end{equation}
     allowing us to use the inner product of the smaller space in the larger
     space. [End of lecture 11]
+  \item Now define $P_a = I_A \otimes \ket{e_a} \ket{e_a}$ so that we see that
+    \begin{equation}
+      \mathbb{P}(a) = \bra\Psi P_a \ket\Psi = \bra\phi H_a^\dagger H_a \ket\psi
+    \end{equation}
+    and
+    \begin{equation}
+      \frac{P_a \ket\Psi}{\sqrt{\bra\Psi P_a \ket\Psi}} = 
+      \frac{H_a \ket\psi \ket\varphi}{\sqrt{\bra\psi H_a^\dagger H_a \ket\psi}}
+    \end{equation}
 \end{enumerate}
 
-
+Furthermore, we notice that for the set $\{\ket{\phi_i}\}$ representing the 
+decomposition of maximally mixed state $\rho$ deines a pure POVM. Moreover,
+for a POVM $\{E_i\}$,
+\begin{align}
+  \rho_i &= \frac{E_i}{\tr E_i}; & p_i &= \frac{1}{N} \tr(E_i}
+\end{align}
+defines a (maximally?) mixed state.
 
 \end{document}
