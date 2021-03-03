@@ -847,7 +847,7 @@ As such we develop the
   measurement is a collection of \textbf{measurement operators} on the Hilbert
   space such that
   \begin{align}
-    \sum H_a^\dagger H_a = I & \mathbb{P}(a) = \bra \psi H_a^\dagger H_a \ket 
+    \sum H_a^\dagger H_a &= I & \mathbb{P}(a) &= \bra \psi H_a^\dagger H_a \ket 
     \psi
   \end{align}
   and the final measured state collapses to
@@ -858,7 +858,7 @@ As such we develop the
 
 Note that the projective measurement postulate is the special case when
 \begin{align}
-  P_a^\dagger = P_a & P_a P_b^\dagger = \delta_{ab} P_a
+  P_a^\dagger &= P_a & P_a P_b^\dagger &= \delta_{ab} P_a
 \end{align}
 This is equivalent to requiring that the $H_a$ are orthogonal projections.
 
@@ -940,8 +940,86 @@ Furthermore, we notice that for the set $\{\ket{\phi_i}\}$ representing the
 decomposition of maximally mixed state $\rho$ deines a pure POVM. Moreover,
 for a POVM $\{E_i\}$,
 \begin{align}
-  \rho_i &= \frac{E_i}{\tr E_i}; & p_i &= \frac{1}{N} \tr(E_i}
+  \rho_i &= \frac{E_i}{\tr E_i}; & p_i &= \frac{1}{N} \tr(E_i)
 \end{align}
-defines a (maximally?) mixed state.
+defines a maximally mixed state (what is a maximally mixed state?). For the
+converse, we can use $E_i = Np_i \rho_i$ which satisfies $\sum E_i = I$.
+
+\subsection{Distances between states}
+
+\subsubsection{Trace Distance}
+
+We define the
+\begin{definition}
+  \textbf{trace distance} between two states to be
+  \begin{equation}
+    D(\rho, \sigma) = \frac{1}{2} \| \rho - \sigma \|_1
+  \end{equation}
+  where $\|A\|_1 = \tr |A|$ for $|A| = \sqrt{A^T A}$.
+\end{definition}
+Here we notice that if $A = \sum a_o \ket{\varphi_i} \bra{\varphi_i} = Q - R$
+is the eigenvalue decomposition of $A$ where $Q$ contains the nonnegative 
+eigenvalues and $R$ contains the negative eigenvalues, meaning $Q, R \geq 0$ 
+($R$ can be 0 if $A \geq 0$). We see that $Q \perp R$ meaning that
+\begin{equation}
+  D(\rho, \sigma) = \frac{1}{2}(\tr Q + \tr R)
+\end{equation}
+
+\begin{lemma}
+  \begin{equation}
+    D(\rho, \sigma) = \max_{0 \leq P \leq 1} \tr P(\rho - \sigma)
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  For quantum states $\rho, \sigma$ we see that $\tr Q = \tr R$, meaning that
+  $D(\rho, \sigma) = \tr Q = \tr R$. Then if $0 \leq P \leq 1$ projects onto
+  the support of $Q$ we get that $\tr P(\rho - \sigma) = \tr P(Q - R) = \tr PQ
+  = \tr Q = D(\rho, \sigma)$. Conversely, for any $0 \leq P \leq 1$, we have 
+  $\tr P (\rho - \sigma) = \tr P(Q - R) \leq \tr PQ \leq \tr Q = 
+  D(\rho, \sigma)$.
+\end{proof}
+
+We remark that the trace distance is a metric in the topological sense, and that
+\begin{lemma}
+  we have \textbf{monotonicity over quantum operators} meaning that for any 
+  CPTP $\Lambda$ 
+  \begin{equation}
+    D(\Lambda\rho, \Lambda\sigma) \leq D(\rho, \sigma)
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  Pick $P$ such that $D(\Lambda \rho, \Lambda \sigma) = \tr(P (\Lambda \rho -
+  \Lambda \sigma))$ then $\Lambda$ trace preserving implies $\tr \Lambda Q = 
+  \tr Q$ meaning that 
+  $$ 
+  D(\rho, \sigma) = \tr Q = \tr \Lambda Q \geq \tr P\Lambda Q \geq 
+  \tr P(\Lambda Q - \Lambda R) = D(\Lambda \rho, \Lambda \sigma) 
+  $$
+\end{proof}
+
+\begin{example}
+  As an example where the trace distance has operational significance, we
+  consider \textbf{(Binary) Quantum Hypothesis Testing}. Here we have $A$ 
+  prepare one of the states $\rho_0, \rho_1$ with equal probability, which
+  is then sent to $B$ through a noiseless quantum channel. $B$ wishes to 
+  determine which of the two states was prepared. This can be done using POVM
+  $E_0, E_1 = I - E_0$. Then the probability of error is given by
+  \begin{equation}
+    p_e(E_0, E_1) = \frac{1}{2}(\tr E_0 \rho_1 + \tr E_1 \rho_0) = 
+    \frac{1}{2} (I - \tr E_0 (\rho_0 - \rho_1))
+  \end{equation}
+  and so we have minimum probability of error given by
+  \begin{equation}
+    p_e^* = \frac{1}{2} (1 - D(\rho_0, \rho_1)
+  \end{equation}
+  and similarly the maximum probability of success is
+  \begin{equation}
+    p_{success}^* = \frac{1}{2} (1 + D(\rho_0, \rho_1).
+  \end{equation}
+  We finally note that when the maximum success probability is obtained we can
+  use the projective measurements given by the nonnegative negative parts 
+  $P_\geq, P_<$ of the operator $P = \rho_0 - \rho_1 = \sum_i a_i 
+  \ket{\varphi_i} \bra{\varphi_i}$. [End of lecture 12]
+\end{example}
 
 \end{document}
