@@ -1022,4 +1022,144 @@ We remark that the trace distance is a metric in the topological sense, and that
   \ket{\varphi_i} \bra{\varphi_i}$. [End of lecture 12]
 \end{example}
 
+\subsubsection{Fidelity}
+
+\begin{definition}
+  The \textbf{fidelity} of $\rho, \sigma$ is 
+  \begin{equation}
+    F(\rho, \sigma) = \tr \sqrt{\sqrt{\rho} \sigma \sqrt{\rho}} = 
+    \| \sigma^{1/2} \rho^{1/2} \|_1.
+  \end{equation}
+\end{definition}
+If then $\rho = \sum \lambda_i \ket{e_i} \bra{e_i}, \sigma = \sum M_i
+\ket{e_i} \bra{e_i}$ (so they share the same eigenvectors) then
+\begin{equation}
+  F(\rho, \sigma) = \sum \sqrt{\lambda_i M_i} = F_{cl}(\lambda, M)
+\end{equation}
+for the \textbf{classical fidelity} $F_{cl}(\lambda, M) = \sum 
+\sqrt{\lambda_i M_i}$. If instead one of the states is rank 1, we find
+\begin{equation}
+  F(\ket \varphi \bra \varphi, \sigma) = \sqrt{\bra\varphi \sigma \ket \varphi}
+\end{equation}
+meaning that
+\begin{equation}
+  F(\ket \psi \bra \psi, \ket \varphi \bra \varphi) = 
+  | \bra{\psi} \ket{\varphi} |.
+\end{equation}
+As an exercise, the lecturer proposes proving that fidelity is invariant under
+unitary transformations $\rho \mapsto U\rho U^\dagger$.
+
+\begin{theorem}
+  \textbf{Uhlmann's theorem} states that
+  \begin{equation}
+    F(\rho, \sigma) = \max_{\ket{\psi_\rho}, \ket{\psi_\sigma}} 
+    |\bra{\psi_\rho} \ket{\psi_\sigma}|
+  \end{equation}
+  where $\ket{\psi_\rho}, \ket{\psi_\sigma}$ are purifications of the states
+  $\rho, \sigma$.
+\end{theorem}
+but before proving it, we consider the lemma
+\begin{lemma}
+  $ \forall A \in \mathcal{B(H)}$
+  \begin{equation}
+    \| A\|_1 = \max_{\mathrm{unitary } U} |\tr (UA)|
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  Note from the example sheet that for any unitary $U$, 
+  $|\tr(AU)| \leq \tr|A|$ (this can be justified using the polar decomposition
+  together with Cauchi-Schwarz). Using the polar decomposition we can also show
+  that this maximum is attained for some $U$, so done.
+\end{proof}
+
+And now to prove Uhlmann's theorem
+\begin{proof}
+  We note (from ES 2) that all purifications are equivaleent up to a unitary
+  transformations on the reference system, so
+  \begin{align*}
+    F(\rho, \sigma)
+    &= \max_{U_R^\rho, U_R^\sigma} | \ket{\psi_\rho} (U_R^\rho \otimes I_A)
+    (U_R \otimes I_A) \ket{\psi_\sigma} \\
+    &= \max_U |\bra{\psi_\rho} (U \otimes I_A) \ket{\psi_\sigma}|
+  \end{align*}
+  which if we pick $\ket{\psi_\rho}, \ket{\psi_\sigma}$ to be the canonical
+  purifications
+  \begin{align}
+    \ket{\psi_\rho} &= \sqrt{d} (I_R \otimes \sqrt{\rho_A}) \ket{\Omega} \\
+    \ket{\psi_\sigma} &= \sqrt{d} (I_R \otimes \sqrt{\sigma_A}) \ket{\Omega}
+  \end{align}
+  then we find $| \bra{\psi_\rho} U \otimes I_A \ket{\psi_\sigma} | = 
+  | \tr \sqrt{\rho_A} \sqrt{\sigma_A} U^\dagger |.$ 
+\end{proof}
+
+Uhlmann's theorem has the following handy consequences:
+\begin{itemize}
+  \item $0 \leq F(\rho, \sigma) \leq 1$ and $F(\rho, \sigma) = 1$ iff 
+    $\rho = \sigma$
+  \item $F(\rho, \sigma) = F(\sigma, \rho)$
+  \item The
+    \begin{lemma}
+      \textbf{monotonicity under partial trace} of fidelity, meaning that for
+      bipartite states $\rho_{AB}, \sigma_{AB}$ with reduces states $\rho_A,
+      \sigma_A$ we have
+      \begin{equation}
+        F(\rho_{AB}, \sigma_{AB}) \leq F(\rho_A, \sigma_A)
+      \end{equation}
+    \end{lemma}
+    \begin{proof}
+      By Uhlmann, we find purifications $\psi_\rho^{ABC}, \psi_\sigma^{ABC}$
+      such that $F(\rho_{AB}, \sigma_{AB}) = |\bra{\psi_\rho^{ABC}}
+      \ket{\psi_\sigma^{ABC}} |$. We notice that these are also purifications
+      of $\rho_A, \sigma_A$ meaning that by Uhlmann, 
+      \begin{equation}
+        F(\rho_A, \sigma_A) = \max_{\ket{\psi_\rho}, \ket{\psi_\sigma}}
+        |\bra{\psi_\rho} \ket{\psi_\sigma}| \geq |\bra{\psi_\rho^{ABC}}
+        \ket{\psi_\sigma^{ABC}}| = F(\rho_{AB}, \sigma_{AB})
+      \end{equation}
+    \end{proof}
+\end{itemize}
+
+\subsubsection{Entanglement Fidelity}
+
+We would like to know how much entanglement is preserved by a quantum operation
+in some sense. As such we define the
+\begin{definition}
+  \textbf{entanglement fidelity} to be
+  \begin{equation}
+    F_e(\rho, \Lambda) = \bra{\psi_{RA}} \left( (\id_R \otimes \Lambda) 
+    \ket{\psi_{RA}} \bra{\psi_{RA}} \right) \ket{\psi_{RA}}
+  \end{equation}
+\end{definition}
+so if $\psi_{RA} = \ket{\psi_{RA}} \bra{\psi_{RA}}$ then 
+\begin{equation}
+  F_e(\rho, \Lambda) = (F(\psi_{RA}, (\id_R \otimes \Lambda) \psi_{RA}))^2
+\end{equation}
+\begin{lemma}
+  For a CPTP $\Lambda : \mathcal{B(H) \to B(H)}$ with Krauss representation
+  $\Lambda(\rho) = \sum A_k \rho A_k^\dagger$ we have
+  \begin{equation}
+    F_e(\rho, \Lambda) = \sum |\tr(A_k \rho)|^2
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  \begin{align*}
+    F_e(\rho, \Lambda)
+    &= \sum_k \bra{\psi_{RA}} (I \otimes A_k) \psi_{RA} (I \otimes A_R^\dagger)
+    \ket{\psi_{RA}} \\
+    &= \sum_k |\bra{\psi_{RA}} (I \otimes A_k) \ket{\psi_{RA}}|^2
+  \end{align*}
+  so considering the Schmidt decomposition $\ket{\psi_{RA}} = \sum 
+  \sqrt{\lambda_i} \ket{i_R} \ket{i_A}$, so if $\rho = \tr_R \ket{\psi_{RA}}
+  \bra{\psi_{RA}} = \sum \lambda_i \ket{i_A} \bra{i_A}$ meaning that
+  \begin{equation*}
+    F_e(\rho, \Lambda) = \sum_k \left| \sum_i \bra{i_A} A_k \lambda_i \ket{i_A}
+    \bra{i_A} \, \ket{i_A} \right|^2 = \sum_k | \tr (A_k \rho) |^2
+  \end{equation*}
+\end{proof}
+\begin{lemma}
+  For CPTP $\Lambda : \mathcal{B(H) \to B(H)}$ we have $\forall \rho \in 
+  \mathcal{D(H)}$ we have $F_e(\rho, \Lambda) = (F(\rho, \Lambda(\rho)))^2$.
+\end{lemma}
+This is clear from an earlier remark. [End of lecture 13]
+
 \end{document}
