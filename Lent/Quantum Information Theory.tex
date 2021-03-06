@@ -1285,4 +1285,75 @@ Then we wrap up with the definitions of
 As in the classical case, all of these can be written in terms of the QRE, and 
 it is instructive to find out how to do so. [End of lecture 14]
 
+One notable difference between quantum and classical entropy concerns 
+conditional entropy. Classically this is nonnegative, but in the quantum case
+we have
+\begin{example}
+  For Bell state $\ket{\Phi_{AB}^+}$, the pure density $\rho = 
+  \ket{\Phi_{AB}^\dagger} \bra{\Phi_{AB}^\dagger}$ has $\rho_A = \rho_B = 
+  I / 2$. This has $S(A, B) = 0, S(A) = 1$ so $S(B | A) = -1 < 0$. This feature
+  was essentially unexplained until 2005 in a paper called ``partial quantum
+  information'' and an article explaining it on phys.org.
+\end{example}
+
+We continue by listing some properties of the quantum entropy
+\begin{itemize}
+  \item $S(\rho_A \otimes \rho_B) = S(\rho_A) + S(\rho_B)$ (additivity)
+    \begin{proof}
+      Write $\rho_A = \sum p_k \ket{\varphi_k} \bra{\varphi_k}, \rho_B = \sum 
+      q_j \ket{\psi_j} \bra{\psi_j}$. If so we see that $S(\rho_A \otimes 
+      \rho_B) = -\sum_{jk} p_k q_j \log(p_k q_j) = S(\rho_A) + S(\rho_B)$.
+    \end{proof}
+    Here $\rho_A, \rho_B$ are called uncorrelated.
+  \item $S(\rho_{AB}) \leq S(\rho_A) + S(\rho_B)$ (subadditivity)
+    \begin{proof}
+      Use the fact that $D(\rho_{AB} || \rho_A \otimes \rho_B) \geq 0$ and use
+      $\tr \rho_{AB} (T_A \otimes I_B) = \tr \rho_A T_A$.
+    \end{proof}
+  \item If $\rho_{AB}$ is a pure state, then $S(\rho_A) = S(\rho_B)$. This can 
+    be proven using the Schmidt decomposition. This can be generalised to 
+    $S(\rho_{A_1 \dots A_k}) = S(\rho_{A_{k + 1} \dots A_n})$.
+  \item The triangle inequality or \textbf{Araki Lieb inequality} $S(\rho_{AB})
+    \geq |S(\rho_A) - S(\rho_B)|$
+    \begin{proof}
+      Consider purification $\psi_{ABR}$ of $\rho_{AB}$ then $S(A, R) \leq S(A)
+      + S(R)$ and since $\psi_{ABR}$ is pure $S(A, B) = S(R), S(AR) = S(B)$ 
+      leaving $S(A, B) \geq |S(B) - S(A)|$ as required.
+    \end{proof}
+  \item For mixture a $S(\sum p_i \rho_i) = H(p) + \sum p_i S(\rho_i)$ (proof 
+    on ES 3).
+  \item \textbf{strong subadditivity} which states that 
+    \begin{equation}
+      S(\rho_{ABC}) + S(\rho_B) \leq S(\rho_{AB}) + S(\rho_{BC})
+    \end{equation}
+    Strong subadditivity stems from an attempt to generalise subadditivity, and
+    it can be noted that other attempts to generalise subadditivity have not 
+    yielded any inequalities that cannot be reduced to subadditivity. It has the
+    following consequences
+    \begin{itemize}
+      \item Conditioning reduces entropy in the sense $S(A | BC) \leq S(A|B)$
+      \item discarding quantum systems never increases mutual information
+        $I(A : B) \leq I(A : BC)$
+      \item quantum operations never increase mutual information $I(A' : B')
+        \leq I(A : B)$.
+        \begin{proof}
+          For states $\rho_{AB}, \rho_{A'B'} = (\id_A \otimes \Lambda) 
+          \rho_{AB}$ then by Stinespring's dilation thoerem we can find space
+          $\mathcal{H}_C$ and unitary operator $U_{BC}$ such that $\Lambda(
+          \rho_B) = \tr_C (U_{BC} (\rho_B \otimes \ket{\varphi_C} 
+          \bra{\varphi_C}) U_{BC}^\dagger)$ for a fixde $\ket{\varphi_C}$. If
+          so $\rho_{ABC} = \rho_{AB} \otimes \ket{\varphi_C} bra{\varphi_C}$
+          then $\phi_{A'B'C'} = (I \otimes U_{BC}) (\rho_{AB} \otimes 
+          \ket{\varphi_C} \bra{\varphi_C}) (I \otimes U_{BC}^\dagger)$ leaving
+          $\rho_{A'B'} = \tr_{C'} \rho_{A'B'C'}$. Consequently, $I(A : BC) = 
+          I(A' : B'C')$ since $C$ is uncorrelated, and $I(A : BC) = I(A':B'C')$
+          since $\rho_{A'} = \rho_A$ and $\rho_{A'B'C'}, \rho_{B'C'}$ are 
+          unitarily related to $\rho_{ABC}, \rho_{BC}$, and $I(A' : B'C') \geq
+          I(A':B')$ since discarding a system never increases mutual
+          information.
+        \end{proof}
+    \end{itemize}
+\end{itemize}
+[End of lecture 15]
+
 \end{document}
